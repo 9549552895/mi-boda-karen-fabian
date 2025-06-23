@@ -1,27 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Nos Casamos! Karen & Fabián</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts para tipografía elegante -->
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
-    <style>
-        /* Estilos personalizados para el fondo de la tarjeta y elementos decorativos sutiles */
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #f7f3ed; /* Fondo claro y cremoso para toda la página */
-        }
-        .card-bg {
-            background: #ffffff; /* Fondo blanco para la tarjeta principal */
-            /* Simula un efecto de borde dorado sutil y un brillo suave */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e0d8cc; /* Borde suave */
-            position: relative;
-            overflow: hidden; /* Oculta elementos decorativos que se desborden */
-        }
+
         .golden-text {
             color: #a07a1e; /* Un color dorado ligeramente más intenso */
         }
@@ -287,7 +264,7 @@
             <div id="songMessage" class="hidden mt-4 text-center text-base font-semibold"></div>
         </div>
 
-        <!-- Libro de Firmas Virtual -->
+        <!-- Libro de Firmas Virtual (sin el generador de mensajes) -->
         <div class="mt-8 pt-4 border-t border-gray-200">
             <h3 class="text-2xl display-font golden-text mb-4">Deja un Mensaje para los Novios</h3>
             <form id="guestbookForm" class="space-y-4">
@@ -298,26 +275,6 @@
                     <textarea id="guestbookMessage" name="guestbookMessage" rows="4" required
                               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-y"></textarea>
                 </div>
-                <!-- Nuevo botón y área para el Generador de Mensajes LLM -->
-                <div class="flex justify-center mt-4">
-                    <button type="button" id="generateMessageButton"
-                            class="bg-gradient-to-r from-pink-500 to-red-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300">
-                        ✨ Generar Mensaje para Novios ✨
-                    </button>
-                </div>
-                <div id="messageGeneratorArea" class="hidden mt-4 p-4 border border-gray-200 rounded-lg bg-gray-50 space-y-3">
-                    <label for="messageKeywords" class="block text-gray-700 text-sm font-bold mb-2">
-                        Palabras clave o tema (ej. amor, futuro, alegría):
-                    </label>
-                    <input type="text" id="messageKeywords" placeholder="Ej: amor, felicidad, futuro"
-                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    <button type="button" id="submitGenerateMessage"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-full">
-                        Generar
-                    </button>
-                    <div id="messageGeneratorLoading" class="hidden text-center text-gray-500 mt-2">Cargando...</div>
-                </div>
-                <!-- Fin del Generador de Mensajes LLM -->
                 <div>
                     <label for="guestbookSigner" class="block text-gray-700 text-sm font-bold mb-2">
                         Tu Nombre:
@@ -386,7 +343,8 @@
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // ESTA ES TU CONFIGURACIÓN REAL DE FIREBASE. NO NECESITAS EDITAR NADA AQUÍ.
+        // ESTA ES TU CONFIGURACIÓN REAL DE FIREBASE (PROYECTO: MiAppboda, PROJECT_ID: boda-df301)
+        // NO NECESITAS EDITAR NADA AQUÍ. YA ESTÁ CORRECTO.
         const firebaseConfig = {
             apiKey: "AIzaSyDc8b175ixsTdCIWHiDbb6tvciPmFQDzcM",
             authDomain: "boda-df301.firebaseapp.com",
@@ -394,7 +352,7 @@
             storageBucket: "boda-df301.firebasestorage.app",
             messagingSenderId: "50531933772",
             appId: "1:50531933772:web:d70d8a8282e307c68a1ee9",
-            measurementId: "G-CL89DVBBHP" // Si tu configuración lo incluye, pégalo también
+            measurementId: "G-CL89DVBBHP" 
         };
         
         // Obtenemos el appId de la configuración de Firebase
@@ -483,66 +441,6 @@
 
             const songRequestForm = document.getElementById('songRequestForm');
             const guestbookForm = document.getElementById('guestbookForm');
-
-            // Lógica para el Generador de Mensajes con LLM (Gemini API)
-            const generateMessageButton = document.getElementById('generateMessageButton');
-            const messageGeneratorArea = document.getElementById('messageGeneratorArea');
-            const messageKeywordsInput = document.getElementById('messageKeywords');
-            const submitGenerateMessageButton = document.getElementById('submitGenerateMessage');
-            const messageGeneratorLoading = document.getElementById('messageGeneratorLoading');
-            const guestbookMessageTextarea = document.getElementById('guestbookMessage');
-
-            // Muestra/oculta el área del generador de mensajes
-            generateMessageButton.addEventListener('click', () => {
-                messageGeneratorArea.classList.toggle('hidden');
-            });
-
-            // Lógica para generar el mensaje
-            submitGenerateMessageButton.addEventListener('click', async () => {
-                const keywords = messageKeywordsInput.value.trim();
-                if (!keywords) {
-                    displayMessage('guestbookMessageDiv', "Por favor, introduce al menos una palabra clave para generar el mensaje.", true);
-                    return;
-                }
-
-                messageGeneratorLoading.classList.remove('hidden'); // Mostrar indicador de carga
-                submitGenerateMessageButton.disabled = true; // Deshabilitar botón durante la carga
-
-                try {
-                    let chatHistory = [];
-                    const prompt = `Genera un mensaje corto, emotivo y sincero para una pareja de recién casados, adecuado para un libro de firmas de boda. Incorpora las siguientes palabras clave o temas: "${keywords}". Mantén el mensaje en español y con un tono cálido y de felicitación.`;
-                    
-                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-                    const payload = { contents: chatHistory };
-                    const apiKey = ""; // Deja esto vacío, Canvas lo proporcionará en tiempo de ejecución
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    const result = await response.json(); // Esperar a que la promesa se resuelva
-
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
-                        const generatedText = result.candidates[0].content.parts[0].text;
-                        guestbookMessageTextarea.value = generatedText; // Poner el mensaje generado en el textarea del libro de firmas
-                        displayMessage('guestbookMessageDiv', "Mensaje generado. ¡Puedes editarlo si quieres!", false);
-                    } else {
-                        displayMessage('guestbookMessageDiv', "Error al generar el mensaje. Inténtalo de nuevo.", true);
-                        console.error("Respuesta inesperada de Gemini API:", result);
-                    }
-
-                } catch (error) {
-                    console.error("Error al llamar a Gemini API:", error);
-                    displayMessage('guestbookMessageDiv', "Error al conectar con el generador de mensajes. Por favor, inténtalo de nuevo más tarde.", true);
-                } finally {
-                    messageGeneratorLoading.classList.add('hidden'); // Ocultar indicador de carga
-                    submitGenerateMessageButton.disabled = false; // Habilitar botón
-                }
-            });
 
             // --- Lógica de Cuenta Regresiva ---
             const weddingDate = new Date("September 20, 2025 20:00:00").getTime(); // 8:00 P.M.
@@ -781,3 +679,4 @@
     </script>
 </body>
 </html>
+
