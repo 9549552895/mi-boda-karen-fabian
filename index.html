@@ -8,10 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts para tipografía elegante -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
-    <!-- Iconos Phosphor (para controles de música y FAQ) -->
+    <!-- Iconos Phosphor (se mantienen si se usan en otros elementos) -->
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/dist/phosphor.js"></script>
-    <!-- Tone.js para generar el sonido de clic (NO carga URLs externas para el clic) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
     <style>
         /* Estilos personalizados para el fondo de la tarjeta y elementos decorativos sutiles */
         body {
@@ -21,8 +19,8 @@
         }
         .card-bg {
             background: #ffffff; /* Fondo blanco para la tarjeta principal */
-            /* Simula un efecto de borde dorado sutil y un brillo suave */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            /* Sombra más pronunciada y elegante */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.05);
             border: 1px solid #e0d8cc; /* Borde suave */
             position: relative;
             overflow: hidden; /* Oculta elementos decorativos que se desborden */
@@ -39,7 +37,7 @@
 
         /* Sombra de texto para los nombres para dar un efecto sutil de relieve */
         .name-shadow {
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra sutil para profundidad */
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3); /* Sombra más fuerte y visible */
         }
 
         /* Tamaños de fuente responsivos */
@@ -106,7 +104,8 @@
         .gallery-inner {
             display: flex;
             transition: transform 0.8s ease-in-out; /* Transición más suave y lenta */
-            width: 100%; /* Importante para el deslizamiento */
+            width: 100%;
+            flex-shrink: 0; /* Asegura que las imágenes no se encojan */
         }
         .gallery-inner img {
             width: 100%;
@@ -186,36 +185,6 @@
             background-color: rgba(255, 255, 255, 0.2);
         }
 
-        /* Estilos para la música de fondo */
-        .music-player-controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 1.5rem;
-            padding: 0.75rem 1rem;
-            background-color: #f0e6da; /* Tono más suave */
-            border-radius: 9999px; /* Pill shape */
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            gap: 0.75rem;
-        }
-        .music-player-button {
-            background: none;
-            border: none;
-            color: #a07a1e; /* Dorado */
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: transform 0.2s ease, color 0.2s ease;
-        }
-        .music-player-button:hover {
-            transform: scale(1.1);
-            color: #d4af37; /* Dorado más claro */
-        }
-        .music-player-text {
-            color: #4B5563;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
         /* Animaciones al hacer scroll (fade-in-up) */
         .fade-in-up {
             opacity: 0;
@@ -227,79 +196,32 @@
             transform: translateY(0);
         }
 
-        /* Estilos para la sección de FAQ (Acordeón) */
-        .faq-item {
-            border-bottom: 1px solid #e0d8cc;
-            padding-bottom: 1rem;
-            margin-bottom: 1rem;
-            cursor: pointer;
-        }
-        .faq-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-        }
-        .faq-question {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 1.125rem; /* text-lg */
-            font-weight: 600;
-            color: #4B5563;
-            padding: 0.5rem 0;
-            user-select: none; /* Evita seleccionar texto */
-        }
-        .faq-question:hover {
-            color: #a07a1e; /* Dorado al pasar el ratón */
-        }
-        .faq-arrow {
-            transition: transform 0.3s ease;
-        }
-        .faq-arrow.rotated {
-            transform: rotate(180deg);
-        }
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
-            opacity: 0;
-            color: #6B7280;
-            padding-top: 0.5rem;
-        }
-        .faq-answer.show {
-            max-height: 200px; /* Suficiente para la mayoría de las respuestas */
-            opacity: 1;
-        }
-        @media (max-width: 640px) {
-            .faq-question { font-size: 1rem; }
+        /* Nuevo estilo para el fondo de corazones dorados en la sección de nombres */
+        .names-with-hearts-bg {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzgiIGhlaWdodD0iMzgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMTEuOTk5OSAyMC45NzI1TDEwLjY3ODggMTkuNjg3NkM1LjQ1NzMgMTUuMDA4NSAy萍MTIuMDU0MyAyIDguNTk1OTJDMiA1LjY5MjIzIDQuMzY0IDMuMzI0ODQgNy40NDMzOSAzLjMyNDg0QzkuMTMzMjIgMy4zMjQ4NCAxMC43NzgzIDQuMTEwMzEgMTEuothaDUuNDI1MjRDMTEuMjUyIDUuNjk1ODcgMTEuNTU2MyA1Ljc2OTE3IDExLjY4NTMgNS43OTE3NkMxMi4zNTA2IDUuNDIwOTEgMTQuMDIwNiAzLjMyNDg0IDE1LjY5IDMuMzI0ODRDMTguNzc1NSAzLjMyNDg0IDIxLjQ0NjcgNS42OTYxNSAyMS40NDY3IDguNTk1OTJDMjEuNDQ2NyAxMi4wNTQzIDE4LjM3NzQgMTUuMDA4NSAxMy4xNjc1IDE5LjY4NzZMMTAuOTk5OSAyMC45NzI1WiIgZmlsbD0iI0RBQTAwMCId3aW5kLW9wYWNpdHk9IjAuMDgiLz4KPC9zdmc+');
+            background-repeat: repeat;
+            background-size: 38px 38px; /* Tamaño del patrón de corazón */
+            background-position: center;
+            border-radius: 1rem; /* Bordes redondeados para la sección */
+            padding: 1rem; /* Espaciado interno */
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative; /* Para que la sombra del texto funcione bien */
+            z-index: 1; /* Asegura que el fondo esté detrás del texto si hay otros elementos */
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4">
     <div class="card-bg max-w-sm md:max-w-md w-full rounded-xl p-8 text-center space-y-6">
-        <!-- Controles de Música (arriba de todo) -->
-        <div class="music-player-controls fade-in-up">
-            <audio id="backgroundMusic" loop preload="auto">
-                <!-- ¡IMPORTANTE! REEMPLAZA ESTA URL CON LA URL DE TU PROPIA MÚSICA DE FONDO. -->
-                <!-- Ejemplo: <source src="https://tudominio.com/ruta/a/tu_musica.mp3" type="audio/mpeg"> -->
-                <!-- Asegúrate de que la URL sea pública y accesible. -->
-                <!-- Si no tienes una, puedes usar una de un servicio de audio libre de derechos, o comentar esta sección. -->
-                <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-                Tu navegador no soporta el elemento de audio.
-            </audio>
-            
-            <button id="musicToggle" class="music-player-button" aria-label="Reproducir o pausar música de fondo">
-                <i class="ph ph-pause" id="musicIcon"></i>
-            </button>
-            <span class="music-player-text">Música de Fondo</span>
-        </div>
-
         <!-- "SAVE THE DATE" equivalente -->
         <p class="text-xl display-font tracking-widest uppercase text-gray-700 fade-in-up">NOS CASAMOS</p>
 
-        <!-- Nombres - Tamaño de fuente aumentado y nuevo estilo -->
-        <h1 class="text-7xl-custom md:text-8xl great-vibes-font golden-text leading-tight name-shadow fade-in-up">Karen</h1>
-        <p class="text-4xl great-vibes-font golden-text fade-in-up">&amp;</p>
-        <h2 class="text-7xl-custom md:text-8xl great-vibes-font golden-text leading-tight name-shadow fade-in-up">Fabián</h2>
+        <!-- Nombres con Fondo de Corazones -->
+        <div class="names-with-hearts-bg">
+            <h1 class="text-7xl-custom md:text-8xl great-vibes-font golden-text leading-tight name-shadow fade-in-up">Karen</h1>
+            <p class="text-4xl great-vibes-font golden-text fade-in-up">&amp;</p>
+            <h2 class="text-7xl-custom md:text-8xl great-vibes-font golden-text leading-tight name-shadow fade-in-up">Fabián</h2>
+        </div>
 
         <!-- Frase bonita -->
         <p class="text-lg italic text-gray-600 display-font mt-4 fade-in-up">
@@ -331,14 +253,31 @@
             <p class="text-sm italic text-gray-500 mt-2">(Hasta el 20 de Septiembre de 2025 a las 8:00 P.M.)</p>
         </div>
 
+        <!-- Nuestra Historia -->
+        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
+            <h3 class="text-2xl display-font golden-text mb-4">Nuestra Historia</h3>
+            <p class="text-gray-700 text-base md:text-lg leading-relaxed">
+                Cada historia de amor es única, y la nuestra comenzó en un inesperado encuentro,
+                donde dos caminos se cruzaron para crear un universo propio. Desde ese día,
+                cada momento ha sido una aventura, un aprendizaje y un crecimiento mutuo.
+                Hoy, con el corazón lleno de gratitud y alegría, nos preparamos para escribir
+                nuestro siguiente capítulo, ¡el más emocionante de todos!
+            </p>
+            <!-- Puedes añadir un video aquí si lo deseas. Ejemplo: -->
+            <!-- <div class="mt-6 aspect-video w-full rounded-lg overflow-hidden shadow-lg">
+                <iframe src="https://www.youtube.com/embed/TU_ID_DE_VIDEO" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
+            </div>
+            <p class="text-sm italic text-gray-500 mt-2">
+                (Reemplaza TU_ID_DE_VIDEO con el ID de tu video de YouTube)
+            </p> -->
+        </div>
+
         <!-- Galería de Fotos Mejorada -->
         <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
             <h3 class="text-2xl display-font golden-text mb-4">Nuestros Momentos</h3>
             <div class="gallery-container">
                 <div id="galleryInner" class="gallery-inner">
                     <!-- TUS FOTOS REALES AHORA ESTÁN AQUÍ -->
-                    <!-- NOTA: Se usa la misma URL para 'src' y 'data-src-large' para simplificar,
-                               ya que las imágenes provienen de archivos subidos por el usuario. -->
                     <img src="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-eb688558-527d-413d-bbf9-8e245d8f3afe" data-src-large="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-eb688558-527d-413d-bbf9-8e245d8f3afe" alt="Foto de Karen y Fabián 1">
                     <img src="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-fc27e21f-9689-4636-be5c-2b86b7a18f81" data-src-large="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-fc27e21f-9689-4636-be5c-2b86b7a18f81" alt="Foto de Karen y Fabián 2">
                     <img src="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-bd51b89a-f52c-4ee0-9dc5-cd5f76978f1b" data-src-large="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-bd51b89a-f52c-4ee0-9dc5-cd5f76978f1b" alt="Foto de Karen y Fabián 3">
@@ -353,7 +292,7 @@
                 <button id="galleryPrev" class="gallery-nav-button" aria-label="Anterior">&#10094;</button>
                 <button id="galleryNext" class="gallery-nav-button" aria-label="Siguiente">&#10095;</button>
                 <div class="flex justify-center mt-4">
-                    <button id="slideshowToggle" class="music-player-button !text-base !font-medium !text-gray-600 !px-4 !py-2 !rounded-full !bg-gray-100 hover:!bg-gray-200" aria-label="Alternar reproducción automática de galería">
+                    <button id="slideshowToggle" class=" !text-base !font-medium !text-gray-600 !px-4 !py-2 !rounded-full !bg-gray-100 hover:!bg-gray-200" aria-label="Alternar reproducción automática de galería">
                         <i class="ph ph-pause" id="slideshowIcon"></i> Auto
                     </button>
                 </div>
@@ -372,8 +311,11 @@
         <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
             <h3 class="text-2xl display-font golden-text mb-4">Agenda del Día</h3>
             <div class="text-gray-700 text-base md:text-lg space-y-2">
-                <p><strong>8:00 P.M.</strong> Inicio de la Celebración / Recepción</p>
-                <p class="text-sm italic text-gray-500">(Más detalles del cronograma pronto)</p>
+                <!-- Se ha modificado para que este texto sea un enlace que añade al calendario -->
+                <a href="#" id="addToCalendarBtn" class="block text-gray-700 hover:text-blue-600 hover:underline transition-colors duration-200">
+                    <strong>8:00 P.M.</strong> Inicio de la Celebración / Recepción
+                    <span class="block text-sm italic text-gray-500 mt-1">Toca para añadir al calendario</span>
+                </a>
             </div>
         </div>
 
@@ -382,7 +324,6 @@
             <h3 class="text-2xl display-font golden-text mb-4">Lugar</h3>
             <p class="text-gray-700 text-base md:text-lg mb-4">
                 1250 NE 125 St, North Miami, FL 33161
-                <br><span class="text-sm italic text-gray-500">(Dirección provisional, se confirmará pronto)</span>
             </p>
             <div class="map-container mb-4">
                 <iframe
@@ -392,7 +333,7 @@
             </div>
             <a id="mapLink" href="https://maps.app.goo.gl/YourActualGoogleMapsLinkHere" target="_blank" rel="noopener noreferrer"
                class="text-blue-600 hover:underline text-sm md:text-base transition-colors duration-200">
-                Ver en Google Maps (enlace provisional)
+                Ver en Google Maps
             </a>
         </div>
 
@@ -416,30 +357,11 @@
         <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
             <h3 class="text-2xl display-font golden-text mb-4">Contacto para Dudas</h3>
             <p class="text-gray-700 text-base md:text-lg">
-                Karen: <a id="karenPhone" href="tel:+17862855066" class="text-blue-600 hover:underline transition-colors duration-200">786-285-5066</a>
+                <a href="#" id="karenContact" class="text-blue-600 hover:underline transition-colors duration-200">Karen: 786-285-5066</a>
             </p>
             <p class="text-gray-700 text-base md:text-lg">
-                Fabián: <a id="fabianPhone" href="tel:+19549552895" class="text-blue-600 hover:underline transition-colors duration-200">954-955-2895</a>
+                <a href="#" id="fabianContact" class="text-blue-600 hover:underline transition-colors duration-200">Fabián: 954-955-2895</a>
             </p>
-        </div>
-
-        <!-- Nuestra Historia -->
-        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
-            <h3 class="text-2xl display-font golden-text mb-4">Nuestra Historia</h3>
-            <p class="text-gray-700 text-base md:text-lg leading-relaxed">
-                Cada historia de amor es única, y la nuestra comenzó en un inesperado encuentro,
-                donde dos caminos se cruzaron para crear un universo propio. Desde ese día,
-                cada momento ha sido una aventura, un aprendizaje y un crecimiento mutuo.
-                Hoy, con el corazón lleno de gratitud y alegría, nos preparamos para escribir
-                nuestro siguiente capítulo, ¡el más emocionante de todos!
-            </p>
-            <!-- Puedes añadir un video aquí si lo deseas. Ejemplo: -->
-            <!-- <div class="mt-6 aspect-video w-full rounded-lg overflow-hidden shadow-lg">
-                <iframe src="https://www.youtube.com/embed/TU_ID_DE_VIDEO" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
-            </div>
-            <p class="text-sm italic text-gray-500 mt-2">
-                (Reemplaza TU_ID_DE_VIDEO con el ID de tu video de YouTube)
-            </p> -->
         </div>
 
         <!-- Sugiere una Canción -->
@@ -547,58 +469,6 @@
             </div>
         </div>
 
-        <!-- Sección de Preguntas Frecuentes (FAQ) -->
-        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
-            <h3 class="text-2xl display-font golden-text mb-4">Preguntas Frecuentes</h3>
-            <div class="space-y-4 text-left">
-                <!-- FAQ Item 1 -->
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>¿Cuál es el código de vestimenta?</span>
-                        <i class="ph ph-caret-down faq-arrow"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>El código de vestimenta es Formal Elegante. Para ellos, traje y corbata; para ellas, vestido de cóctel o largo.</p>
-                    </div>
-                </div>
-
-                <!-- FAQ Item 2 -->
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>¿Hay opciones de estacionamiento?</span>
-                        <i class="ph ph-caret-down faq-arrow"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Sí, tendremos estacionamiento valet disponible en el lugar del evento. También hay opciones de estacionamiento público en las cercanías.</p>
-                    </div>
-                </div>
-
-                <!-- FAQ Item 3 -->
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>¿Puedo llevar a mis hijos?</span>
-                        <i class="ph ph-caret-down faq-arrow"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Sí, los niños son bienvenidos en nuestra celebración. Por favor, especifica el número de menores que asistirán al confirmar tu asistencia.</p>
-                    </div>
-                </div>
-
-                <!-- FAQ Item 4 -->
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>¿Habrá opciones de comida para dietas especiales?</span>
-                        <i class="ph ph-caret-down faq-arrow"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Sí, por favor, indícanos cualquier restricción dietética o alergia al momento de confirmar tu asistencia y haremos lo posible por acomodarte.</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-
     </div>
 
     <!-- SDKs de Firebase -->
@@ -682,51 +552,9 @@
             }
         };
 
-        // --- Lógica del sonido de clic con Tone.js ---
-        let clickSynth;
-        async function initializeClickSound() {
-            try {
-                // Inicia el contexto de audio solo si no está ya iniciado
-                if (Tone.context.state !== 'running') {
-                    await Tone.start();
-                    console.log("AudioContext iniciado.");
-                }
-
-                clickSynth = new Tone.PolySynth(Tone.Synth, {
-                    oscillator: { type: "sine" }, // Un tono de onda sinusoidal para un sonido limpio
-                    envelope: {
-                        attack: 0.001, // Ataque muy rápido
-                        decay: 0.05,  // Decay rápido
-                        sustain: 0.0, // No hay sustain
-                        release: 0.05 // Liberación rápida
-                    }
-                }).toDestination();
-                console.log("Sintetizador de sonido de clic inicializado.");
-            } catch (e) {
-                console.error("Error al inicializar el sonido de clic con Tone.js:", e);
-            }
-        }
-
-        function playClickSound() {
-            if (clickSynth) {
-                // Toca una nota muy corta para simular un clic
-                clickSynth.triggerAttackRelease("C6", "16n", Tone.context.currentTime, 0.2); // Nota C6, duración de 1/16 de nota, volumen 0.2
-            } else {
-                console.warn("Sintetizador de clic no inicializado.");
-                // Intenta inicializarlo si no lo está y el contexto de audio no está suspendido
-                if (Tone.context.state === 'suspended') {
-                    Tone.context.resume().then(() => {
-                        initializeClickSound();
-                    });
-                }
-            }
-        }
-        // --- FIN Lógica del sonido de clic con Tone.js ---
-
 
         document.addEventListener('DOMContentLoaded', () => {
             initializeFirebase(); // Inicializa Firebase cuando el DOM esté listo
-            initializeClickSound(); // Inicializa Tone.js al cargar la página
 
             const showRsvpFormButton = document.getElementById('showRsvpFormButton');
             const rsvpFormContainer = document.getElementById('rsvpFormContainer');
@@ -735,16 +563,6 @@
 
             const songRequestForm = document.getElementById('songRequestForm');
             const guestbookForm = document.getElementById('guestbookForm');
-
-            // --- Añadir listeners de clic a todos los botones y enlaces relevantes ---
-            // Nodos estáticos
-            const elementsToClickSound = document.querySelectorAll(
-                'button, a, .faq-question, .gallery-nav-button'
-            );
-            elementsToClickSound.forEach(el => {
-                el.addEventListener('click', playClickSound);
-            });
-            // Fin añadir listeners
 
 
             // --- Lógica de Cuenta Regresiva ---
@@ -807,11 +625,26 @@
                 galleryInner.style.transform = `translateX(${offset}%)`;
             };
 
-            // Carga inicial de la galería
-            if (galleryImages.length > 0) {
+            // Event listeners para la galería (sin sonido de clic)
+            galleryPrev.addEventListener('click', () => {
+                pauseSlideshow();
+                currentImageIndex--;
                 updateGallery();
-                startSlideshow(); // Iniciar slideshow automáticamente al cargar
-            }
+            });
+
+            galleryNext.addEventListener('click', () => {
+                pauseSlideshow();
+                currentImageIndex++;
+                updateGallery();
+            });
+
+            slideshowToggle.addEventListener('click', () => {
+                if (isSlideshowPlaying) {
+                    pauseSlideshow();
+                } else {
+                    startSlideshow();
+                }
+            });
 
             // Lógica para el modal de imagen en pantalla completa
             const imageModal = document.getElementById('imageModal');
@@ -829,42 +662,20 @@
 
             imageModalClose.addEventListener('click', () => {
                 imageModal.classList.remove('active');
-                // Podríamos reiniciar el slideshow aquí si se desea
-                // startSlideshow();
             });
 
             imageModal.addEventListener('click', (e) => {
-                // Cerrar modal solo si se hace clic en el overlay, no en la imagen
                 if (e.target === imageModal) {
                     imageModal.classList.remove('active');
-                    // startSlideshow();
                 }
             });
 
 
-            // --- Lógica de Música de Fondo ---
-            const backgroundMusic = document.getElementById('backgroundMusic');
-            const musicToggle = document.getElementById('musicToggle');
-            const musicIcon = document.getElementById('musicIcon');
-
-            // Intenta reproducir la música automáticamente al cargar
-            // Nota: Los navegadores modernos pueden bloquear el autoplay sin interacción del usuario.
-            // El usuario necesitará hacer clic en el botón de reproducción la primera vez.
-            backgroundMusic.volume = 0.3; // Volumen bajo para ser sutil
-            backgroundMusic.play().catch(error => {
-                console.log("Autoplay de música bloqueado. El usuario debe interactuar para reproducir.", error);
-                musicIcon.className = 'ph ph-play'; // Cambiar icono a "play" si autoplay falla
-            });
-
-            musicToggle.addEventListener('click', () => {
-                if (backgroundMusic.paused) {
-                    backgroundMusic.play();
-                    musicIcon.className = 'ph ph-pause';
-                } else {
-                    backgroundMusic.pause();
-                    musicIcon.className = 'ph ph-play';
-                }
-            });
+            // Carga inicial de la galería
+            if (galleryImages.length > 0) {
+                updateGallery();
+                startSlideshow(); // Iniciar slideshow automáticamente al cargar
+            }
 
 
             // --- Lógica de Animaciones al hacer Scroll (Intersection Observer) ---
@@ -884,29 +695,6 @@
 
             animateOnScrollElements.forEach(el => {
                 observer.observe(el);
-            });
-
-            // --- Lógica de FAQ (Acordeón) ---
-            const faqItems = document.querySelectorAll('.faq-item');
-
-            faqItems.forEach(item => {
-                const question = item.querySelector('.faq-question');
-                const answer = item.querySelector('.faq-answer');
-                const arrow = item.querySelector('.faq-arrow');
-
-                question.addEventListener('click', () => {
-                    // Cierra otras respuestas abiertas
-                    faqItems.forEach(otherItem => {
-                        if (otherItem !== item) {
-                            otherItem.querySelector('.faq-answer').classList.remove('show');
-                            otherItem.querySelector('.faq-arrow').classList.remove('rotated');
-                        }
-                    });
-
-                    // Abre o cierra la respuesta actual
-                    answer.classList.toggle('show');
-                    arrow.classList.toggle('rotated');
-                });
             });
 
 
@@ -1086,6 +874,85 @@
                     displayMessage('guestbookMessageDiv', "Error al enviar tu mensaje. Por favor, inténtalo de nuevo.", true);
                 }
             });
+
+            // Lógica para añadir evento al calendario
+            const addToCalendarBtn = document.getElementById('addToCalendarBtn');
+            if (addToCalendarBtn) {
+                addToCalendarBtn.addEventListener('click', (e) => {
+                    e.preventDefault(); // Evita el comportamiento predeterminado del enlace
+
+                    const eventTitle = "Boda de Karen y Fabián - Celebración / Recepción";
+                    const eventLocation = "1250 NE 125 St, North Miami, FL 33161";
+                    const eventDescription = "Te esperamos para celebrar el amor de Karen y Fabián. Tu presencia es el mejor regalo.";
+
+                    // Fecha y hora del evento: 20 de Septiembre de 2025, 8:00 P.M.
+                    const startDate = new Date("September 20, 2025 20:00:00");
+                    // Asumiendo que el evento dura 4 horas, termina el 21 de Septiembre a las 00:00:00
+                    const endDate = new Date(startDate.getTime() + (4 * 60 * 60 * 1000)); // Añadir 4 horas
+
+                    // Formatear fechas para Google Calendar (YYYYMMDDTHHMMSS)
+                    const formatDateTime = (date) => {
+                        const year = date.getFullYear();
+                        const month = String(date.getMonth() + 1).padStart(2, '0');
+                        const day = String(date.getDate()).padStart(2, '0');
+                        const hours = String(date.getHours()).padStart(2, '0');
+                        const minutes = String(date.getMinutes()).padStart(2, '0');
+                        const seconds = String(date.getSeconds()).padStart(2, '0');
+                        return `${year}${month}${day}T${hours}${minutes}${seconds}`;
+                    };
+
+                    const startDateTimeFormatted = formatDateTime(startDate);
+                    const endDateTimeFormatted = formatDateTime(endDate);
+
+                    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventTitle)}&dates=${startDateTimeFormatted}/${endDateTimeFormatted}&details=${encodeURIComponent(eventDescription)}&location=${encodeURIComponent(eventLocation)}&sf=true&output=xml`;
+
+                    window.open(googleCalendarUrl, '_blank');
+                });
+            }
+
+            // Lógica para abrir WhatsApp o SMS
+            function openWhatsAppOrSMS(phoneNumber, isWhatsAppPreferred = true, message = "Hola, tengo una pregunta sobre la boda.") {
+                // Limpia el número para WhatsApp (solo dígitos, con código de país si falta)
+                let cleanedNumber = phoneNumber.replace(/[^0-9]/g, '');
+                if (cleanedNumber.length === 10) { // Asume un número de 10 dígitos de EE. UU.
+                    cleanedNumber = '1' + cleanedNumber; // Añade el código de país de EE. UU.
+                }
+
+                const whatsappUrl = `https://wa.me/${cleanedNumber}?text=${encodeURIComponent(message)}`;
+                const smsUrl = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
+
+                if (isWhatsAppPreferred) {
+                    const newWindow = window.open(whatsappUrl, '_blank');
+                    // Pequeño retardo para dar tiempo a que WhatsApp se abra si está instalado
+                    setTimeout(() => {
+                        // Si la ventana no se abrió (pop-up bloqueado, o WhatsApp no instalada), intenta con SMS
+                        try {
+                           // Verifica si la ventana se mantiene en blanco o si no hay un abridor
+                           // Esta comprobación es heurística y puede no ser 100% fiable
+                            if (newWindow && newWindow.closed || !newWindow) {
+                                window.location.href = smsUrl;
+                            }
+                        } catch (e) {
+                            // En caso de error (ej. acceso denegado a newWindow.closed en algunos navegadores si es cross-origin)
+                            // Intenta siempre con SMS como fallback robusto
+                            window.location.href = smsUrl;
+                        }
+                    }, 1000); // Espera 1 segundo antes de intentar el SMS
+                } else {
+                    window.location.href = smsUrl;
+                }
+            }
+
+            document.getElementById('karenContact').addEventListener('click', (e) => {
+                e.preventDefault();
+                openWhatsAppOrSMS('7862855066', true, "Hola Karen, tengo una pregunta sobre la boda.");
+            });
+
+            document.getElementById('fabianContact').addEventListener('click', (e) => {
+                e.preventDefault();
+                openWhatsAppOrSMS('9549552895', true, "Hola Fabián, tengo una pregunta sobre la boda.");
+            });
+
         });
     </script>
 </body>
