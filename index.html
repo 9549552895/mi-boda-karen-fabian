@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -8,11 +8,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts para tipografía elegante -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+    <!-- Iconos Phosphor (para controles de música y FAQ) -->
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/dist/phosphor.js"></script>
     <style>
         /* Estilos personalizados para el fondo de la tarjeta y elementos decorativos sutiles */
         body {
             font-family: 'Inter', sans-serif;
             background: #f7f3ed; /* Fondo claro y cremoso para toda la página */
+            overflow-x: hidden; /* Evita el scroll horizontal por animaciones */
         }
         .card-bg {
             background: #ffffff; /* Fondo blanco para la tarjeta principal */
@@ -62,6 +65,7 @@
             height: 0;
             overflow: hidden;
             border-radius: 0.5rem; /* rounded-lg */
+            border: 1px solid #e0d8cc; /* Borde suave */
         }
         .map-container iframe {
             position: absolute;
@@ -95,10 +99,11 @@
             overflow: hidden;
             border-radius: 0.5rem; /* rounded-lg */
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: 1px solid #e0d8cc; /* Borde suave */
         }
         .gallery-inner {
             display: flex;
-            transition: transform 0.5s ease-in-out;
+            transition: transform 0.8s ease-in-out; /* Transición más suave y lenta */
             width: 100%; /* Importante para el deslizamiento */
         }
         .gallery-inner img {
@@ -109,6 +114,7 @@
             border-radius: 0.5rem;
             max-height: 250px; /* Limita la altura para consistencia estética */
             margin: auto; /* Centra la imagen verticalmente si el contenedor es más alto */
+            cursor: pointer; /* Indica que la imagen es clickeable */
         }
         .gallery-nav-button {
             position: absolute;
@@ -124,44 +130,194 @@
             line-height: 1;
             z-index: 10;
             user-select: none; /* Evita la selección de texto */
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
         .gallery-nav-button:hover {
             background-color: rgba(0, 0, 0, 0.7);
+            transform: translateY(-50%) scale(1.1); /* Ligero agrandamiento al pasar el ratón */
         }
         .gallery-prev { left: 0.5rem; }
         .gallery-next { right: 0.5rem; }
+
+        /* Estilos para el modal de imagen en pantalla completa */
+        .image-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85); /* Fondo oscuro semitransparente */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; /* Asegura que esté por encima de todo */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .image-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .image-modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain; /* Asegura que la imagen se ajuste */
+            border-radius: 0.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        .image-modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 1001;
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+        .image-modal-close:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Estilos para la música de fondo */
+        .music-player-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding: 0.75rem 1rem;
+            background-color: #f0e6da; /* Tono más suave */
+            border-radius: 9999px; /* Pill shape */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            gap: 0.75rem;
+        }
+        .music-player-button {
+            background: none;
+            border: none;
+            color: #a07a1e; /* Dorado */
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+        .music-player-button:hover {
+            transform: scale(1.1);
+            color: #d4af37; /* Dorado más claro */
+        }
+        .music-player-text {
+            color: #4B5563;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Animaciones al hacer scroll (fade-in-up) */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .fade-in-up.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Estilos para la sección de FAQ (Acordeón) */
+        .faq-item {
+            border-bottom: 1px solid #e0d8cc;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 600;
+            color: #4B5563;
+            padding: 0.5rem 0;
+            user-select: none; /* Evita seleccionar texto */
+        }
+        .faq-question:hover {
+            color: #a07a1e; /* Dorado al pasar el ratón */
+        }
+        .faq-arrow {
+            transition: transform 0.3s ease;
+        }
+        .faq-arrow.rotated {
+            transform: rotate(180deg);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+            opacity: 0;
+            color: #6B7280;
+            padding-top: 0.5rem;
+        }
+        .faq-answer.show {
+            max-height: 200px; /* Suficiente para la mayoría de las respuestas */
+            opacity: 1;
+        }
+        @media (max-width: 640px) {
+            .faq-question { font-size: 1rem; }
+        }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
     <div class="card-bg max-w-sm md:max-w-md w-full rounded-xl p-8 text-center space-y-6">
+        <!-- Controles de Música (arriba de todo) -->
+        <div class="music-player-controls fade-in-up">
+            <audio id="backgroundMusic" loop preload="auto">
+                <!-- ¡IMPORTANTE! REEMPLAZA ESTA URL CON LA URL DE TU PROPIA MÚSICA DE FONDO. -->
+                <!-- Ejemplo: <source src="https://tudominio.com/ruta/a/tu_musica.mp3" type="audio/mpeg"> -->
+                <!-- Asegúrate de que la URL sea pública y accesible. -->
+                <!-- Si no tienes una, puedes usar una de un servicio de audio libre de derechos, o comentar esta sección. -->
+                <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                Tu navegador no soporta el elemento de audio.
+            </audio>
+            <button id="musicToggle" class="music-player-button">
+                <i class="ph ph-pause" id="musicIcon"></i>
+            </button>
+            <span class="music-player-text">Música de Fondo</span>
+        </div>
+
         <!-- "SAVE THE DATE" equivalente -->
-        <p class="text-xl display-font tracking-widest uppercase text-gray-700">NOS CASAMOS</p>
+        <p class="text-xl display-font tracking-widest uppercase text-gray-700 fade-in-up">NOS CASAMOS</p>
 
         <!-- Nombres - Tamaño de fuente aumentado y nuevo estilo -->
-        <h1 class="text-7xl-custom md:text-8xl great-vibes-font golden-text leading-tight name-shadow">Karen</h1>
-        <p class="text-4xl great-vibes-font golden-text">&amp;</p>
-        <h2 class="text-7xl-custom md:text-8xl great-vibes-font golden-text leading-tight name-shadow">Fabián</h2>
+        <h1 class="text-7xl-custom md:text-8xl great-vibes-font golden-text leading-tight name-shadow fade-in-up">Karen</h1>
+        <p class="text-4xl great-vibes-font golden-text fade-in-up">&amp;</p>
+        <h2 class="text-7xl-custom md:text-8xl great-vibes-font golden-text leading-tight name-shadow fade-in-up">Fabián</h2>
 
         <!-- Frase bonita -->
-        <p class="text-lg italic text-gray-600 display-font mt-4">
+        <p class="text-lg italic text-gray-600 display-font mt-4 fade-in-up">
             "El amor es la fuerza más sutil del mundo."
         </p>
 
         <!-- Texto de invitación -->
-        <p class="text-base md:text-lg text-gray-700 leading-relaxed mt-4">
+        <p class="text-base md:text-lg text-gray-700 leading-relaxed mt-4 fade-in-up">
             Nos complace invitarte a celebrar con nosotros este día tan especial.
             Tu presencia es el mejor regalo.
         </p>
 
         <!-- Fecha y Hora -->
-        <div class="space-y-2 mt-6">
+        <div class="space-y-2 mt-6 fade-in-up">
             <p class="text-2xl md:text-3xl display-font uppercase text-gray-800">20 DE SEPTIEMBRE 2025</p>
             <p class="text-xl md:text-2xl display-font text-gray-700">8:00 P.M.</p>
             <p class="text-lg md:text-xl display-font text-gray-600">LUGAR A CONFIRMAR</p>
         </div>
 
         <!-- Cuenta Regresiva -->
-        <div class="mt-8 pt-4 border-t border-gray-200">
+        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
             <h3 class="text-2xl display-font golden-text mb-4">¡Falta Poco!</h3>
             <div id="countdown" class="text-center">
                 <span class="countdown-item"><span id="days">00</span>Días</span>
@@ -172,31 +328,38 @@
             <p class="text-sm italic text-gray-500 mt-2">(Hasta el 20 de Septiembre de 2025 a las 8:00 P.M.)</p>
         </div>
 
-        <!-- Galería de Fotos -->
-        <div class="mt-8 pt-4 border-t border-gray-200">
+        <!-- Galería de Fotos Mejorada -->
+        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
             <h3 class="text-2xl display-font golden-text mb-4">Nuestros Momentos</h3>
             <div class="gallery-container">
                 <div id="galleryInner" class="gallery-inner">
-                    <!-- INSERTA AQUÍ LAS URLS DE TUS FOTOS REALES -->
-                    <!-- Ejemplo: <img src="./fotos/mi-foto-1.jpg" alt="Nuestra Foto 1"> -->
-                    <!-- Ejemplo: <img src="https://tuservicio.com/ruta/a/mi-foto-2.png" alt="Nuestra Foto 2"> -->
-                    <!-- Puedes añadir tantas etiquetas <img> como necesites. -->
-
                     <!-- IMÁGENES DE RELLENO - ¡REEMPLÁZALAS CON TUS FOTOS REALES! -->
-                    <img src="https://placehold.co/400x250/F0D9B5/333333?text=Foto+1" alt="Foto de Karen y Fabián 1">
-                    <img src="https://placehold.co/400x250/F0D9B5/333333?text=Foto+2" alt="Foto de Karen y Fabián 2">
-                    <img src="https://placehold.co/400x250/F0D9B5/333333?text=Foto+3" alt="Foto de Karen y Fabián 3">
-                    <!-- FIN DE IMÁGENES DE RELLENO -->
+                    <!-- NOTA: Usa 'data-src-large' para la versión de pantalla completa si tienes una de mayor resolución -->
+                    <img src="https://placehold.co/400x250/F0D9B5/333333?text=Foto+1" data-src-large="https://placehold.co/800x500/F0D9B5/333333?text=Foto+1+Ampliada" alt="Foto de Karen y Fabián 1">
+                    <img src="https://placehold.co/400x250/F0D9B5/333333?text=Foto+2" data-src-large="https://placehold.co/800x500/F0D9B5/333333?text=Foto+2+Ampliada" alt="Foto de Karen y Fabián 2">
+                    <img src="https://placehold.co/400x250/F0D9B5/333333?text=Foto+3" data-src-large="https://placehold.co/800x500/F0D9B5/333333?text=Foto+3+Ampliada" alt="Foto de Karen y Fabián 3">
+                    <!-- Puedes añadir tantas etiquetas <img> como necesites. -->
                 </div>
-                <button id="galleryPrev" class="gallery-nav-button gallery-prev">&#10094;</button>
-                <button id="galleryNext" class="gallery-nav-button gallery-next">&#10095;</button>
+                <button id="galleryPrev" class="gallery-nav-button">&#10094;</button>
+                <button id="galleryNext" class="gallery-nav-button">&#10095;</button>
+                <div class="flex justify-center mt-4">
+                    <button id="slideshowToggle" class="music-player-button !text-base !font-medium !text-gray-600 !px-4 !py-2 !rounded-full !bg-gray-100 hover:!bg-gray-200">
+                        <i class="ph ph-pause" id="slideshowIcon"></i> Auto
+                    </button>
+                </div>
             </div>
-            <p class="text-sm italic text-gray-500 mt-2">Desliza para ver más de nuestra historia.</p>
+            <p class="text-sm italic text-gray-500 mt-2">Desliza para ver más de nuestra historia, o usa el modo automático.</p>
+        </div>
+
+        <!-- Modal para Imagen en Pantalla Completa -->
+        <div id="imageModal" class="image-modal-overlay">
+            <button id="imageModalClose" class="image-modal-close"><i class="ph ph-x-circle"></i></button>
+            <img id="modalImage" class="image-modal-content" src="" alt="Imagen ampliada">
         </div>
 
 
         <!-- Agenda / Cronograma -->
-        <div class="mt-8 pt-4 border-t border-gray-200">
+        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
             <h3 class="text-2xl display-font golden-text mb-4">Agenda del Día</h3>
             <div class="text-gray-700 text-base md:text-lg space-y-2">
                 <p><strong>8:00 P.M.</strong> Inicio de la Celebración / Recepción</p>
@@ -205,7 +368,7 @@
         </div>
 
         <!-- Lugar y Mapa -->
-        <div class="mt-8 pt-4 border-t border-gray-200">
+        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
             <h3 class="text-2xl display-font golden-text mb-4">Lugar</h3>
             <p class="text-gray-700 text-base md:text-lg mb-4">
                 1250 NE 125 St, North Miami, FL 33161
@@ -213,37 +376,45 @@
             </p>
             <div class="map-container mb-4">
                 <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3590.2785664188634!2d-80.17061732386994!3d25.90804470295801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9add50b1d3d63%3A0x6b4c10a471c6999a!2s1250%20NE%20125th%20St%2C%20North%20Miami%2C%20FL%2033161%2C%20USA!5e0!3m2!1sen!2sus!4v1719000000000!5m2!1sen!2sus"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3590.2785664188634!2d-80.17061732386994!3d25.90804470295801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9add50b1d3d63%3A0x6b4c10a471c6999a!2s1250%20NE%20125th%20St%2C%20North%20Miami%20FL%2033161%2C%20USA!5e0!3m2!1sen!2sus!4v1719000000000!5m2!1sen!2sus"
                     allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
             <a href="https://maps.app.goo.gl/YourActualGoogleMapsLinkHere" target="_blank" rel="noopener noreferrer"
-               class="text-blue-600 hover:underline text-sm md:text-base">
+               class="text-blue-600 hover:underline text-sm md:text-base transition-colors duration-200">
                 Ver en Google Maps (enlace provisional)
             </a>
         </div>
 
         <!-- Regalos -->
-        <div class="mt-8 pt-4 border-t border-gray-200">
+        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
             <h3 class="text-2xl display-font golden-text mb-4">Regalos</h3>
             <p class="text-gray-700 text-base md:text-lg">
                 ¡Tu presencia es nuestro mejor regalo!
+                Si deseas hacernos un obsequio, puedes contribuir a nuestro fondo de luna de miel.
+            </p>
+            <a href="https://paypal.me/yourweddingfund" target="_blank" rel="noopener noreferrer"
+               class="inline-block bg-gradient-to-r from-teal-500 to-teal-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300 mt-4">
+               <i class="ph ph-gift-bold mr-2"></i> Contribuir al Fondo de Luna de Miel
+            </a>
+            <p class="text-sm italic text-gray-500 mt-2">
+                (Este enlace es de ejemplo, reemplázalo con tu link real de PayPal, Venmo o similar.)
             </p>
         </div>
 
         <!-- Contacto para Dudas -->
-        <div class="mt-8 pt-4 border-t border-gray-200">
+        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
             <h3 class="text-2xl display-font golden-text mb-4">Contacto para Dudas</h3>
             <p class="text-gray-700 text-base md:text-lg">
-                Karen: <a href="tel:+17862855066" class="text-blue-600 hover:underline">786-285-5066</a>
+                Karen: <a href="tel:+17862855066" class="text-blue-600 hover:underline transition-colors duration-200">786-285-5066</a>
             </p>
             <p class="text-gray-700 text-base md:text-lg">
-                Fabián: <a href="tel:+19549552895" class="text-blue-600 hover:underline">954-955-2895</a>
+                Fabián: <a href="tel:+19549552895" class="text-blue-600 hover:underline transition-colors duration-200">954-955-2895</a>
             </p>
         </div>
 
         <!-- Nuestra Historia -->
-        <div class="mt-8 pt-4 border-t border-gray-200">
+        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
             <h3 class="text-2xl display-font golden-text mb-4">Nuestra Historia</h3>
             <p class="text-gray-700 text-base md:text-lg leading-relaxed">
                 Cada historia de amor es única, y la nuestra comenzó en un inesperado encuentro,
@@ -252,10 +423,17 @@
                 Hoy, con el corazón lleno de gratitud y alegría, nos preparamos para escribir
                 nuestro siguiente capítulo, ¡el más emocionante de todos!
             </p>
+            <!-- Puedes añadir un video aquí si lo deseas. Ejemplo: -->
+            <!-- <div class="mt-6 aspect-video w-full rounded-lg overflow-hidden shadow-lg">
+                <iframe src="https://www.youtube.com/embed/TU_ID_DE_VIDEO" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
+            </div>
+            <p class="text-sm italic text-gray-500 mt-2">
+                (Reemplaza TU_ID_DE_VIDEO con el ID de tu video de YouTube)
+            </p> -->
         </div>
 
         <!-- Sugiere una Canción -->
-        <div class="mt-8 pt-4 border-t border-gray-200">
+        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
             <h3 class="text-2xl display-font golden-text mb-4">¡Sugiere una Canción para la Fiesta!</h3>
             <form id="songRequestForm" class="space-y-4">
                 <div>
@@ -263,32 +441,32 @@
                         Título de la Canción:
                     </label>
                     <input type="text" id="songName" name="songName" required
-                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                           class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
                 </div>
                 <div>
                     <label for="songArtist" class="block text-gray-700 text-sm font-bold mb-2">
                         Artista/Banda (Opcional):
                     </label>
                     <input type="text" id="songArtist" name="songArtist"
-                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                           class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
                 </div>
                 <div>
                     <label for="requesterNameSong" class="block text-gray-700 text-sm font-bold mb-2">
                         Tu Nombre (Opcional):
                     </label>
                     <input type="text" id="requesterNameSong" name="requesterNameSong"
-                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                           class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
                 </div>
                 <button type="submit"
-                        class="bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300">
-                    Enviar Sugerencia
+                        class="bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300">
+                    <i class="ph ph-paper-plane-tilt-fill mr-2"></i> Enviar Sugerencia
                 </button>
             </form>
             <div id="songMessage" class="hidden mt-4 text-center text-base font-semibold"></div>
         </div>
 
-        <!-- Libro de Firmas Virtual (sin el generador de mensajes) -->
-        <div class="mt-8 pt-4 border-t border-gray-200">
+        <!-- Libro de Firmas Virtual -->
+        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
             <h3 class="text-2xl display-font golden-text mb-4">Deja un Mensaje para los Novios</h3>
             <form id="guestbookForm" class="space-y-4">
                 <div>
@@ -296,28 +474,28 @@
                         Tu Mensaje:
                     </label>
                     <textarea id="guestbookMessage" name="guestbookMessage" rows="4" required
-                              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-y"></textarea>
+                              class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent resize-y transition-all duration-200"></textarea>
                 </div>
                 <div>
                     <label for="guestbookSigner" class="block text-gray-700 text-sm font-bold mb-2">
                         Tu Nombre:
                     </label>
                     <input type="text" id="guestbookSigner" name="guestbookSigner" required
-                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                           class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
                 </div>
                 <button type="submit"
-                        class="bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300">
-                    Firmar Libro
+                        class="bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300">
+                    <i class="ph ph-pencil-simple-line-fill mr-2"></i> Firmar Libro
                 </button>
             </form>
             <div id="guestbookMessageDiv" class="hidden mt-4 text-center text-base font-semibold"></div>
         </div>
 
-        <!-- Sección RSVP (Manteniéndola abajo para consistencia de flujo) -->
-        <div id="rsvpSection" class="mt-8 pt-4 border-t border-gray-200">
+        <!-- Sección RSVP -->
+        <div id="rsvpSection" class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
             <button id="showRsvpFormButton"
-                    class="inline-block bg-gradient-to-r from-yellow-600 to-yellow-800 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 display-font tracking-wide">
-                Confirmar Asistencia
+                    class="inline-block bg-gradient-to-r from-yellow-600 to-yellow-800 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-300 display-font tracking-wide">
+                <i class="ph ph-check-circle-fill mr-2"></i> Confirmar Asistencia
             </button>
             <div id="rsvpFormContainer" class="hidden mt-6 text-left">
                 <form id="rsvpForm" class="space-y-4">
@@ -326,30 +504,30 @@
                             Tu Nombre Completo:
                         </label>
                         <input type="text" id="guestName" name="guestName" required
-                               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                               class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
                     </div>
                     <div>
                         <label for="numAdults" class="block text-gray-700 text-sm font-bold mb-2">
                             ¿Cuántos adultos asistirán?
                         </label>
                         <input type="number" id="numAdults" name="numAdults" min="0" value="1" required
-                               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                               class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
                     </div>
                     <div>
                         <label for="numMinors" class="block text-gray-700 text-sm font-bold mb-2">
                             ¿Cuántos menores (niños) asistirán?
                         </label>
                         <input type="number" id="numMinors" name="numMinors" min="0" value="0" required
-                               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                               class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
                     </div>
                     <div class="flex justify-between items-center pt-4">
                         <button type="submit"
-                                class="bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300">
-                            Enviar Confirmación
+                                class="bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300">
+                            <i class="ph ph-paper-plane-right-fill mr-2"></i> Enviar Confirmación
                         </button>
                         <button type="button" id="declineButton"
-                                class="bg-gray-400 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300">
-                            No asistiré
+                                class="bg-gray-400 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300">
+                            <i class="ph ph-x-circle-fill mr-2"></i> No asistiré
                         </button>
                     </div>
                 </form>
@@ -358,6 +536,59 @@
                 <!-- El mensaje de confirmación se mostrará aquí -->
             </div>
         </div>
+
+        <!-- Sección de Preguntas Frecuentes (FAQ) -->
+        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
+            <h3 class="text-2xl display-font golden-text mb-4">Preguntas Frecuentes</h3>
+            <div class="space-y-4 text-left">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>¿Cuál es el código de vestimenta?</span>
+                        <i class="ph ph-caret-down faq-arrow"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>El código de vestimenta es Formal Elegante. Para ellos, traje y corbata; para ellas, vestido de cóctel o largo.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>¿Hay opciones de estacionamiento?</span>
+                        <i class="ph ph-caret-down faq-arrow"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sí, tendremos estacionamiento valet disponible en el lugar del evento. También hay opciones de estacionamiento público en las cercanías.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>¿Puedo llevar a mis hijos?</span>
+                        <i class="ph ph-caret-down faq-arrow"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sí, los niños son bienvenidos en nuestra celebración. Por favor, especifica el número de menores que asistirán al confirmar tu asistencia.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>¿Habrá opciones de comida para dietas especiales?</span>
+                        <i class="ph ph-caret-down faq-arrow"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sí, por favor, indícanos cualquier restricción dietética o alergia al momento de confirmar tu asistencia y haremos lo posible por acomodarte.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
     </div>
 
     <!-- SDKs de Firebase -->
@@ -375,7 +606,7 @@
             storageBucket: "miappboda.firebasestorage.app",
             messagingSenderId: "155595716187",
             appId: "1:155595716187:web:11ba23c2bde759bcf0717e",
-            measurementId: "G-CL89DVBBHP" // Si tu configuración lo incluye, pégalo también
+            measurementId: "G-CL89DVBBHP" 
         };
         
         // Obtenemos el appId de la configuración de Firebase
@@ -411,13 +642,10 @@
         // Inicializa Firebase y configura la autenticación
         const initializeFirebase = async () => {
             try {
-                // Ya no necesitamos la verificación del placeholder aquí porque ya estamos insertando la clave correcta.
-
                 app = initializeApp(firebaseConfig);
                 db = getFirestore(app);
                 auth = getAuth(app);
 
-                // Escucha los cambios en el estado de autenticación
                 onAuthStateChanged(auth, async (user) => {
                     if (user) {
                         userId = user.uid;
@@ -426,17 +654,14 @@
                     } else {
                         console.log("No user signed in. Attempting anonymous sign-in.");
                         try {
-                            // Solo signInAnonymously
                             await signInAnonymously(auth);
-                            isAuthReady = true; // Establece a verdadero después del intento de inicio de sesión exitoso
+                            isAuthReady = true;
                         } catch (error) {
                             console.error("Firebase Anonymous Sign-in Error:", error);
-                            // Este error será "auth/api-key-not-valid" o similar si la clave no es buena.
-                            // Si la clave es buena pero Anonymous no está habilitado, el mensaje será de eso.
                             displayMessage('rsvpMessage', "Error de autenticación. Verifica que la autenticación anónima esté habilitada en Firebase.", true);
                             displayMessage('songMessage', "Error de autenticación. Verifica que la autenticación anónima esté habilitada en Firebase.", true);
                             displayMessage('guestbookMessageDiv', "Error de autenticación. Verifica que la autenticación anónima esté habilitada en Firebase.", true);
-                            isAuthReady = true; // Todavía se establece en verdadero para evitar carga infinita, pero indica falla.
+                            isAuthReady = true;
                         }
                     }
                 });
@@ -482,16 +707,35 @@
                 }
             }, 1000);
 
-            // --- Lógica de Galería de Fotos ---
+            // --- Lógica de Galería de Fotos Mejorada ---
             const galleryInner = document.getElementById('galleryInner');
             const galleryImages = galleryInner.getElementsByTagName('img');
             const galleryPrev = document.getElementById('galleryPrev');
             const galleryNext = document.getElementById('galleryNext');
+            const slideshowToggle = document.getElementById('slideshowToggle');
+            const slideshowIcon = document.getElementById('slideshowIcon');
             let currentImageIndex = 0;
+            let slideshowInterval;
+            let isSlideshowPlaying = true; // Por defecto, inicia reproduciendo
+
+            const startSlideshow = () => {
+                if (slideshowInterval) clearInterval(slideshowInterval); // Limpiar cualquier intervalo anterior
+                slideshowInterval = setInterval(() => {
+                    currentImageIndex++;
+                    updateGallery();
+                }, 5000); // Cambia de foto cada 5 segundos
+                slideshowIcon.className = 'ph ph-pause';
+                isSlideshowPlaying = true;
+            };
+
+            const pauseSlideshow = () => {
+                clearInterval(slideshowInterval);
+                slideshowIcon.className = 'ph ph-play';
+                isSlideshowPlaying = false;
+            };
 
             const updateGallery = () => {
-                // Asegúrate de que currentImageIndex esté dentro de los límites
-                if (galleryImages.length === 0) return; // No hay imágenes para mostrar
+                if (galleryImages.length === 0) return;
                 if (currentImageIndex < 0) {
                     currentImageIndex = galleryImages.length - 1;
                 } else if (currentImageIndex >= galleryImages.length) {
@@ -502,19 +746,126 @@
             };
 
             galleryPrev.addEventListener('click', () => {
+                pauseSlideshow(); // Pausar slideshow al interactuar manualmente
                 currentImageIndex--;
                 updateGallery();
             });
 
             galleryNext.addEventListener('click', () => {
+                pauseSlideshow(); // Pausar slideshow al interactuar manualmente
                 currentImageIndex++;
                 updateGallery();
             });
 
-            // Carga inicial de la galería (asegúrate de que se llame después de cargar las imágenes, o para imágenes estáticas en DOMContentLoaded)
+            slideshowToggle.addEventListener('click', () => {
+                if (isSlideshowPlaying) {
+                    pauseSlideshow();
+                } else {
+                    startSlideshow();
+                }
+            });
+
+            // Lógica para el modal de imagen en pantalla completa
+            const imageModal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const imageModalClose = document.getElementById('imageModalClose');
+
+            Array.from(galleryImages).forEach(img => {
+                img.addEventListener('click', (e) => {
+                    const largeSrc = e.target.getAttribute('data-src-large') || e.target.src;
+                    modalImage.src = largeSrc;
+                    imageModal.classList.add('active');
+                    pauseSlideshow(); // Pausar slideshow al abrir el modal
+                });
+            });
+
+            imageModalClose.addEventListener('click', () => {
+                imageModal.classList.remove('active');
+                // Podríamos reiniciar el slideshow aquí si se desea
+                // startSlideshow();
+            });
+
+            imageModal.addEventListener('click', (e) => {
+                // Cerrar modal solo si se hace clic en el overlay, no en la imagen
+                if (e.target === imageModal) {
+                    imageModal.classList.remove('active');
+                    // startSlideshow();
+                }
+            });
+
+
+            // Carga inicial de la galería
             if (galleryImages.length > 0) {
                 updateGallery();
+                startSlideshow(); // Iniciar slideshow automáticamente al cargar
             }
+
+            // --- Lógica de Música de Fondo ---
+            const backgroundMusic = document.getElementById('backgroundMusic');
+            const musicToggle = document.getElementById('musicToggle');
+            const musicIcon = document.getElementById('musicIcon');
+
+            // Intenta reproducir la música automáticamente al cargar
+            // Nota: Los navegadores modernos pueden bloquear el autoplay sin interacción del usuario.
+            // El usuario necesitará hacer clic en el botón de reproducción la primera vez.
+            backgroundMusic.volume = 0.3; // Volumen bajo para ser sutil
+            backgroundMusic.play().catch(error => {
+                console.log("Autoplay de música bloqueado. El usuario debe interactuar para reproducir.", error);
+                musicIcon.className = 'ph ph-play'; // Cambiar icono a "play" si autoplay falla
+            });
+
+            musicToggle.addEventListener('click', () => {
+                if (backgroundMusic.paused) {
+                    backgroundMusic.play();
+                    musicIcon.className = 'ph ph-pause';
+                } else {
+                    backgroundMusic.pause();
+                    musicIcon.className = 'ph ph-play';
+                }
+            });
+
+
+            // --- Lógica de Animaciones al hacer Scroll (Intersection Observer) ---
+            const animateOnScrollElements = document.querySelectorAll('.fade-in-up');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                        observer.unobserve(entry.target); // Dejar de observar una vez que ha animado
+                    }
+                });
+            }, {
+                threshold: 0.1, // El 10% del elemento debe estar visible
+                rootMargin: '0px 0px -50px 0px' // Empezar un poco antes de que llegue al fondo de la pantalla
+            });
+
+            animateOnScrollElements.forEach(el => {
+                observer.observe(el);
+            });
+
+            // --- Lógica de FAQ (Acordeón) ---
+            const faqItems = document.querySelectorAll('.faq-item');
+
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                const answer = item.querySelector('.faq-answer');
+                const arrow = item.querySelector('.faq-arrow');
+
+                question.addEventListener('click', () => {
+                    // Cierra otras respuestas abiertas
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.querySelector('.faq-answer').classList.remove('show');
+                            otherItem.querySelector('.faq-arrow').classList.remove('rotated');
+                        }
+                    });
+
+                    // Abre o cierra la respuesta actual
+                    answer.classList.toggle('show');
+                    arrow.classList.toggle('rotated');
+                });
+            });
 
 
             // Muestra el formulario RSVP cuando se hace clic en el botón principal
