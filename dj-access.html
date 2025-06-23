@@ -3,41 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canciones Solicitadas - Boda Karen & Fabián</title>
-    <!-- Tailwind CSS CDN -->
+    <title>¡Nos Casamos! Karen & Fabián</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23a07a1e' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E" type="image/svg+xml">
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts para tipografía elegante -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-    <!-- Iconos Phosphor -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/dist/phosphor.js"></script>
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background: #f7f3ed; /* Consistent background with invitation */
-            min-height: 100vh;
+            background-color: #f7f3ed; /* Soft, warm background */
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .header-bg {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1517457375823-bff7980b1822?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center center / cover no-repeat;
+            min-height: 80vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
-            box-sizing: border-box; /* Ensures padding doesn't cause overflow */
+            flex-direction: column;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            position: relative;
         }
-        .dj-card {
-            background: #ffffff;
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.08); /* Sombra ligeramente más pronunciada */
-            border: 1px solid #d4c8bc; /* Borde más sutil */
-            border-radius: 1.25rem; /* Bordes un poco más redondeados */
-            padding: 2.5rem; /* Mayor padding */
-            text-align: center;
-            width: 100%;
-            max-width: 550px; /* Ligeramente más ancho */
-            margin: 1.5rem auto; /* Más margen */
+        .header-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3); /* Darker overlay */
+            z-index: 1;
+        }
+        .header-content {
+            position: relative;
+            z-index: 2;
         }
         .golden-text {
-            color: #a07a1e;
+            color: #a07a1e; /* A rich golden color */
         }
         .display-font {
             font-family: 'Playfair Display', serif;
+        }
+        .great-vibes-font {
+            font-family: 'Great Vibes', cursive;
+        }
+        .button-primary {
+            background: linear-gradient(to right, #a07a1e, #d4af37);
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .button-primary:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+        .button-primary:active {
+            transform: translateY(0) scale(0.98);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .section-padding {
+            padding: 4rem 1.5rem;
+        }
+        .card {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .flower-divider {
+            width: 100px;
+            height: auto;
+            margin: 2rem auto;
+            opacity: 0.7;
         }
         .message-box {
             background-color: #fefcbf; /* Tailwind yellow-100 */
@@ -45,154 +96,411 @@
             border: 1px solid #fbd38d; /* Tailwind yellow-400 */
             padding: 1rem;
             border-radius: 0.5rem;
-            margin-top: 1.5rem; /* Más margen superior */
-            font-size: 0.95rem; /* Ligeramente más grande */
-            text-align: left;
+            margin-top: 1.5rem;
         }
         .error-box {
             background-color: #fee2e2; /* Tailwind red-100 */
             color: #991b1b; /* Tailwind red-800 */
             border: 1px solid #fca5a5; /* Tailwind red-400 */
         }
-        /* Styles for song requests list */
-        .song-list {
-            list-style: none;
-            padding: 0;
-            margin-top: 1.5rem;
+        .confirm-button {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
         }
-        .song-list-item {
-            background-color: #fcfafa; /* Light background for list item */
-            border: 1px solid #eee;
+        .cancel-button {
+            background-color: #f44336; /* Red */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+
+        /* Countdown specific styles */
+        #countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+        .countdown-item {
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            border-radius: 1rem;
+            padding: 1rem 1.25rem;
+            text-align: center;
+            min-width: 100px;
+        }
+        .countdown-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1;
+        }
+        .countdown-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.25rem;
+            text-transform: uppercase;
+        }
+
+        /* RSVP form styling */
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #d4c8bc;
             border-radius: 0.5rem;
-            padding: 0.75rem 1rem;
-            margin-bottom: 0.5rem;
-            text-align: left;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            transition: transform 0.2s ease;
-        }
-        .song-list-item:hover {
-            transform: translateY(-2px);
-        }
-        .song-title {
-            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
             color: #333;
         }
-        .song-artist {
-            font-size: 0.9rem;
-            color: #666;
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: #a07a1e;
+            box-shadow: 0 0 0 2px rgba(160, 122, 30, 0.2);
         }
-        .song-requester {
-            font-size: 0.8rem;
-            color: #888;
-            margin-top: 0.25rem;
-            font-style: italic;
+        .form-label {
+            display: block;
+            text-align: left;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #555;
         }
-        /* Responsive adjustments */
-        @media (max-width: 640px) {
-            .dj-card {
-                padding: 1.5rem; /* Ajuste para móviles */
-            }
+        .submit-button {
+            background: linear-gradient(to right, #a07a1e, #d4af37);
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            border: none;
+            cursor: pointer;
+            width: auto; /* Ensure button doesn't take full width */
+            margin-top: 1rem;
+        }
+        .submit-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background: #ccc;
+            box-shadow: none;
+        }
+        .submit-button:hover:not(:disabled) {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+        .submit-button:active:not(:disabled) {
+            transform: translateY(0) scale(0.98);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
     </style>
 </head>
 <body>
-    <div class="dj-card">
-        <h1 class="text-3xl md:text-4xl display-font golden-text mb-8">Canciones Solicitadas para la Boda</h1>
 
-        <div id="loadingMessage" class="message-box">
-            <i class="ph ph-hourglass-simple-fill animate-pulse mr-2"></i> Cargando lista de canciones...
+    <header class="header-bg">
+        <div class="header-content text-center py-16 px-4">
+            <p class="text-xl md:text-2xl display-font mb-4 text-gray-200">Con alegría, anunciamos nuestro enlace</p>
+            <h1 class="text-6xl md:text-8xl great-vibes-font golden-text mb-4 leading-tight">Karen</h1>
+            <p class="text-4xl md:text-5xl great-vibes-font golden-text mb-4">&amp;</p>
+            <h2 class="text-6xl md:text-8xl great-vibes-font golden-text mb-8 leading-tight">Fabián</h2>
+            <p class="text-xl md:text-3xl display-font text-gray-100 uppercase tracking-wider mb-10">¡NOS CASAMOS!</p>
+
+            <div id="countdown-container">
+                <div class="countdown-item">
+                    <div id="days" class="countdown-value">00</div>
+                    <div class="countdown-label">Días</div>
+                </div>
+                <div class="countdown-item">
+                    <div id="hours" class="countdown-value">00</div>
+                    <div class="countdown-label">Horas</div>
+                </div>
+                <div class="countdown-item">
+                    <div id="minutes" class="countdown-value">00</div>
+                    <div class="countdown-label">Minutos</div>
+                </div>
+                <div class="countdown-item">
+                    <div id="seconds" class="countdown-value">00</div>
+                    <div class="countdown-label">Segundos</div>
+                </div>
+            </div>
         </div>
+    </header>
 
-        <div id="errorMessage" class="message-box error-box hidden">
-            <i class="ph ph-x-circle-fill mr-2"></i> Hubo un error al cargar las canciones. Por favor, inténtalo de nuevo más tarde.
+    <section class="section-padding text-center bg-white shadow-inner">
+        <div class="max-w-3xl mx-auto px-4">
+            <h3 class="text-3xl md:text-4xl display-font golden-text mb-6">Nuestra Historia Comienza</h3>
+            <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                Con el corazón lleno de amor y alegría, queremos compartir con ustedes un momento que marcará el inicio de una nueva etapa en nuestras vidas. Juntos, Karen y Fabián, hemos decidido unir nuestras vidas en matrimonio y nos encantaría que fueran parte de este día tan especial.
+            </p>
+            <img src="https://images.unsplash.com/photo-1549465248-185d263a4362?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Karen y Fabián juntos" class="w-full h-80 object-cover rounded-xl shadow-lg mx-auto mb-6">
+            <p class="text-lg text-gray-700 leading-relaxed">
+                Este día será el reflejo de nuestro amor y la promesa de un futuro juntos. ¡Esperamos celebrar con ustedes!
+            </p>
         </div>
+    </section>
 
-        <div id="songRequestsListContainer" class="max-h-96 overflow-y-auto hidden">
-            <ul id="songRequestsList" class="song-list">
-                <!-- Song requests will be loaded here dynamically -->
-            </ul>
-            <p id="noSongsMessage" class="text-gray-500 italic mt-4 hidden">No hay canciones solicitadas aún.</p>
+    <section class="section-padding bg-gray-100 text-center">
+        <div class="card">
+            <h3 class="text-3xl md:text-4xl display-font golden-text mb-6">Detalles de la Ceremonia</h3>
+            <img src="https://assets.website-files.com/5a4d7d3d9e30a5000185966d/5a4d7d3d9e30a50001859737_flower-divider.svg" alt="Divider" class="flower-divider">
+            <p class="text-lg display-font text-gray-700 mb-4">
+                La ceremonia y la recepción se llevarán a cabo el:
+            </p>
+            <p class="text-4xl md:text-5xl display-font golden-text font-bold mb-6">
+                20 de Septiembre de 2025
+            </p>
+            <p class="text-2xl md:text-3xl display-font text-gray-800 mb-8">
+                A las 8:00 P.M.
+            </p>
+            <p class="text-lg text-gray-700 mb-2">
+                **Lugar a Confirmar**
+            </p>
+            <p class="text-md text-gray-600 mb-8">
+                Te mantendremos al tanto de todos los detalles del lugar.
+            </p>
+            <a href="#" class="button-primary inline-block">Ver Mapa (Próximamente)</a>
         </div>
+    </section>
 
-        <a href="https://9549552895.github.io/mi-boda-karen-fabian/" class="inline-block mt-10 bg-gray-200 text-gray-700 font-semibold py-3 px-8 rounded-full shadow-md hover:bg-gray-300 transform hover:scale-105 active:scale-95 transition-all duration-300">
-            <i class="ph ph-arrow-left-bold mr-2"></i> Volver a la Invitación
-        </a>
-    </div>
+    <section class="section-padding text-center bg-white">
+        <div class="card">
+            <h3 class="text-3xl md:text-4xl display-font golden-text mb-6">Confirma Tu Asistencia</h3>
+            <img src="https://assets.website-files.com/5a4d7d3d9e30a5000185966d/5a4d7d3d9e30a50001859737_flower-divider.svg" alt="Divider" class="flower-divider">
 
-    <!-- Firebase SDKs -->
+            <p class="text-lg text-gray-700 mb-6">
+                Tu presencia es el mejor regalo. Por favor, ayúdanos a organizar este día tan especial confirmando tu asistencia antes del **1 de Septiembre de 2025**.
+            </p>
+
+            <form id="rsvpForm" class="text-left">
+                <div class="mb-4">
+                    <label for="guestName" class="form-label">Nombre completo:</label>
+                    <input type="text" id="guestName" class="form-input" placeholder="Tu nombre y apellidos" required>
+                </div>
+                <div class="mb-4">
+                    <label for="attendance" class="form-label">¿Asistirás?</label>
+                    <select id="attendance" class="form-select" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="si">Sí, asistiré</option>
+                        <option value="no">No podré asistir</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="guests" class="form-label">¿Cuántas personas asistirán contigo? (incluyéndote a ti)</label>
+                    <input type="number" id="guests" class="form-input" min="1" value="1" required>
+                </div>
+                <div class="mb-4">
+                    <label for="dietaryRestrictions" class="form-label">¿Alguna restricción alimentaria? (Opcional)</label>
+                    <textarea id="dietaryRestrictions" class="form-textarea" rows="3" placeholder="Ej. Vegetariano, alérgico a frutos secos..."></textarea>
+                </div>
+
+                <div id="rsvpMessage" class="message-box hidden"></div>
+                <div id="rsvpErrorMessage" class="message-box error-box hidden"></div>
+
+                <button type="submit" id="rsvpSubmitBtn" class="submit-button block w-full md:w-auto mx-auto mt-6">Confirmar Asistencia</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="section-padding bg-gray-100 text-center">
+        <div class="card">
+            <h3 class="text-3xl md:text-4xl display-font golden-text mb-6">Sugerencia de Canción</h3>
+            <img src="https://assets.website-files.com/5a4d7d3d9e30a5000185966d/5a4d7d3d9e30a50001859737_flower-divider.svg" alt="Divider" class="flower-divider">
+
+            <p class="text-lg text-gray-700 mb-6">
+                Ayúdanos a crear la mejor playlist para nuestra fiesta. ¿Qué canción te gustaría escuchar?
+            </p>
+
+            <form id="songRequestForm" class="text-left">
+                <div class="mb-4">
+                    <label for="songName" class="form-label">Nombre de la Canción:</label>
+                    <input type="text" id="songName" class="form-input" placeholder="Ej. Billie Jean" required>
+                </div>
+                <div class="mb-4">
+                    <label for="songArtist" class="form-label">Artista / Autor:</label>
+                    <input type="text" id="songArtist" class="form-input" placeholder="Ej. Michael Jackson" required>
+                </div>
+                <div class="mb-4">
+                    <label for="requesterName" class="form-label">Tu Nombre (opcional):</label>
+                    <input type="text" id="requesterName" class="form-input" placeholder="Ej. Juan Pérez">
+                </div>
+                <div class="mb-4">
+                    <label for="songExplanation" class="form-label">¿Por qué te gustaría esta canción? (opcional):</label>
+                    <textarea id="songExplanation" class="form-textarea" rows="3" placeholder="Ej. Es nuestra canción favorita, o trae buenos recuerdos."></textarea>
+                </div>
+
+                <div id="songRequestMessage" class="message-box hidden"></div>
+                <div id="songRequestErrorMessage" class="message-box error-box hidden"></div>
+
+                <button type="submit" id="songRequestSubmitBtn" class="submit-button block w-full md:w-auto mx-auto mt-6">Sugerir Canción</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="section-padding text-center bg-white">
+        <div class="card">
+            <h3 class="text-3xl md:text-4xl display-font golden-text mb-6">Nuestros Momentos</h3>
+            <img src="https://assets.website-files.com/5a4d7d3d9e30a5000185966d/5a4d7d3d9e30a50001859737_flower-divider.svg" alt="Divider" class="flower-divider">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <img src="https://images.unsplash.com/photo-1526435671175-998f58b73f75?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Foto de pareja 1" class="w-full h-64 object-cover rounded-lg shadow-md">
+                <img src="https://images.unsplash.com/photo-1543781256-f0270a31201b?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Foto de pareja 2" class="w-full h-64 object-cover rounded-lg shadow-md">
+                <img src="https://images.unsplash.com/photo-1582236371421-4d372e185ae3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Foto de pareja 3" class="w-full h-64 object-cover rounded-lg shadow-md">
+                <img src="https://images.unsplash.com/photo-1511219453965-f5b244714152?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Foto de pareja 4" class="w-full h-64 object-cover rounded-lg shadow-md">
+            </div>
+            <a href="#" class="button-primary inline-block mt-8">Ver Galería Completa (Próximamente)</a>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-white text-center py-12 px-4">
+        <p class="text-2xl great-vibes-font golden-text mb-4">Karen & Fabián</p>
+        <p class="text-md display-font mb-2">¡Gracias por ser parte de nuestra historia!</p>
+        <p class="text-sm">&copy; 2025 Todos los derechos reservados.</p>
+        <div class="mt-4 flex justify-center space-x-4">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="ph ph-instagram-logo text-3xl"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="ph ph-facebook-logo text-3xl"></i></a>
+        </div>
+    </footer>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // YOUR FIREBASE CONFIGURATION (Same as in index.html and dashboard.html)
+
+        // YOUR FIREBASE CONFIGURATION
         const firebaseConfig = {
-            apiKey: "AIzaSyDpAxNRADMfHkSlxBpJIe9WaB3_rWz1Vd4", 
+            apiKey: "AIzaSyDpAxNRADMfHkSlxBpJIe9WaB3_rWz1Vd4",
             authDomain: "miappboda.firebaseapp.com",
             projectId: "miappboda",
             storageBucket: "miappboda.firebasestorage.app",
             messagingSenderId: "155595716187",
             appId: "1:155595716187:web:11ba23c2bde759bcf0717e",
-            measurementId: "G-CL89DVBBHP" 
+            measurementId: "G-CL89DVBBHP"
         };
-        
-        // Get the appId from Firebase config
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        // Get the appId from Firebase config (useful for structuring Firestore paths)
         const appId = firebaseConfig.appId;
 
-        let db, auth;
+        // Countdown Timer
+        const countdownDate = new Date("Sep 20, 2025 20:00:00").getTime();
+        const updateCountdown = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
 
-        document.addEventListener('DOMContentLoaded', async () => {
-            const loadingMessage = document.getElementById('loadingMessage');
-            const errorMessage = document.getElementById('errorMessage');
-            const songRequestsListContainer = document.getElementById('songRequestsListContainer');
-            const songRequestsList = document.getElementById('songRequestsList');
-            const noSongsMessage = document.getElementById('noSongsMessage');
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            loadingMessage.classList.remove('hidden');
-            errorMessage.classList.add('hidden');
-            songRequestsListContainer.classList.add('hidden'); // Hide song list initially
-            noSongsMessage.classList.add('hidden'); // Hide "no songs" message initially
+            document.getElementById("days").innerHTML = String(days).padStart(2, '0');
+            document.getElementById("hours").innerHTML = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerHTML = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerHTML = String(seconds).padStart(2, '0');
+
+            if (distance < 0) {
+                clearInterval(updateCountdown);
+                document.getElementById("countdown-container").innerHTML = "<p class='text-white text-3xl display-font'>¡Es el día!</p>";
+            }
+        }, 1000);
+
+        // RSVP Form Submission
+        const rsvpForm = document.getElementById('rsvpForm');
+        const rsvpMessage = document.getElementById('rsvpMessage');
+        const rsvpErrorMessage = document.getElementById('rsvpErrorMessage');
+        const rsvpSubmitBtn = document.getElementById('rsvpSubmitBtn');
+
+        rsvpForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            rsvpSubmitBtn.disabled = true;
+            rsvpMessage.classList.add('hidden');
+            rsvpErrorMessage.classList.add('hidden');
+
+            const guestName = document.getElementById('guestName').value;
+            const attendance = document.getElementById('attendance').value;
+            const guests = document.getElementById('guests').value;
+            const dietaryRestrictions = document.getElementById('dietaryRestrictions').value;
 
             try {
-                // Initialize Firebase
-                const app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
-
-                // Sign in anonymously for data access
-                // This ensures the DJ can read public data as per your security rules
+                // Sign in anonymously before submitting
                 await signInAnonymously(auth);
-                console.log("Firebase Authenticated for DJ dashboard.");
 
-                // Fetch Song Request Data
-                const songRequestsCollectionRef = collection(db, `artifacts/${appId}/public/data/songRequests`);
-                const songRequestSnapshot = await getDocs(songRequestsCollectionRef);
+                await addDoc(collection(db, `artifacts/${appId}/public/data/rsvp`), {
+                    guestName: guestName,
+                    attendance: attendance,
+                    guests: parseInt(guests),
+                    dietaryRestrictions: dietaryRestrictions,
+                    timestamp: new Date()
+                });
 
-                if (songRequestSnapshot.empty) {
-                    noSongsMessage.classList.remove('hidden');
-                } else {
-                    songRequestSnapshot.forEach((doc) => {
-                        const songData = doc.data();
-                        const listItem = document.createElement('li');
-                        listItem.classList.add('song-list-item');
-                        listItem.innerHTML = `
-                            <div class="song-title">${songData.songName}</div>
-                            <div class="song-artist">${songData.songArtist || 'Artista Desconocido'}</div>
-                            <div class="song-requester">Solicitado por: ${songData.requesterName || 'Anónimo'}</div>
-                        `;
-                        songRequestsList.appendChild(listItem);
-                    });
-                }
-                songRequestsListContainer.classList.remove('hidden'); // Show song requests list
-
-                loadingMessage.classList.add('hidden');
-
+                rsvpMessage.textContent = '¡Gracias por confirmar tu asistencia! Nos alegra mucho que nos acompañes.';
+                rsvpMessage.classList.remove('hidden');
+                rsvpForm.reset(); // Clear the form
             } catch (error) {
-                console.error("Error fetching song request data for DJ:", error);
-                loadingMessage.classList.add('hidden');
-                errorMessage.classList.remove('hidden');
+                console.error("Error submitting RSVP:", error);
+                rsvpErrorMessage.textContent = 'Hubo un error al confirmar tu asistencia. Por favor, inténtalo de nuevo.';
+                rsvpErrorMessage.classList.remove('hidden');
+            } finally {
+                rsvpSubmitBtn.disabled = false;
             }
         });
+
+        // Song Request Form Submission
+        const songRequestForm = document.getElementById('songRequestForm');
+        const songRequestMessage = document.getElementById('songRequestMessage');
+        const songRequestErrorMessage = document.getElementById('songRequestErrorMessage');
+        const songRequestSubmitBtn = document.getElementById('songRequestSubmitBtn');
+
+        songRequestForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            songRequestSubmitBtn.disabled = true;
+            songRequestMessage.classList.add('hidden');
+            songRequestErrorMessage.classList.add('hidden');
+
+            const songName = document.getElementById('songName').value;
+            const songArtist = document.getElementById('songArtist').value;
+            const requesterName = document.getElementById('requesterName').value;
+            const explanation = document.getElementById('songExplanation').value; // Get the new explanation field
+
+            try {
+                // Sign in anonymously before submitting
+                await signInAnonymously(auth);
+
+                await addDoc(collection(db, `artifacts/${appId}/public/data/songRequests`), {
+                    songName: songName,
+                    songArtist: songArtist,
+                    requesterName: requesterName,
+                    explanation: explanation, // Add the new explanation field to Firestore
+                    timestamp: new Date()
+                });
+
+                songRequestMessage.textContent = '¡Gracias por tu sugerencia! La tendremos en cuenta para la fiesta.';
+                songRequestMessage.classList.remove('hidden');
+                songRequestForm.reset(); // Clear the form
+            } catch (error) {
+                console.error("Error submitting song request:", error);
+                songRequestErrorMessage.textContent = 'Hubo un error al enviar tu sugerencia. Por favor, inténtalo de nuevo.';
+                songRequestErrorMessage.classList.remove('hidden');
+            } finally {
+                songRequestSubmitBtn.disabled = false;
+            }
+        });
+
     </script>
 </body>
 </html>
