@@ -1,4 +1,27 @@
-
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Nos Casamos! Karen & Fabián</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts para tipografía elegante -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos personalizados para el fondo de la tarjeta y elementos decorativos sutiles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f7f3ed; /* Fondo claro y cremoso para toda la página */
+        }
+        .card-bg {
+            background: #ffffff; /* Fondo blanco para la tarjeta principal */
+            /* Simula un efecto de borde dorado sutil y un brillo suave */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0d8cc; /* Borde suave */
+            position: relative;
+            overflow: hidden; /* Oculta elementos decorativos que se desborden */
+        }
         .golden-text {
             color: #a07a1e; /* Un color dorado ligeramente más intenso */
         }
@@ -343,8 +366,8 @@
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // ESTA ES TU CONFIGURACIÓN REAL DE FIREBASE (PROYECTO: MiAppboda, PROJECT_ID: boda-df301)
-        // NO NECESITAS EDITAR NADA AQUÍ. YA ESTÁ CORRECTO.
+        // TU CONFIGURACIÓN DE FIREBASE (PROYECTO: MiAppboda, PROJECT_ID: boda-df301)
+        // ESTA CONFIGURACIÓN ES CORRECTA Y NO NECESITA CAMBIOS.
         const firebaseConfig = {
             apiKey: "AIzaSyDc8b175ixsTdCIWHiDbb6tvciPmFQDzcM",
             authDomain: "boda-df301.firebaseapp.com",
@@ -679,4 +702,3 @@
     </script>
 </body>
 </html>
-
