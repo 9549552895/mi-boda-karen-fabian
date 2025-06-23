@@ -6,40 +6,40 @@
     <title>¡Nos Casamos! Karen & Fabián</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts for elegant typography -->
+    <!-- Google Fonts para tipografía elegante -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
-        /* Custom styles for the card background and subtle decorative elements */
+        /* Estilos personalizados para el fondo de la tarjeta y elementos decorativos sutiles */
         body {
             font-family: 'Inter', sans-serif;
-            background: #f7f3ed; /* Light, creamy background for the entire page */
+            background: #f7f3ed; /* Fondo claro y cremoso para toda la página */
         }
         .card-bg {
-            background: #ffffff; /* White background for the main card */
-            /* Simulating subtle golden border effect and soft glow */
+            background: #ffffff; /* Fondo blanco para la tarjeta principal */
+            /* Simula un efecto de borde dorado sutil y un brillo suave */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e0d8cc; /* Soft border */
+            border: 1px solid #e0d8cc; /* Borde suave */
             position: relative;
-            overflow: hidden; /* Hide overflowing decorative elements */
+            overflow: hidden; /* Oculta elementos decorativos que se desborden */
         }
         .golden-text {
-            color: #a07a1e; /* A slightly richer golden color */
+            color: #a07a1e; /* Un color dorado ligeramente más intenso */
         }
         .great-vibes-font {
-            font-family: 'Great Vibes', cursive; /* New elegant script font */
+            font-family: 'Great Vibes', cursive; /* Nueva fuente de escritura elegante */
         }
         .display-font {
             font-family: 'Playfair Display', serif;
         }
 
-        /* Text shadow for names to give a subtle embossed/relief effect */
+        /* Sombra de texto para los nombres para dar un efecto sutil de relieve */
         .name-shadow {
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra sutil para profundidad */
         }
 
-        /* Responsive font sizes */
+        /* Tamaños de fuente responsivos */
         @media (max-width: 640px) {
-            .text-7xl-custom { font-size: 4.5rem; } /* Slightly smaller for mobile */
+            .text-7xl-custom { font-size: 4.5rem; } /* Ligeramente más pequeño para móvil */
             .text-4xl { font-size: 2.5rem; }
             .text-2xl { font-size: 1.5rem; }
             .text-xl { font-size: 1.25rem; }
@@ -47,7 +47,7 @@
             .p-8 { padding: 1.5rem; }
         }
 
-        /* Styling for success/error messages within the RSVP section */
+        /* Estilos para mensajes de éxito/error dentro de la sección RSVP */
         .message-success {
             color: #10B981; /* Tailwind green-500 */
         }
@@ -55,10 +55,10 @@
             color: #EF4444; /* Tailwind red-500 */
         }
 
-        /* Responsive map container */
+        /* Contenedor de mapa responsivo */
         .map-container {
             position: relative;
-            padding-bottom: 75%; /* 4:3 aspect ratio (3/4 * 100) */
+            padding-bottom: 75%; /* Relación de aspecto 4:3 (3/4 * 100) */
             height: 0;
             overflow: hidden;
             border-radius: 0.5rem; /* rounded-lg */
@@ -72,7 +72,7 @@
             border: 0;
         }
 
-        /* Countdown specific styles */
+        /* Estilos específicos para la cuenta regresiva */
         .countdown-item {
             display: inline-block;
             margin: 0 0.5rem;
@@ -88,7 +88,7 @@
             text-transform: uppercase;
         }
 
-        /* Photo Gallery styles */
+        /* Estilos de la galería de fotos */
         .gallery-container {
             position: relative;
             width: 100%;
@@ -99,16 +99,16 @@
         .gallery-inner {
             display: flex;
             transition: transform 0.5s ease-in-out;
-            width: 100%; /* Important for sliding */
+            width: 100%; /* Importante para el deslizamiento */
         }
         .gallery-inner img {
             width: 100%;
-            flex-shrink: 0; /* Prevents images from shrinking */
+            flex-shrink: 0; /* Evita que las imágenes se encojan */
             height: auto;
             object-fit: cover;
             border-radius: 0.5rem;
-            max-height: 250px; /* Limit height for aesthetic consistency */
-            margin: auto; /* Center image vertically if container is taller */
+            max-height: 250px; /* Limita la altura para consistencia estética */
+            margin: auto; /* Centra la imagen verticalmente si el contenedor es más alto */
         }
         .gallery-nav-button {
             position: absolute;
@@ -123,7 +123,7 @@
             font-size: 1.5rem;
             line-height: 1;
             z-index: 10;
-            user-select: none; /* Prevent text selection */
+            user-select: none; /* Evita la selección de texto */
         }
         .gallery-nav-button:hover {
             background-color: rgba(0, 0, 0, 0.7);
@@ -134,26 +134,26 @@
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
     <div class="card-bg max-w-sm md:max-w-md w-full rounded-xl p-8 text-center space-y-6">
-        <!-- "SAVE THE DATE" equivalent -->
+        <!-- "SAVE THE DATE" equivalente -->
         <p class="text-xl display-font tracking-widest uppercase text-gray-700">NOS CASAMOS</p>
 
-        <!-- Names - Increased font size and new style -->
+        <!-- Nombres - Tamaño de fuente aumentado y nuevo estilo -->
         <h1 class="text-7xl-custom md:text-8xl great-vibes-font golden-text leading-tight name-shadow">Karen</h1>
         <p class="text-4xl great-vibes-font golden-text">&amp;</p>
         <h2 class="text-7xl-custom md:text-8xl great-vibes-font golden-text leading-tight name-shadow">Fabián</h2>
 
-        <!-- Beautiful phrase -->
+        <!-- Frase bonita -->
         <p class="text-lg italic text-gray-600 display-font mt-4">
             "El amor es la fuerza más sutil del mundo."
         </p>
 
-        <!-- Invitation text -->
+        <!-- Texto de invitación -->
         <p class="text-base md:text-lg text-gray-700 leading-relaxed mt-4">
             Nos complace invitarte a celebrar con nosotros este día tan especial.
             Tu presencia es el mejor regalo.
         </p>
 
-        <!-- Date and Time -->
+        <!-- Fecha y Hora -->
         <div class="space-y-2 mt-6">
             <p class="text-2xl md:text-3xl display-font uppercase text-gray-800">20 DE SEPTIEMBRE 2025</p>
             <p class="text-xl md:text-2xl display-font text-gray-700">8:00 P.M.</p>
@@ -298,6 +298,26 @@
                     <textarea id="guestbookMessage" name="guestbookMessage" rows="4" required
                               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-y"></textarea>
                 </div>
+                <!-- Nuevo botón y área para el Generador de Mensajes LLM -->
+                <div class="flex justify-center mt-4">
+                    <button type="button" id="generateMessageButton"
+                            class="bg-gradient-to-r from-pink-500 to-red-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+                        ✨ Generar Mensaje para Novios ✨
+                    </button>
+                </div>
+                <div id="messageGeneratorArea" class="hidden mt-4 p-4 border border-gray-200 rounded-lg bg-gray-50 space-y-3">
+                    <label for="messageKeywords" class="block text-gray-700 text-sm font-bold mb-2">
+                        Palabras clave o tema (ej. amor, futuro, alegría):
+                    </label>
+                    <input type="text" id="messageKeywords" placeholder="Ej: amor, felicidad, futuro"
+                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <button type="button" id="submitGenerateMessage"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-full">
+                        Generar
+                    </button>
+                    <div id="messageGeneratorLoading" class="hidden text-center text-gray-500 mt-2">Cargando...</div>
+                </div>
+                <!-- Fin del Generador de Mensajes LLM -->
                 <div>
                     <label for="guestbookSigner" class="block text-gray-700 text-sm font-bold mb-2">
                         Tu Nombre:
@@ -313,7 +333,7 @@
             <div id="guestbookMessageDiv" class="hidden mt-4 text-center text-base font-semibold"></div>
         </div>
 
-        <!-- RSVP Section (Manteniéndola abajo para consistencia de flujo) -->
+        <!-- Sección RSVP (Manteniéndola abajo para consistencia de flujo) -->
         <div id="rsvpSection" class="mt-8 pt-4 border-t border-gray-200">
             <button id="showRsvpFormButton"
                     class="inline-block bg-gradient-to-r from-yellow-600 to-yellow-800 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 display-font tracking-wide">
@@ -355,26 +375,35 @@
                 </form>
             </div>
             <div id="rsvpMessage" class="hidden mt-6 text-center text-lg font-semibold text-gray-800">
-                <!-- Confirmation message will be displayed here -->
+                <!-- El mensaje de confirmación se mostrará aquí -->
             </div>
         </div>
     </div>
 
-    <!-- Firebase SDKs -->
+    <!-- SDKs de Firebase -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Firebase Configuration (provided globally by the Canvas environment)
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+        // ESTA ES TU CONFIGURACIÓN REAL DE FIREBASE. NO NECESITAS EDITAR NADA AQUÍ.
+        const firebaseConfig = {
+            apiKey: "AIzaSyDc8b175ixsTdCIWHiDbb6tvciPmFQDzcM",
+            authDomain: "boda-df301.firebaseapp.com",
+            projectId: "boda-df301",
+            storageBucket: "boda-df301.firebasestorage.app",
+            messagingSenderId: "50531933772",
+            appId: "1:50531933772:web:d70d8a8282e307c68a1ee9",
+            measurementId: "G-CL89DVBBHP" // Si tu configuración lo incluye, pégalo también
+        };
+        
+        // Obtenemos el appId de la configuración de Firebase
+        const appId = firebaseConfig.appId;
 
         let app, db, auth, userId;
         let isAuthReady = false;
 
-        // Function to display messages within a specific div (e.g., rsvpMessage, songMessage, guestbookMessageDiv)
+        // Función para mostrar mensajes dentro de un div específico (ej. rsvpMessage, songMessage, guestbookMessageDiv)
         function displayMessage(targetDivId, message, isError = false) {
             const messageDiv = document.getElementById(targetDivId);
             messageDiv.textContent = message;
@@ -385,34 +414,36 @@
                 messageDiv.classList.add('message-success');
             }
 
-            // For success messages, hide the message after a delay and potentially show a button
+            // Para mensajes de éxito, oculta el mensaje después de un retraso y potencialmente muestra un botón
             if (!isError) {
                 setTimeout(() => {
                     messageDiv.classList.add('hidden');
-                    // Special handling for RSVP button to reappear
+                    // Manejo especial para que el botón RSVP vuelva a aparecer
                     if (targetDivId === 'rsvpMessage') {
                         document.getElementById('showRsvpFormButton').classList.remove('hidden');
-                        document.getElementById('rsvpFormContainer').classList.add('hidden'); // Hide form again
+                        document.getElementById('rsvpFormContainer').classList.add('hidden'); // Oculta el formulario de nuevo
                     }
-                }, 3000); // Hide message after 3 seconds
+                }, 3000); // Oculta el mensaje después de 3 segundos
             }
         }
 
-        // Initialize Firebase and set up authentication
+        // Inicializa Firebase y configura la autenticación
         const initializeFirebase = async () => {
             try {
+                // Solo inicializamos si tenemos una apiKey válida
                 if (!firebaseConfig.apiKey) {
                     console.error("Firebase config is missing API key. Cannot initialize Firebase.");
-                    displayMessage('rsvpMessage', "Error: Firebase no configurado. No se pueden enviar confirmaciones.", true);
-                    displayMessage('songMessage', "Error: Firebase no configurado. No se pueden enviar sugerencias.", true);
-                    displayMessage('guestbookMessageDiv', "Error: Firebase no configurado. No se pueden enviar mensajes.", true);
+                    displayMessage('rsvpMessage', "Error: Configuración de Firebase incompleta. No se puede iniciar la aplicación.", true);
+                    displayMessage('songMessage', "Error: Configuración de Firebase incompleta. No se puede iniciar la aplicación.", true);
+                    displayMessage('guestbookMessageDiv', "Error: Configuración de Firebase incompleta. No se puede iniciar la aplicación.", true);
                     return;
                 }
+
                 app = initializeApp(firebaseConfig);
                 db = getFirestore(app);
                 auth = getAuth(app);
 
-                // Listen for authentication state changes
+                // Escucha los cambios en el estado de autenticación
                 onAuthStateChanged(auth, async (user) => {
                     if (user) {
                         userId = user.uid;
@@ -421,18 +452,15 @@
                     } else {
                         console.log("No user signed in. Attempting anonymous sign-in.");
                         try {
-                            if (initialAuthToken) {
-                                await signInWithCustomToken(auth, initialAuthToken);
-                            } else {
-                                await signInAnonymously(auth);
-                            }
-                            isAuthReady = true; // Set true after successful sign-in attempt
+                            // Solo signInAnonymously
+                            await signInAnonymously(auth);
+                            isAuthReady = true; // Establece a verdadero después del intento de inicio de sesión exitoso
                         } catch (error) {
-                            console.error("Firebase Anonymous Sign-in or Custom Token Sign-in Error:", error);
+                            console.error("Firebase Anonymous Sign-in Error:", error);
                             displayMessage('rsvpMessage', "Error de autenticación. Inténtalo de nuevo más tarde.", true);
                             displayMessage('songMessage', "Error de autenticación. Inténtalo de nuevo más tarde.", true);
                             displayMessage('guestbookMessageDiv', "Error de autenticación. Inténtalo de nuevo más tarde.", true);
-                            isAuthReady = true; // Still set to true to avoid infinite loading, but indicate failure.
+                            isAuthReady = true; // Todavía se establece en verdadero para evitar carga infinita, pero indica falla.
                         }
                     }
                 });
@@ -446,7 +474,7 @@
 
 
         document.addEventListener('DOMContentLoaded', () => {
-            initializeFirebase(); // Initialize Firebase when DOM is ready
+            initializeFirebase(); // Inicializa Firebase cuando el DOM esté listo
 
             const showRsvpFormButton = document.getElementById('showRsvpFormButton');
             const rsvpFormContainer = document.getElementById('rsvpFormContainer');
@@ -456,8 +484,68 @@
             const songRequestForm = document.getElementById('songRequestForm');
             const guestbookForm = document.getElementById('guestbookForm');
 
-            // --- Countdown Logic ---
-            const weddingDate = new Date("September 20, 2025 20:00:00").getTime(); // 8:00 PM
+            // Lógica para el Generador de Mensajes con LLM (Gemini API)
+            const generateMessageButton = document.getElementById('generateMessageButton');
+            const messageGeneratorArea = document.getElementById('messageGeneratorArea');
+            const messageKeywordsInput = document.getElementById('messageKeywords');
+            const submitGenerateMessageButton = document.getElementById('submitGenerateMessage');
+            const messageGeneratorLoading = document.getElementById('messageGeneratorLoading');
+            const guestbookMessageTextarea = document.getElementById('guestbookMessage');
+
+            // Muestra/oculta el área del generador de mensajes
+            generateMessageButton.addEventListener('click', () => {
+                messageGeneratorArea.classList.toggle('hidden');
+            });
+
+            // Lógica para generar el mensaje
+            submitGenerateMessageButton.addEventListener('click', async () => {
+                const keywords = messageKeywordsInput.value.trim();
+                if (!keywords) {
+                    displayMessage('guestbookMessageDiv', "Por favor, introduce al menos una palabra clave para generar el mensaje.", true);
+                    return;
+                }
+
+                messageGeneratorLoading.classList.remove('hidden'); // Mostrar indicador de carga
+                submitGenerateMessageButton.disabled = true; // Deshabilitar botón durante la carga
+
+                try {
+                    let chatHistory = [];
+                    const prompt = `Genera un mensaje corto, emotivo y sincero para una pareja de recién casados, adecuado para un libro de firmas de boda. Incorpora las siguientes palabras clave o temas: "${keywords}". Mantén el mensaje en español y con un tono cálido y de felicitación.`;
+                    
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = ""; // Deja esto vacío, Canvas lo proporcionará en tiempo de ejecución
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await response.json(); // Esperar a que la promesa se resuelva
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const generatedText = result.candidates[0].content.parts[0].text;
+                        guestbookMessageTextarea.value = generatedText; // Poner el mensaje generado en el textarea del libro de firmas
+                        displayMessage('guestbookMessageDiv', "Mensaje generado. ¡Puedes editarlo si quieres!", false);
+                    } else {
+                        displayMessage('guestbookMessageDiv', "Error al generar el mensaje. Inténtalo de nuevo.", true);
+                        console.error("Respuesta inesperada de Gemini API:", result);
+                    }
+
+                } catch (error) {
+                    console.error("Error al llamar a Gemini API:", error);
+                    displayMessage('guestbookMessageDiv', "Error al conectar con el generador de mensajes. Por favor, inténtalo de nuevo más tarde.", true);
+                } finally {
+                    messageGeneratorLoading.classList.add('hidden'); // Ocultar indicador de carga
+                    submitGenerateMessageButton.disabled = false; // Habilitar botón
+                }
+            });
+
+            // --- Lógica de Cuenta Regresiva ---
+            const weddingDate = new Date("September 20, 2025 20:00:00").getTime(); // 8:00 P.M.
             const updateCountdown = setInterval(() => {
                 const now = new Date().getTime();
                 const distance = weddingDate - now;
@@ -478,7 +566,7 @@
                 }
             }, 1000);
 
-            // --- Photo Gallery Logic ---
+            // --- Lógica de Galería de Fotos ---
             const galleryInner = document.getElementById('galleryInner');
             const galleryImages = galleryInner.getElementsByTagName('img');
             const galleryPrev = document.getElementById('galleryPrev');
@@ -486,8 +574,8 @@
             let currentImageIndex = 0;
 
             const updateGallery = () => {
-                // Ensure currentImageIndex is within bounds
-                if (galleryImages.length === 0) return; // No images to display
+                // Asegúrate de que currentImageIndex esté dentro de los límites
+                if (galleryImages.length === 0) return; // No hay imágenes para mostrar
                 if (currentImageIndex < 0) {
                     currentImageIndex = galleryImages.length - 1;
                 } else if (currentImageIndex >= galleryImages.length) {
@@ -507,20 +595,20 @@
                 updateGallery();
             });
 
-            // Initial gallery load (ensure it's called after images are loaded, or for static images on DOMContentLoaded)
+            // Carga inicial de la galería (asegúrate de que se llame después de cargar las imágenes, o para imágenes estáticas en DOMContentLoaded)
             if (galleryImages.length > 0) {
                 updateGallery();
             }
 
 
-            // Show the RSVP form when the main button is clicked
+            // Muestra el formulario RSVP cuando se hace clic en el botón principal
             showRsvpFormButton.addEventListener('click', () => {
                 showRsvpFormButton.classList.add('hidden');
                 rsvpFormContainer.classList.remove('hidden');
-                document.getElementById('rsvpMessage').classList.add('hidden'); // Hide any previous messages
+                document.getElementById('rsvpMessage').classList.add('hidden'); // Oculta cualquier mensaje anterior
             });
 
-            // Handle form submission for 'Confirmar Asistencia'
+            // Maneja el envío del formulario para 'Confirmar Asistencia'
             rsvpForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 if (!isAuthReady || !db) {
@@ -557,7 +645,7 @@
                         minors: numMinors,
                         timestamp: new Date(),
                         status: 'confirmed',
-                        submittedBy: userId || crypto.randomUUID() // Use authenticated userId or generate a random one if anonymous
+                        submittedBy: userId || crypto.randomUUID() // Usa el userId autenticado o genera uno aleatorio si es anónimo
                     };
 
                     const rsvpsCollectionRef = collection(db, `artifacts/${appId}/public/data/rsvps`);
@@ -565,18 +653,18 @@
 
                     displayMessage('rsvpMessage', `¡Gracias, ${guestName}! Tu asistencia de ${numAdults} adulto(s) y ${numMinors} menor(es) ha sido confirmada.`, false);
                     rsvpForm.reset();
-                    // After successful submission, hide the form and show the button again
+                    // Después del envío exitoso, oculta el formulario y muestra el botón de nuevo
                     rsvpFormContainer.classList.add('hidden');
                     showRsvpFormButton.classList.remove('hidden');
 
                 }
                 catch (error) {
-                    console.error("Error submitting RSVP:", error);
+                    console.error("Error al enviar RSVP:", error);
                     displayMessage('rsvpMessage', "Error al enviar tu confirmación. Por favor, inténtalo de nuevo.", true);
                 }
             });
 
-            // Handle 'No asistiré' button click
+            // Maneja el clic en el botón 'No asistiré'
             declineButton.addEventListener('click', async () => {
                 if (!isAuthReady || !db) {
                     displayMessage('rsvpMessage', "Por favor, espera un momento mientras cargamos la aplicación o hubo un error de inicialización.", true);
@@ -604,17 +692,17 @@
 
                     displayMessage('rsvpMessage', `¡Gracias, ${guestName}! Lamentamos que no puedas asistir.`, false);
                     rsvpForm.reset();
-                    // After successful submission, hide the form and show the button again
+                    // Después del envío exitoso, oculta el formulario y muestra el botón de nuevo
                     rsvpFormContainer.classList.add('hidden');
                     showRsvpFormButton.classList.remove('hidden');
 
                 } catch (error) {
-                    console.error("Error submitting decline:", error);
+                    console.error("Error al enviar la negativa:", error);
                     displayMessage('rsvpMessage', "Error al registrar tu no asistencia. Por favor, inténtalo de nuevo.", true);
                 }
             });
 
-            // Handle song request form submission
+            // Maneja el envío del formulario de solicitud de canción
             songRequestForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 if (!isAuthReady || !db) {
@@ -634,8 +722,8 @@
                 try {
                     const songRequestData = {
                         songName: songName,
-                        songArtist: songArtist || 'Desconocido', // Default if artist is empty
-                        requesterName: requesterNameSong || 'Anónimo', // Default if requester is empty
+                        songArtist: songArtist || 'Desconocido', // Valor predeterminado si el artista está vacío
+                        requesterName: requesterNameSong || 'Anónimo', // Valor predeterminado si el solicitante está vacío
                         timestamp: new Date(),
                         submittedBy: userId || crypto.randomUUID()
                     };
@@ -646,12 +734,12 @@
                     displayMessage('songMessage', `¡Gracias por tu sugerencia, ${songName} por ${songArtist || 'Artista Desconocido'} ha sido añadida!`, false);
                     songRequestForm.reset();
                 } catch (error) {
-                    console.error("Error submitting song request:", error);
+                    console.error("Error al enviar la solicitud de canción:", error);
                     displayMessage('songMessage', "Error al enviar tu sugerencia de canción. Por favor, inténtalo de nuevo.", true);
                 }
             });
 
-            // Handle guestbook form submission
+            // Maneja el envío del formulario del libro de visitas
             guestbookForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 if (!isAuthReady || !db) {
@@ -685,7 +773,7 @@
                     displayMessage('guestbookMessageDiv', `¡Gracias, ${guestbookSigner}! Tu mensaje ha sido guardado.`, false);
                     guestbookForm.reset();
                 } catch (error) {
-                    console.error("Error submitting guestbook entry:", error);
+                    console.error("Error al enviar la entrada del libro de visitas:", error);
                     displayMessage('guestbookMessageDiv', "Error al enviar tu mensaje. Por favor, inténtalo de nuevo.", true);
                 }
             });
@@ -693,4 +781,3 @@
     </script>
 </body>
 </html>
-
