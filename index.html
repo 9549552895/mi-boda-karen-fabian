@@ -284,6 +284,9 @@
                 <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
                 Tu navegador no soporta el elemento de audio.
             </audio>
+            <!-- Audio para el sonido de clic -->
+            <audio id="clickSound" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" preload="auto"></audio>
+            
             <button id="musicToggle" class="music-player-button">
                 <i class="ph ph-pause" id="musicIcon"></i>
             </button>
@@ -333,15 +336,22 @@
             <h3 class="text-2xl display-font golden-text mb-4">Nuestros Momentos</h3>
             <div class="gallery-container">
                 <div id="galleryInner" class="gallery-inner">
-                    <!-- IMÁGENES DE RELLENO - ¡REEMPLÁZALAS CON TUS FOTOS REALES! -->
-                    <!-- NOTA: Usa 'data-src-large' para la versión de pantalla completa si tienes una de mayor resolución -->
-                    <img src="https://placehold.co/400x250/F0D9B5/333333?text=Foto+1" data-src-large="https://placehold.co/800x500/F0D9B5/333333?text=Foto+1+Ampliada" alt="Foto de Karen y Fabián 1">
-                    <img src="https://placehold.co/400x250/F0D9B5/333333?text=Foto+2" data-src-large="https://placehold.co/800x500/F0D9B5/333333?text=Foto+2+Ampliada" alt="Foto de Karen y Fabián 2">
-                    <img src="https://placehold.co/400x250/F0D9B5/333333?text=Foto+3" data-src-large="https://placehold.co/800x500/F0D9B5/333333?text=Foto+3+Ampliada" alt="Foto de Karen y Fabián 3">
-                    <!-- Puedes añadir tantas etiquetas <img> como necesites. -->
+                    <!-- TUS FOTOS REALES AHORA ESTÁN AQUÍ -->
+                    <!-- NOTA: Se usa la misma URL para 'src' y 'data-src-large' para simplificar,
+                               ya que las imágenes provienen de archivos subidos por el usuario. -->
+                    <img src="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-eb688558-527d-413d-bbf9-8e245d8f3afe" data-src-large="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-eb688558-527d-413d-bbf9-8e245d8f3afe" alt="Foto de Karen y Fabián 1">
+                    <img src="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-fc27e21f-9689-4636-be5c-2b86b7a18f81" data-src-large="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-fc27e21f-9689-4636-be5c-2b86b7a18f81" alt="Foto de Karen y Fabián 2">
+                    <img src="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-bd51b89a-f52c-4ee0-9dc5-cd5f76978f1b" data-src-large="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-bd51b89a-f52c-4ee0-9dc5-cd5f76978f1b" alt="Foto de Karen y Fabián 3">
+                    <img src="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-1b8b1b7b-5824-43e1-950e-5506f057c7f3" data-src-large="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-1b8b1b7b-5824-43e1-950e-5506f057c7f3" alt="Foto de Karen y Fabián 4">
+                    <img src="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-7d0f2e1b-494e-462f-9a7a-257f11a0dd2d" data-src-large="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-7d0f2e1b-494e-462f-9a7a-257f11a0dd2d" alt="Foto de Karen y Fabián 5">
+                    <img src="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-fa84a9d6-ff69-4035-96b0-86019266b62c" data-src-large="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-fa84a9d6-ff69-4035-96b0-86019266b62c" alt="Foto de Karen y Fabián 6">
+                    <img src="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-a6065676-882d-4875-b1d9-032433a279ff" data-src-large="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-a6065676-882d-4875-b1d9-032433a279ff" alt="Foto de Karen y Fabián 7">
+                    <img src="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-3c7b28de-db62-47c3-b0b5-c0561e7621e8" data-src-large="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-3c7b28de-db62-47c3-b0b5-c0561e7621e8" alt="Foto de Karen y Fabián 8">
+                    <img src="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-de4cb1d3-bcd9-4894-a76f-336c9b61acd4" data-src-large="blob:https://4jabwbep835igpx5q1i76vgzz5um5plsab2t4ie3gs7u2wg9x8-h769614562.scf.usercontent.goog/uploaded:image.png-de4cb1d3-bcd9-4894-a76f-336c9b61acd4" alt="Foto de Karen y Fabián 9">
+                    <!-- FIN DE TUS FOTOS REALES -->
                 </div>
-                <button id="galleryPrev" class="gallery-nav-button">&#10094;</button>
-                <button id="galleryNext" class="gallery-nav-button">&#10095;</button>
+                <button id="galleryPrev" class="gallery-nav-button" aria-label="Anterior">&#10094;</button>
+                <button id="galleryNext" class="gallery-nav-button" aria-label="Siguiente">&#10095;</button>
                 <div class="flex justify-center mt-4">
                     <button id="slideshowToggle" class="music-player-button !text-base !font-medium !text-gray-600 !px-4 !py-2 !rounded-full !bg-gray-100 hover:!bg-gray-200">
                         <i class="ph ph-pause" id="slideshowIcon"></i> Auto
@@ -353,7 +363,7 @@
 
         <!-- Modal para Imagen en Pantalla Completa -->
         <div id="imageModal" class="image-modal-overlay">
-            <button id="imageModalClose" class="image-modal-close"><i class="ph ph-x-circle"></i></button>
+            <button id="imageModalClose" class="image-modal-close" aria-label="Cerrar imagen"><i class="ph ph-x-circle"></i></button>
             <img id="modalImage" class="image-modal-content" src="" alt="Imagen ampliada">
         </div>
 
@@ -376,12 +386,12 @@
             </p>
             <div class="map-container mb-4">
                 <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3590.2785664188634!2d-80.17061732386994!3d25.90804470295801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9add50b1d3d63%3A0x6b4c10a471c6999a!2s1250%20NE%20125th%20St%2C%20North%20Miami%20FL%2033161%2C%20USA!5e0!3m2!1sen!2sus!4v1719000000000!5m2!1sen!2sus"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3590.2785664188634!2d-80.17061732386994!3d25.90804470295801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9add50b1d3d63%3A0x6b4c10a471c6999a!2s1250%20NE%20125th%20St%2C%20North%20Miami%2C%20FL%2033161%2C%20USA!5e0!3m2!1sen!2sus!4v1719000000000!5m2!1sen!2sus"
                     allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
             <a href="https://maps.app.goo.gl/YourActualGoogleMapsLinkHere" target="_blank" rel="noopener noreferrer"
-               class="text-blue-600 hover:underline text-sm md:text-base transition-colors duration-200">
+               class="text-blue-600 hover:underline text-sm md:text-base transition-colors duration-200" onclick="playClickSound()">
                 Ver en Google Maps (enlace provisional)
             </a>
         </div>
@@ -394,7 +404,7 @@
                 Si deseas hacernos un obsequio, puedes contribuir a nuestro fondo de luna de miel.
             </p>
             <a href="https://paypal.me/yourweddingfund" target="_blank" rel="noopener noreferrer"
-               class="inline-block bg-gradient-to-r from-teal-500 to-teal-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300 mt-4">
+               class="inline-block bg-gradient-to-r from-teal-500 to-teal-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300 mt-4" onclick="playClickSound()">
                <i class="ph ph-gift-bold mr-2"></i> Contribuir al Fondo de Luna de Miel
             </a>
             <p class="text-sm italic text-gray-500 mt-2">
@@ -406,10 +416,10 @@
         <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
             <h3 class="text-2xl display-font golden-text mb-4">Contacto para Dudas</h3>
             <p class="text-gray-700 text-base md:text-lg">
-                Karen: <a href="tel:+17862855066" class="text-blue-600 hover:underline transition-colors duration-200">786-285-5066</a>
+                Karen: <a href="tel:+17862855066" class="text-blue-600 hover:underline transition-colors duration-200" onclick="playClickSound()">786-285-5066</a>
             </p>
             <p class="text-gray-700 text-base md:text-lg">
-                Fabián: <a href="tel:+19549552895" class="text-blue-600 hover:underline transition-colors duration-200">954-955-2895</a>
+                Fabián: <a href="tel:+19549552895" class="text-blue-600 hover:underline transition-colors duration-200" onclick="playClickSound()">954-955-2895</a>
             </p>
         </div>
 
@@ -458,7 +468,7 @@
                            class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
                 </div>
                 <button type="submit"
-                        class="bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300">
+                        class="bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300" onclick="playClickSound()">
                     <i class="ph ph-paper-plane-tilt-fill mr-2"></i> Enviar Sugerencia
                 </button>
             </form>
@@ -484,7 +494,7 @@
                            class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
                 </div>
                 <button type="submit"
-                        class="bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300">
+                        class="bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300" onclick="playClickSound()">
                     <i class="ph ph-pencil-simple-line-fill mr-2"></i> Firmar Libro
                 </button>
             </form>
@@ -494,7 +504,7 @@
         <!-- Sección RSVP -->
         <div id="rsvpSection" class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
             <button id="showRsvpFormButton"
-                    class="inline-block bg-gradient-to-r from-yellow-600 to-yellow-800 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-300 display-font tracking-wide">
+                    class="inline-block bg-gradient-to-r from-yellow-600 to-yellow-800 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-300 display-font tracking-wide" onclick="playClickSound()">
                 <i class="ph ph-check-circle-fill mr-2"></i> Confirmar Asistencia
             </button>
             <div id="rsvpFormContainer" class="hidden mt-6 text-left">
@@ -522,11 +532,11 @@
                     </div>
                     <div class="flex justify-between items-center pt-4">
                         <button type="submit"
-                                class="bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300">
+                                class="bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300" onclick="playClickSound()">
                             <i class="ph ph-paper-plane-right-fill mr-2"></i> Enviar Confirmación
                         </button>
                         <button type="button" id="declineButton"
-                                class="bg-gray-400 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300">
+                                class="bg-gray-400 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300" onclick="playClickSound()">
                             <i class="ph ph-x-circle-fill mr-2"></i> No asistiré
                         </button>
                     </div>
@@ -598,7 +608,6 @@
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // TU CONFIGURACIÓN DE FIREBASE (PROYECTO: MiAppboda)
-        // ESTA ES LA CONFIGURACIÓN CORRECTA CON TU API KEY. ¡NO NECESITAS CAMBIAR NADA AQUÍ!
         const firebaseConfig = {
             apiKey: "AIzaSyDpAxNRADMfHkSlxBpJIe9WaB3_rWz1Vd4", 
             authDomain: "miappboda.firebaseapp.com",
@@ -673,6 +682,16 @@
             }
         };
 
+        // Función para reproducir el sonido de clic
+        function playClickSound() {
+            const clickSound = document.getElementById('clickSound');
+            if (clickSound) {
+                clickSound.currentTime = 0; // Reinicia el audio si ya está reproduciéndose
+                clickSound.play().catch(error => {
+                    console.warn("No se pudo reproducir el sonido de clic:", error);
+                });
+            }
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
             initializeFirebase(); // Inicializa Firebase cuando el DOM esté listo
@@ -746,18 +765,21 @@
             };
 
             galleryPrev.addEventListener('click', () => {
+                playClickSound(); // Sonido de clic
                 pauseSlideshow(); // Pausar slideshow al interactuar manualmente
                 currentImageIndex--;
                 updateGallery();
             });
 
             galleryNext.addEventListener('click', () => {
+                playClickSound(); // Sonido de clic
                 pauseSlideshow(); // Pausar slideshow al interactuar manualmente
                 currentImageIndex++;
                 updateGallery();
             });
 
             slideshowToggle.addEventListener('click', () => {
+                playClickSound(); // Sonido de clic
                 if (isSlideshowPlaying) {
                     pauseSlideshow();
                 } else {
@@ -772,6 +794,7 @@
 
             Array.from(galleryImages).forEach(img => {
                 img.addEventListener('click', (e) => {
+                    playClickSound(); // Sonido de clic al abrir modal
                     const largeSrc = e.target.getAttribute('data-src-large') || e.target.src;
                     modalImage.src = largeSrc;
                     imageModal.classList.add('active');
@@ -780,6 +803,7 @@
             });
 
             imageModalClose.addEventListener('click', () => {
+                playClickSound(); // Sonido de clic al cerrar modal
                 imageModal.classList.remove('active');
                 // Podríamos reiniciar el slideshow aquí si se desea
                 // startSlideshow();
@@ -788,6 +812,7 @@
             imageModal.addEventListener('click', (e) => {
                 // Cerrar modal solo si se hace clic en el overlay, no en la imagen
                 if (e.target === imageModal) {
+                    playClickSound(); // Sonido de clic
                     imageModal.classList.remove('active');
                     // startSlideshow();
                 }
@@ -815,6 +840,7 @@
             });
 
             musicToggle.addEventListener('click', () => {
+                playClickSound(); // Sonido de clic
                 if (backgroundMusic.paused) {
                     backgroundMusic.play();
                     musicIcon.className = 'ph ph-pause';
@@ -853,6 +879,7 @@
                 const arrow = item.querySelector('.faq-arrow');
 
                 question.addEventListener('click', () => {
+                    playClickSound(); // Sonido de clic
                     // Cierra otras respuestas abiertas
                     faqItems.forEach(otherItem => {
                         if (otherItem !== item) {
@@ -870,6 +897,7 @@
 
             // Muestra el formulario RSVP cuando se hace clic en el botón principal
             showRsvpFormButton.addEventListener('click', () => {
+                playClickSound(); // Sonido de clic
                 showRsvpFormButton.classList.add('hidden');
                 rsvpFormContainer.classList.remove('hidden');
                 document.getElementById('rsvpMessage').classList.add('hidden'); // Oculta cualquier mensaje anterior
@@ -877,6 +905,7 @@
 
             // Maneja el envío del formulario para 'Confirmar Asistencia'
             rsvpForm.addEventListener('submit', async (e) => {
+                playClickSound(); // Sonido de clic
                 e.preventDefault();
                 if (!isAuthReady || !db) {
                     displayMessage('rsvpMessage', "Por favor, espera un momento mientras cargamos la aplicación o hubo un error de inicialización.", true);
@@ -933,6 +962,7 @@
 
             // Maneja el clic en el botón 'No asistiré'
             declineButton.addEventListener('click', async () => {
+                playClickSound(); // Sonido de clic
                 if (!isAuthReady || !db) {
                     displayMessage('rsvpMessage', "Por favor, espera un momento mientras cargamos la aplicación o hubo un error de inicialización.", true);
                     return;
@@ -971,6 +1001,7 @@
 
             // Maneja el envío del formulario de solicitud de canción
             songRequestForm.addEventListener('submit', async (e) => {
+                playClickSound(); // Sonido de clic
                 e.preventDefault();
                 if (!isAuthReady || !db) {
                     displayMessage('songMessage', "Por favor, espera un momento mientras cargamos la aplicación.", true);
@@ -1008,6 +1039,7 @@
 
             // Maneja el envío del formulario del libro de visitas
             guestbookForm.addEventListener('submit', async (e) => {
+                playClickSound(); // Sonido de clic
                 e.preventDefault();
                 if (!isAuthReady || !db) {
                     displayMessage('guestbookMessageDiv', "Por favor, espera un momento mientras cargamos la aplicación.", true);
