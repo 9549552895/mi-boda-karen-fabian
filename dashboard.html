@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Invitados - Boda Karen & Fabián</title>
+    <title id="pageTitle">Panel de Control de Boda</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts para tipografía elegante -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- Chart.js CDN for charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
     <!-- Iconos Phosphor -->
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/dist/phosphor.js"></script>
     <style>
@@ -18,20 +20,21 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            box-sizing: border-box; /* Ensures padding doesn't cause overflow */
+            justify-content: flex-start; /* Align content to top */
+            padding: 2rem;
+            box-sizing: border-box;
+            color: #333;
         }
-        .dashboard-card {
+        .dashboard-container {
             background: #ffffff;
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.08); /* Sombra ligeramente más pronunciada */
-            border: 1px solid #d4c8bc; /* Borde más sutil */
-            border-radius: 1.25rem; /* Bordes un poco más redondeados */
-            padding: 2.5rem; /* Mayor padding */
-            text-align: center;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid #d4c8bc;
+            border-radius: 1.5rem;
+            padding: 2.5rem; /* Reduced padding slightly for better fit */
             width: 100%;
-            max-width: 550px; /* Ligeramente más ancho */
-            margin: 1.5rem auto; /* Más margen */
+            max-width: 900px; /* Increased max-width for more content */
+            margin: 2rem auto;
+            position: relative; /* For language selector positioning */
         }
         .golden-text {
             color: #a07a1e;
@@ -39,167 +42,609 @@
         .display-font {
             font-family: 'Playfair Display', serif;
         }
+        .section-card {
+            background-color: #fcfafa; /* Lighter background for sections */
+            border: 1px solid #e0d8cc;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Subtle shadow for sections */
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Adjusted minmax */
+            gap: 1.5rem; /* Increased gap */
+            margin-top: 1.5rem;
+        }
         .stat-item {
+            background-color: #fffbeb; /* Light yellow for stats */
+            border-radius: 0.75rem;
+            padding: 1.25rem; /* More padding */
+            text-align: center;
+            font-weight: 500;
+            color: #8b5f0a;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08); /* More defined shadow */
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            padding: 1rem 0.5rem; /* Mayor padding interno */
-            border-bottom: 1px dashed #e7e2da; /* Línea más clara */
-        }
-        .stat-item:last-child {
-            border-bottom: none;
-        }
-        .stat-label {
-            font-size: 1.2rem; /* Ligeramente más grande */
-            color: #4B5563; /* gray-700 */
-            font-family: 'Playfair Display', serif; /* Usar fuente display también aquí */
+            justify-content: center;
         }
         .stat-value {
-            font-size: 1.8rem; /* Más grande y llamativo */
-            font-weight: 700; /* font-bold */
+            font-size: 2.25rem; /* text-4xl */
+            font-weight: 700;
             color: #a07a1e; /* golden-text */
+            line-height: 1.2; /* Tighter line height */
+            margin-bottom: 0.25rem;
+        }
+        .stat-label {
+            font-size: 0.9rem; /* Smaller label for balance */
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #6d6d6d;
         }
         .message-box {
-            background-color: #fefcbf; /* Tailwind yellow-100 */
-            color: #8b5f0a; /* Tailwind yellow-800 */
-            border: 1px solid #fbd38d; /* Tailwind yellow-400 */
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin-top: 1.5rem; /* Más margen superior */
-            font-size: 0.95rem; /* Ligeramente más grande */
+            background-color: #fffbeb;
+            color: #8b5f0a;
+            border: 1px solid #fbd38d;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            margin-top: 1.75rem;
+            font-size: 1rem;
             text-align: left;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
         .error-box {
-            background-color: #fee2e2; /* Tailwind red-100 */
-            color: #991b1b; /* Tailwind red-800 */
-            border: 1px solid #fca5a5; /* Tailwind red-400 */
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+        /* Table styles */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            font-size: 0.95rem; /* Slightly smaller text for tables */
+        }
+        .data-table th, .data-table td {
+            border: 1px solid #e0d8cc;
+            padding: 0.8rem;
+            text-align: left;
+        }
+        .data-table th {
+            background-color: #f0e8df; /* Lighter header background */
+            font-weight: 600;
+            color: #555;
+            text-transform: uppercase;
+            font-size: 0.85rem; /* Smaller font for headers */
+        }
+        .data-table tr:nth-child(even) {
+            background-color: #fcf5ee; /* Slightly different background for even rows */
+        }
+        .data-table tr:hover {
+            background-color: #f5edda; /* Highlight on hover */
+        }
+        /* Chart specific styles */
+        .chart-container {
+            width: 100%;
+            max-width: 500px; /* Max width for chart to prevent stretching */
+            margin: 1.5rem auto 0;
+        }
+
+        /* Language Selector Styles */
+        .language-selector-dash {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+        .lang-button-dash {
+            background-color: #f0e8df;
+            color: #555;
+            padding: 0.3rem 0.7rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            border: 1px solid #e0d8cc;
+        }
+        .lang-button-dash.active, .lang-button-dash:hover {
+            background-color: #a07a1e;
+            color: white;
+            border-color: #a07a1e;
         }
 
         /* Responsive adjustments */
         @media (max-width: 640px) {
-            .dashboard-card {
-                padding: 1.5rem; /* Ajuste para móviles */
+            body {
+                padding: 1rem;
             }
-            .stat-label {
-                font-size: 1.05rem;
+            .dashboard-container {
+                padding: 1.5rem;
+                border-radius: 1rem;
+                margin: 1rem auto;
+            }
+            .section-card {
+                padding: 1rem;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr; /* Stack stats on small screens */
+                gap: 1rem;
             }
             .stat-value {
-                font-size: 1.5rem;
+                font-size: 2rem;
+            }
+            .stat-label {
+                font-size: 0.8rem;
+            }
+            .language-selector-dash {
+                top: 0.75rem;
+                right: 0.75rem;
+                gap: 0.3rem;
+            }
+            .lang-button-dash {
+                padding: 0.2rem 0.5rem;
+                font-size: 0.7rem;
             }
         }
     </style>
 </head>
-<body>
-    <div class="dashboard-card">
-        <h1 class="text-3xl md:text-4xl display-font golden-text mb-8">Resumen de Asistencia</h1>
+<body class="lang-es">
+    <div class="dashboard-container">
+        <!-- Language Selector -->
+        <div class="language-selector-dash">
+            <button id="langEsDash" class="lang-button-dash active" data-lang="es">ES</button>
+            <button id="langEnDash" class="lang-button-dash" data-lang="en">EN</button>
+        </div>
+
+        <h1 id="mainTitle" class="text-3xl md:text-4xl display-font golden-text mb-8 text-center">Panel de Control de la Boda de Karen & Fabián</h1>
 
         <div id="loadingMessage" class="message-box">
-            <i class="ph ph-hourglass-simple-fill animate-pulse mr-2"></i> Cargando datos...
+            <i class="ph ph-hourglass-simple-fill animate-pulse mr-2"></i> <span id="loadingText">Cargando datos del panel...</span>
         </div>
 
         <div id="errorMessage" class="message-box error-box hidden">
-            <i class="ph ph-x-circle-fill mr-2"></i> Hubo un error al cargar los datos. Por favor, inténtalo de nuevo más tarde o verifica tu conexión a internet.
+            <i class="ph ph-x-circle-fill mr-2"></i> <span id="errorText">Hubo un error al cargar los datos. Por favor, inténtalo de nuevo más tarde.</span>
         </div>
 
-        <div id="dataContainer" class="hidden space-y-4">
-            <div class="stat-item">
-                <span class="stat-label">Total de Confirmaciones (Personas):</span>
-                <span id="totalConfirmedGuests" class="stat-value">0</span>
+        <!-- Resumen de RSVP -->
+        <div id="rsvpSummary" class="section-card hidden">
+            <h2 id="rsvpSummaryTitle" class="text-2xl display-font golden-text mb-4">Resumen de RSVP</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span id="totalGuests" class="stat-value">0</span>
+                    <span id="totalGuestsLabel" class="stat-label">Invitados Totales</span>
+                </div>
+                <div class="stat-item">
+                    <span id="confirmedAdults" class="stat-value">0</span>
+                    <span id="confirmedAdultsLabel" class="stat-label">Adultos Confirmados</span>
+                </div>
+                <div class="stat-item">
+                    <span id="confirmedMinors" class="stat-value">0</span>
+                    <span id="confirmedMinorsLabel" class="stat-label">Menores Confirmados</span>
+                </div>
+                <div class="stat-item">
+                    <span id="declinedCount" class="stat-value">0</span>
+                    <span id="declinedCountLabel" class="stat-label">Invitados No Asistirán</span>
+                </div>
             </div>
-            <div class="stat-item">
-                <span class="stat-label">Adultos Confirmados:</span>
-                <span id="totalAdults" class="stat-value">0</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">Menores Confirmados:</span>
-                <span id="totalMinors" class="stat-value">0</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">Número total de RSVP:</span>
-                <span id="totalRsvpEntries" class="stat-value">0</span>
+            <div class="chart-container">
+                <canvas id="rsvpChart"></canvas>
             </div>
         </div>
 
-        <a href="https://9549552895.github.io/mi-boda-karen-fabian/" class="inline-block mt-10 bg-gray-200 text-gray-700 font-semibold py-3 px-8 rounded-full shadow-md hover:bg-gray-300 transform hover:scale-105 active:scale-95 transition-all duration-300">
-            <i class="ph ph-arrow-left-bold mr-2"></i> Volver a la Invitación
+        <!-- Lista de Invitados con RSVP -->
+        <div id="guestListSection" class="section-card hidden">
+            <h2 id="guestListTitle" class="text-2xl display-font golden-text mb-4">Lista de Invitados (RSVP)</h2>
+            <div class="overflow-x-auto">
+                <table id="guestTable" class="data-table">
+                    <thead>
+                        <tr>
+                            <th id="tableHeaderName">Nombre</th>
+                            <th id="tableHeaderAdults">Adultos</th>
+                            <th id="tableHeaderMinors">Menores</th>
+                            <th id="tableHeaderStatus">Estado</th>
+                            <th id="tableHeaderTimestamp">Fecha/Hora</th>
+                        </tr>
+                    </thead>
+                    <tbody id="guestTableBody">
+                        <!-- Guest data will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+            <p id="noGuestsMessage" class="text-gray-500 italic mt-4 hidden">No hay RSVP registrados aún.</p>
+        </div>
+
+        <!-- Lista de Solicitudes de Canciones -->
+        <div id="songRequestsSection" class="section-card hidden">
+            <h2 id="songRequestsTitle" class="text-2xl display-font golden-text mb-4">Solicitudes de Canciones</h2>
+            <div class="overflow-x-auto">
+                <table id="songTable" class="data-table">
+                    <thead>
+                        <tr>
+                            <th id="songTableHeaderTitle">Título</th>
+                            <th id="songTableHeaderArtist">Artista</th>
+                            <th id="songTableHeaderRequester">Solicitante</th>
+                            <th id="songTableHeaderExplanation">Explicación</th>
+                            <th id="songTableHeaderTimestamp">Fecha/Hora</th>
+                        </tr>
+                    </thead>
+                    <tbody id="songTableBody">
+                        <!-- Song data will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+            <p id="noSongRequestsMessage" class="text-gray-500 italic mt-4 hidden">No hay solicitudes de canciones aún.</p>
+        </div>
+
+        <!-- Lista de Mensajes del Libro de Firmas -->
+        <div id="guestbookSection" class="section-card hidden">
+            <h2 id="guestbookTitle" class="text-2xl display-font golden-text mb-4">Mensajes del Libro de Firmas</h2>
+            <div class="overflow-x-auto">
+                <table id="guestbookTable" class="data-table">
+                    <thead>
+                        <tr>
+                            <th id="guestbookTableHeaderSigner">Firmante</th>
+                            <th id="guestbookTableHeaderMessage">Mensaje</th>
+                            <th id="guestbookTableHeaderTimestamp">Fecha/Hora</th>
+                        </tr>
+                    </thead>
+                    <tbody id="guestbookTableBody">
+                        <!-- Guestbook messages will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+            <p id="noGuestbookMessages" class="text-gray-500 italic mt-4 hidden">No hay mensajes en el libro de firmas aún.</p>
+        </div>
+
+
+        <a id="backToInvitationBtn" href="https://9549552895.github.io/mi-boda-karen-fabian/" class="inline-block mt-8 bg-gray-200 text-gray-700 font-semibold py-3 px-8 rounded-full shadow-md hover:bg-gray-300 transform hover:scale-105 active:scale-95 transition-all duration-300">
+            <i class="ph ph-arrow-left-bold mr-2"></i> <span id="backToInvitationText">Volver a la Invitación</span>
         </a>
     </div>
 
-    <!-- SDKs de Firebase -->
+    <!-- Firebase SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, getDocs, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // TU CONFIGURACIÓN DE FIREBASE (Misma que en index.html)
+        // YOUR FIREBASE CONFIGURATION (Same as in index.html and dj-access.html)
         const firebaseConfig = {
-            apiKey: "AIzaSyDpAxNRADMfHkSlxBpJIe9WaB3_rWz1Vd4", 
+            apiKey: "AIzaSyDpAxNRADMfHkSlxBpJIe9WaB3_rWz1Vd4",
             authDomain: "miappboda.firebaseapp.com",
             projectId: "miappboda",
             storageBucket: "miappboda.firebasestorage.app",
             messagingSenderId: "155595716187",
             appId: "1:155595716187:web:11ba23c2bde759bcf0717e",
-            measurementId: "G-CL89DVBBHP" 
+            measurementId: "G-CL89DVBBHP"
         };
-        
-        // Obtenemos el appId de la configuración de Firebase
+
+        // Get the appId from Firebase config
         const appId = firebaseConfig.appId;
 
         let db, auth;
+        let rsvpChartInstance = null; // To hold the Chart.js instance
+
+        // --- Translation Data ---
+        const translations = {
+            es: {
+                pageTitle: "Panel de Control de Boda",
+                mainTitle: "Panel de Control de la Boda de Karen & Fabián",
+                loadingText: "Cargando datos del panel...",
+                errorText: "Hubo un error al cargar los datos. Por favor, inténtalo de nuevo más tarde.",
+                rsvpSummaryTitle: "Resumen de RSVP",
+                totalGuestsLabel: "Invitados Totales",
+                confirmedAdultsLabel: "Adultos Confirmados",
+                confirmedMinorsLabel: "Menores Confirmados",
+                declinedCountLabel: "Invitados No Asistirán",
+                guestListTitle: "Lista de Invitados (RSVP)",
+                tableHeaderName: "Nombre",
+                tableHeaderAdults: "Adultos",
+                tableHeaderMinors: "Menores",
+                tableHeaderStatus: "Estado",
+                tableHeaderTimestamp: "Fecha/Hora",
+                statusConfirmed: "Confirmado",
+                statusDeclined: "Declinado",
+                noGuestsMessage: "No hay RSVP registrados aún.",
+                songRequestsTitle: "Solicitudes de Canciones",
+                songTableHeaderTitle: "Título",
+                songTableHeaderArtist: "Artista",
+                songTableHeaderRequester: "Solicitante",
+                songTableHeaderExplanation: "Explicación",
+                songTableHeaderTimestamp: "Fecha/Hora",
+                noSongRequestsMessage: "No hay solicitudes de canciones aún.",
+                guestbookTitle: "Mensajes del Libro de Firmas",
+                guestbookTableHeaderSigner: "Firmante",
+                guestbookTableHeaderMessage: "Mensaje",
+                guestbookTableHeaderTimestamp: "Fecha/Hora",
+                noGuestbookMessages: "No hay mensajes en el libro de firmas aún.",
+                backToInvitationText: "Volver a la Invitación",
+                chartLabelConfirmed: "Confirmados",
+                chartLabelDeclined: "No Asistirán",
+                na: "N/A",
+                unknown: "Desconocido",
+                anonymous: "Anónimo",
+                noExplanation: "Sin explicación"
+            },
+            en: {
+                pageTitle: "Wedding Dashboard",
+                mainTitle: "Karen & Fabian Wedding Dashboard",
+                loadingText: "Loading dashboard data...",
+                errorText: "There was an error loading the data. Please try again later.",
+                rsvpSummaryTitle: "RSVP Summary",
+                totalGuestsLabel: "Total Guests",
+                confirmedAdultsLabel: "Confirmed Adults",
+                confirmedMinorsLabel: "Confirmed Minors",
+                declinedCountLabel: "Declined Guests",
+                guestListTitle: "Guest List (RSVP)",
+                tableHeaderName: "Name",
+                tableHeaderAdults: "Adults",
+                tableHeaderMinors: "Minors",
+                tableHeaderStatus: "Status",
+                tableHeaderTimestamp: "Date/Time",
+                statusConfirmed: "Confirmed",
+                statusDeclined: "Declined",
+                noGuestsMessage: "No RSVPs registered yet.",
+                songRequestsTitle: "Song Requests",
+                songTableHeaderTitle: "Title",
+                songTableHeaderArtist: "Artist",
+                songTableHeaderRequester: "Requester",
+                songTableHeaderExplanation: "Explanation",
+                songTableHeaderTimestamp: "Date/Time",
+                noSongRequestsMessage: "No song requests yet.",
+                guestbookTitle: "Guestbook Messages",
+                guestbookTableHeaderSigner: "Signer",
+                guestbookTableHeaderMessage: "Message",
+                guestbookTableHeaderTimestamp: "Date/Time",
+                noGuestbookMessages: "No guestbook messages yet.",
+                backToInvitationText: "Back to Invitation",
+                chartLabelConfirmed: "Confirmed",
+                chartLabelDeclined: "Declined",
+                na: "N/A",
+                unknown: "Unknown",
+                anonymous: "Anonymous",
+                noExplanation: "No explanation"
+            }
+        };
+
+        let currentLang = localStorage.getItem('dashboardLang') || 'es'; // Default to Spanish
+
+        // Function to apply translations
+        function applyTranslations(lang) {
+            document.getElementById('pageTitle').textContent = translations[lang].pageTitle;
+            document.getElementById('mainTitle').textContent = translations[lang].mainTitle;
+            document.getElementById('loadingText').textContent = translations[lang].loadingText;
+            document.getElementById('errorText').textContent = translations[lang].errorText;
+            document.getElementById('rsvpSummaryTitle').textContent = translations[lang].rsvpSummaryTitle;
+            document.getElementById('totalGuestsLabel').textContent = translations[lang].totalGuestsLabel;
+            document.getElementById('confirmedAdultsLabel').textContent = translations[lang].confirmedAdultsLabel;
+            document.getElementById('confirmedMinorsLabel').textContent = translations[lang].confirmedMinorsLabel;
+            document.getElementById('declinedCountLabel').textContent = translations[lang].declinedCountLabel;
+            document.getElementById('guestListTitle').textContent = translations[lang].guestListTitle;
+            document.getElementById('tableHeaderName').textContent = translations[lang].tableHeaderName;
+            document.getElementById('tableHeaderAdults').textContent = translations[lang].tableHeaderAdults;
+            document.getElementById('tableHeaderMinors').textContent = translations[lang].tableHeaderMinors;
+            document.getElementById('tableHeaderStatus').textContent = translations[lang].tableHeaderStatus;
+            document.getElementById('tableHeaderTimestamp').textContent = translations[lang].tableHeaderTimestamp;
+            document.getElementById('noGuestsMessage').textContent = translations[lang].noGuestsMessage;
+            document.getElementById('songRequestsTitle').textContent = translations[lang].songRequestsTitle;
+            document.getElementById('songTableHeaderTitle').textContent = translations[lang].songTableHeaderTitle;
+            document.getElementById('songTableHeaderArtist').textContent = translations[lang].songTableHeaderArtist;
+            document.getElementById('songTableHeaderRequester').textContent = translations[lang].songTableHeaderRequester;
+            document.getElementById('songTableHeaderExplanation').textContent = translations[lang].songTableHeaderExplanation;
+            document.getElementById('songTableHeaderTimestamp').textContent = translations[lang].songTableHeaderTimestamp;
+            document.getElementById('noSongRequestsMessage').textContent = translations[lang].noSongRequestsMessage;
+            document.getElementById('guestbookTitle').textContent = translations[lang].guestbookTitle;
+            document.getElementById('guestbookTableHeaderSigner').textContent = translations[lang].guestbookTableHeaderSigner;
+            document.getElementById('guestbookTableHeaderMessage').textContent = translations[lang].guestbookTableHeaderMessage;
+            document.getElementById('guestbookTableHeaderTimestamp').textContent = translations[lang].guestbookTableHeaderTimestamp;
+            document.getElementById('noGuestbookMessages').textContent = translations[lang].noGuestbookMessages;
+            document.getElementById('backToInvitationText').textContent = translations[lang].backToInvitationText;
+
+            // Update active language button state
+            document.querySelectorAll('.lang-button-dash').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.getElementById(`lang${lang.charAt(0).toUpperCase() + lang.slice(1)}Dash`).classList.add('active');
+
+            // Set body lang attribute for CSS/accessibility
+            document.body.lang = lang;
+            currentLang = lang; // Update current language variable
+            localStorage.setItem('dashboardLang', lang); // Save preference
+        }
+
+        // Function to render RSVP data and update chart
+        function renderRsvpData(rsvps) {
+            let totalGuests = 0;
+            let confirmedAdults = 0;
+            let confirmedMinors = 0;
+            let declinedCount = 0;
+
+            const guestTableBody = document.getElementById('guestTableBody');
+            guestTableBody.innerHTML = ''; // Clear existing table rows
+
+            rsvps.forEach(rsvp => {
+                const data = rsvp.data();
+                const row = guestTableBody.insertRow();
+                row.insertCell().textContent = data.guestName || translations[currentLang].na;
+                row.insertCell().textContent = data.adults !== undefined ? data.adults : translations[currentLang].na;
+                row.insertCell().textContent = data.minors !== undefined ? data.minors : translations[currentLang].na;
+                row.insertCell().textContent = data.status === 'confirmed' ? translations[currentLang].statusConfirmed : translations[currentLang].statusDeclined;
+                row.insertCell().textContent = data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleString(currentLang === 'es' ? 'es-ES' : 'en-US') : translations[currentLang].na;
+
+                if (data.status === 'confirmed') {
+                    confirmedAdults += (data.adults || 0);
+                    confirmedMinors += (data.minors || 0);
+                    totalGuests += (data.adults || 0) + (data.minors || 0);
+                } else if (data.status === 'declined') {
+                    declinedCount++;
+                }
+            });
+
+            document.getElementById('totalGuests').textContent = totalGuests;
+            document.getElementById('confirmedAdults').textContent = confirmedAdults;
+            document.getElementById('confirmedMinors').textContent = confirmedMinors;
+            document.getElementById('declinedCount').textContent = declinedCount;
+
+            if (rsvps.length === 0) {
+                document.getElementById('noGuestsMessage').classList.remove('hidden');
+            } else {
+                document.getElementById('noGuestsMessage').classList.add('hidden');
+            }
+
+            // Update Chart.js data
+            const ctx = document.getElementById('rsvpChart').getContext('2d');
+            if (rsvpChartInstance) {
+                rsvpChartInstance.destroy(); // Destroy previous chart instance
+            }
+            rsvpChartInstance = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: [translations[currentLang].chartLabelConfirmed, translations[currentLang].chartLabelDeclined],
+                    datasets: [{
+                        data: [confirmedAdults + confirmedMinors, declinedCount],
+                        backgroundColor: ['#a07a1e', '#fbd38d'], // Golden colors
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    family: "'Inter', sans-serif"
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: translations[currentLang].rsvpSummaryTitle,
+                            font: {
+                                family: "'Playfair Display', serif",
+                                size: 18
+                            },
+                            color: '#a07a1e'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Function to render Song Requests
+        function renderSongRequests(songs) {
+            const songTableBody = document.getElementById('songTableBody');
+            songTableBody.innerHTML = ''; // Clear existing table rows
+
+            if (songs.length === 0) {
+                document.getElementById('noSongRequestsMessage').classList.remove('hidden');
+            } else {
+                document.getElementById('noSongRequestsMessage').classList.add('hidden');
+                songs.forEach(song => {
+                    const data = song.data();
+                    const row = songTableBody.insertRow();
+                    row.insertCell().textContent = data.songName || translations[currentLang].na;
+                    row.insertCell().textContent = data.songArtist || translations[currentLang].unknown;
+                    row.insertCell().textContent = data.requesterName || translations[currentLang].anonymous;
+                    row.insertCell().textContent = data.explanation || translations[currentLang].noExplanation;
+                    row.insertCell().textContent = data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleString(currentLang === 'es' ? 'es-ES' : 'en-US') : translations[currentLang].na;
+                });
+            }
+        }
+
+        // Function to render Guestbook Messages
+        function renderGuestbookMessages(messages) {
+            const guestbookTableBody = document.getElementById('guestbookTableBody');
+            guestbookTableBody.innerHTML = ''; // Clear existing table rows
+
+            if (messages.length === 0) {
+                document.getElementById('noGuestbookMessages').classList.remove('hidden');
+            } else {
+                document.getElementById('noGuestbookMessages').classList.add('hidden');
+                messages.forEach(message => {
+                    const data = message.data();
+                    const row = guestbookTableBody.insertRow();
+                    row.insertCell().textContent = data.signer || translations[currentLang].anonymous;
+                    row.insertCell().textContent = data.message || translations[currentLang].na;
+                    row.insertCell().textContent = data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleString(currentLang === 'es' ? 'es-ES' : 'en-US') : translations[currentLang].na;
+                });
+            }
+        }
+
 
         document.addEventListener('DOMContentLoaded', async () => {
+            applyTranslations(currentLang); // Apply initial language on load
+
             const loadingMessage = document.getElementById('loadingMessage');
             const errorMessage = document.getElementById('errorMessage');
-            const dataContainer = document.getElementById('dataContainer');
+            const rsvpSummary = document.getElementById('rsvpSummary');
+            const guestListSection = document.getElementById('guestListSection');
+            const songRequestsSection = document.getElementById('songRequestsSection');
+            const guestbookSection = document.getElementById('guestbookSection');
 
-            loadingMessage.classList.remove('hidden');
-            errorMessage.classList.add('hidden');
-            dataContainer.classList.add('hidden');
+            // Language button event listeners
+            document.getElementById('langEsDash').addEventListener('click', () => {
+                applyTranslations('es');
+                fetchAllDataAndRender(); // Re-fetch and re-render data in new language
+            });
+            document.getElementById('langEnDash').addEventListener('click', () => {
+                applyTranslations('en');
+                fetchAllDataAndRender(); // Re-fetch and re-render data in new language
+            });
 
-            try {
-                // Initialize Firebase
-                const app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
+            async function fetchAllDataAndRender() {
+                loadingMessage.classList.remove('hidden');
+                errorMessage.classList.add('hidden');
+                rsvpSummary.classList.add('hidden');
+                guestListSection.classList.add('hidden');
+                songRequestsSection.classList.add('hidden');
+                guestbookSection.classList.add('hidden');
 
-                // Sign in anonymously for data access
-                await signInAnonymously(auth);
-                console.log("Firebase Authenticated for dashboard.");
+                try {
+                    // Initialize Firebase if not already initialized
+                    if (!db) {
+                        const app = initializeApp(firebaseConfig);
+                        db = getFirestore(app);
+                        auth = getAuth(app);
+                        await signInAnonymously(auth); // Sign in anonymously for dashboard access
+                        console.log("Firebase Authenticated for dashboard.");
+                    }
 
-                // Reference to the 'rsvps' collection (public data)
-                const rsvpsCollectionRef = collection(db, `artifacts/${appId}/public/data/rsvps`);
+                    // Fetch RSVP data
+                    const rsvpsCollectionRef = collection(db, `artifacts/${appId}/public/data/rsvps`);
+                    const rsvpQuerySnapshot = await getDocs(query(rsvpsCollectionRef));
+                    renderRsvpData(rsvpQuerySnapshot.docs);
+                    rsvpSummary.classList.remove('hidden');
+                    guestListSection.classList.remove('hidden');
 
-                // Query for documents where status is 'confirmed'
-                const q = query(rsvpsCollectionRef, where("status", "==", "confirmed"));
-                const querySnapshot = await getDocs(q);
+                    // Fetch Song Requests
+                    const songRequestsCollectionRef = collection(db, `artifacts/${appId}/public/data/songRequests`);
+                    const songRequestSnapshot = await getDocs(query(songRequestsCollectionRef));
+                    renderSongRequests(songRequestSnapshot.docs);
+                    songRequestsSection.classList.remove('hidden');
 
-                let totalAdults = 0;
-                let totalMinors = 0;
-                let totalRsvpEntries = 0; // Count of distinct RSVP submissions (not guests)
+                    // Fetch Guestbook Messages
+                    const guestbookCollectionRef = collection(db, `artifacts/${appId}/public/data/guestbookEntries`);
+                    const guestbookSnapshot = await getDocs(query(guestbookCollectionRef));
+                    renderGuestbookMessages(guestbookSnapshot.docs);
+                    guestbookSection.classList.remove('hidden');
 
-                querySnapshot.forEach((doc) => {
-                    const rsvpData = doc.data();
-                    totalAdults += rsvpData.adults || 0;
-                    totalMinors += rsvpData.minors || 0;
-                    totalRsvpEntries++;
-                });
 
-                const totalConfirmedGuests = totalAdults + totalMinors;
+                    loadingMessage.classList.add('hidden');
 
-                // Update the DOM with the fetched data
-                document.getElementById('totalConfirmedGuests').textContent = totalConfirmedGuests;
-                document.getElementById('totalAdults').textContent = totalAdults;
-                document.getElementById('totalMinors').textContent = totalMinors;
-                document.getElementById('totalRsvpEntries').textContent = totalRsvpEntries;
-
-                loadingMessage.classList.add('hidden');
-                dataContainer.classList.remove('hidden');
-
-            } catch (error) {
-                console.error("Error fetching RSVP data:", error);
-                loadingMessage.classList.add('hidden');
-                errorMessage.classList.remove('hidden');
+                } catch (error) {
+                    console.error("Error fetching dashboard data:", error);
+                    loadingMessage.classList.add('hidden');
+                    errorMessage.classList.remove('hidden');
+                    document.getElementById('errorText').textContent = translations[currentLang].errorText;
+                }
             }
+
+            fetchAllDataAndRender(); // Initial data fetch and render
         });
     </script>
 </body>
