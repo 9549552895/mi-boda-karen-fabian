@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Nos Casamos! Karen & Fabián</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for elegant typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the card background and subtle decorative elements */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f7f3ed; /* Light, creamy background for the entire page */
+        }
+        .card-bg {
+            background: #ffffff; /* White background for the main card */
+            /* Simulating subtle golden border effect and soft glow */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0d8cc; /* Soft border */
+            position: relative;
+            overflow: hidden; /* Hide overflowing decorative elements */
+        }
+        .golden-text {
+            color: #a07a1e; /* A slightly richer golden color */
+        }
+        .great-vibes-font {
+            font-family: 'Great Vibes', cursive; /* New elegant script font */
+        }
+        .display-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Text shadow for names to give a subtle embossed/relief effect */
+        .name-shadow {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+        }
+
+        /* Responsive font sizes */
+        @media (max-width: 640px) {
+            .text-7xl-custom { font-size: 4.5rem; } /* Slightly smaller for mobile */
+            .text-4xl { font-size: 2.5rem; }
+            .text-2xl { font-size: 1.5rem; }
+            .text-xl { font-size: 1.25rem; }
+            .text-lg { font-size: 1.125rem; }
+            .p-8 { padding: 1.5rem; }
+        }
+
+        /* Styling for success/error messages within the RSVP section */
+        .message-success {
+            color: #10B981; /* Tailwind green-500 */
+        }
+        .message-error {
+            color: #EF4444; /* Tailwind red-500 */
+        }
+
+        /* Responsive map container */
+        .map-container {
+            position: relative;
+            padding-bottom: 75%; /* 4:3 aspect ratio (3/4 * 100) */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.5rem; /* rounded-lg */
+        }
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Countdown specific styles */
+        .countdown-item {
+            display: inline-block;
+            margin: 0 0.5rem;
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 600; /* font-semibold */
+            color: #a07a1e; /* golden-text */
+        }
+        .countdown-item span {
+            display: block;
+            font-size: 0.75rem; /* text-xs */
+            font-weight: 400; /* font-normal */
+            color: #4B5563; /* gray-700 */
+            text-transform: uppercase;
+        }
+
+        /* Photo Gallery styles */
+        .gallery-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .gallery-inner {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 100%; /* Important for sliding */
+        }
+        .gallery-inner img {
+            width: 100%;
+            flex-shrink: 0; /* Prevents images from shrinking */
+            height: auto;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            max-height: 250px; /* Limit height for aesthetic consistency */
+            margin: auto; /* Center image vertically if container is taller */
+        }
+        .gallery-nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 0.5rem 0.75rem;
+            cursor: pointer;
+            border-radius: 9999px; /* rounded-full */
+            font-size: 1.5rem;
+            line-height: 1;
+            z-index: 10;
+            user-select: none; /* Prevent text selection */
+        }
+        .gallery-nav-button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .gallery-prev { left: 0.5rem; }
+        .gallery-next { right: 0.5rem; }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="card-bg max-w-sm md:max-w-md w-full rounded-xl p-8 text-center space-y-6">
+        <!-- "SAVE THE DATE" equivalent -->
+        <p class="text-xl display-font tracking-widest uppercase text-gray-700">NOS CASAMOS</p>
+
+        <!-- Names - Increased font size and new style -->
+        <h1 class="text-7xl-custom md:text-8xl great-vibes-font golden-text leading-tight name-shadow">Karen</h1>
+        <p class="text-4xl great-vibes-font golden-text">&amp;</p>
+        <h2 class="text-7xl-custom md:text-8xl great-vibes-font golden-text leading-tight name-shadow">Fabián</h2>
+
+        <!-- Beautiful phrase -->
+        <p class="text-lg italic text-gray-600 display-font mt-4">
+            "El amor es la fuerza más sutil del mundo."
+        </p>
+
+        <!-- Invitation text -->
+        <p class="text-base md:text-lg text-gray-700 leading-relaxed mt-4">
+            Nos complace invitarte a celebrar con nosotros este día tan especial.
+            Tu presencia es el mejor regalo.
+        </p>
+
+        <!-- Date and Time -->
+        <div class="space-y-2 mt-6">
+            <p class="text-2xl md:text-3xl display-font uppercase text-gray-800">20 DE SEPTIEMBRE 2025</p>
+            <p class="text-xl md:text-2xl display-font text-gray-700">8:00 P.M.</p>
+            <p class="text-lg md:text-xl display-font text-gray-600">LUGAR A CONFIRMAR</p>
+        </div>
+
+        <!-- Cuenta Regresiva -->
+        <div class="mt-8 pt-4 border-t border-gray-200">
+            <h3 class="text-2xl display-font golden-text mb-4">¡Falta Poco!</h3>
+            <div id="countdown" class="text-center">
+                <span class="countdown-item"><span id="days">00</span>Días</span>
+                <span class="countdown-item"><span id="hours">00</span>Horas</span>
+                <span class="countdown-item"><span id="minutes">00</span>Minutos</span>
+                <span class="countdown-item"><span id="seconds">00</span>Segundos</span>
+            </div>
+            <p class="text-sm italic text-gray-500 mt-2">(Hasta el 20 de Septiembre de 2025 a las 8:00 P.M.)</p>
+        </div>
+
+        <!-- Galería de Fotos -->
+        <div class="mt-8 pt-4 border-t border-gray-200">
+            <h3 class="text-2xl display-font golden-text mb-4">Nuestros Momentos</h3>
+            <div class="gallery-container">
+                <div id="galleryInner" class="gallery-inner">
+                    <!-- INSERTA AQUÍ LAS URLS DE TUS FOTOS REALES -->
+                    <!-- Ejemplo: <img src="./fotos/mi-foto-1.jpg" alt="Nuestra Foto 1"> -->
+                    <!-- Ejemplo: <img src="https://tuservicio.com/ruta/a/mi-foto-2.png" alt="Nuestra Foto 2"> -->
+                    <!-- Puedes añadir tantas etiquetas <img> como necesites. -->
+
+                    <!-- IMÁGENES DE RELLENO - ¡REEMPLÁZALAS CON TUS FOTOS REALES! -->
+                    <img src="https://placehold.co/400x250/F0D9B5/333333?text=Foto+1" alt="Foto de Karen y Fabián 1">
+                    <img src="https://placehold.co/400x250/F0D9B5/333333?text=Foto+2" alt="Foto de Karen y Fabián 2">
+                    <img src="https://placehold.co/400x250/F0D9B5/333333?text=Foto+3" alt="Foto de Karen y Fabián 3">
+                    <!-- FIN DE IMÁGENES DE RELLENO -->
+                </div>
+                <button id="galleryPrev" class="gallery-nav-button gallery-prev">&#10094;</button>
+                <button id="galleryNext" class="gallery-nav-button gallery-next">&#10095;</button>
+            </div>
+            <p class="text-sm italic text-gray-500 mt-2">Desliza para ver más de nuestra historia.</p>
+        </div>
+
+
+        <!-- Agenda / Cronograma -->
+        <div class="mt-8 pt-4 border-t border-gray-200">
+            <h3 class="text-2xl display-font golden-text mb-4">Agenda del Día</h3>
+            <div class="text-gray-700 text-base md:text-lg space-y-2">
+                <p><strong>8:00 P.M.</strong> Inicio de la Celebración / Recepción</p>
+                <p class="text-sm italic text-gray-500">(Más detalles del cronograma pronto)</p>
+            </div>
+        </div>
+
+        <!-- Lugar y Mapa -->
+        <div class="mt-8 pt-4 border-t border-gray-200">
+            <h3 class="text-2xl display-font golden-text mb-4">Lugar</h3>
+            <p class="text-gray-700 text-base md:text-lg mb-4">
+                1250 NE 125 St, North Miami, FL 33161
+                <br><span class="text-sm italic text-gray-500">(Dirección provisional, se confirmará pronto)</span>
+            </p>
+            <div class="map-container mb-4">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3590.2785664188634!2d-80.17061732386994!3d25.90804470295801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9add50b1d3d63%3A0x6b4c10a471c6999a!2s1250%20NE%20125th%20St%2C%20North%20Miami%2C%20FL%2033161%2C%20USA!5e0!3m2!1sen!2sus!4v1719000000000!5m2!1sen!2sus"
+                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+            <a href="https://maps.app.goo.gl/YourActualGoogleMapsLinkHere" target="_blank" rel="noopener noreferrer"
+               class="text-blue-600 hover:underline text-sm md:text-base">
+                Ver en Google Maps (enlace provisional)
+            </a>
+        </div>
+
+        <!-- Regalos -->
+        <div class="mt-8 pt-4 border-t border-gray-200">
+            <h3 class="text-2xl display-font golden-text mb-4">Regalos</h3>
+            <p class="text-gray-700 text-base md:text-lg">
+                ¡Tu presencia es nuestro mejor regalo!
+            </p>
+        </div>
+
+        <!-- Contacto para Dudas -->
+        <div class="mt-8 pt-4 border-t border-gray-200">
+            <h3 class="text-2xl display-font golden-text mb-4">Contacto para Dudas</h3>
+            <p class="text-gray-700 text-base md:text-lg">
+                Karen: <a href="tel:+17862855066" class="text-blue-600 hover:underline">786-285-5066</a>
+            </p>
+            <p class="text-gray-700 text-base md:text-lg">
+                Fabián: <a href="tel:+19549552895" class="text-blue-600 hover:underline">954-955-2895</a>
+            </p>
+        </div>
+
+        <!-- Nuestra Historia -->
+        <div class="mt-8 pt-4 border-t border-gray-200">
+            <h3 class="text-2xl display-font golden-text mb-4">Nuestra Historia</h3>
+            <p class="text-gray-700 text-base md:text-lg leading-relaxed">
+                Cada historia de amor es única, y la nuestra comenzó en un inesperado encuentro,
+                donde dos caminos se cruzaron para crear un universo propio. Desde ese día,
+                cada momento ha sido una aventura, un aprendizaje y un crecimiento mutuo.
+                Hoy, con el corazón lleno de gratitud y alegría, nos preparamos para escribir
+                nuestro siguiente capítulo, ¡el más emocionante de todos!
+            </p>
+        </div>
+
+        <!-- Sugiere una Canción -->
+        <div class="mt-8 pt-4 border-t border-gray-200">
+            <h3 class="text-2xl display-font golden-text mb-4">¡Sugiere una Canción para la Fiesta!</h3>
+            <form id="songRequestForm" class="space-y-4">
+                <div>
+                    <label for="songName" class="block text-gray-700 text-sm font-bold mb-2">
+                        Título de la Canción:
+                    </label>
+                    <input type="text" id="songName" name="songName" required
+                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div>
+                    <label for="songArtist" class="block text-gray-700 text-sm font-bold mb-2">
+                        Artista/Banda (Opcional):
+                    </label>
+                    <input type="text" id="songArtist" name="songArtist"
+                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div>
+                    <label for="requesterNameSong" class="block text-gray-700 text-sm font-bold mb-2">
+                        Tu Nombre (Opcional):
+                    </label>
+                    <input type="text" id="requesterNameSong" name="requesterNameSong"
+                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <button type="submit"
+                        class="bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+                    Enviar Sugerencia
+                </button>
+            </form>
+            <div id="songMessage" class="hidden mt-4 text-center text-base font-semibold"></div>
+        </div>
+
+        <!-- Libro de Firmas Virtual -->
+        <div class="mt-8 pt-4 border-t border-gray-200">
+            <h3 class="text-2xl display-font golden-text mb-4">Deja un Mensaje para los Novios</h3>
+            <form id="guestbookForm" class="space-y-4">
+                <div>
+                    <label for="guestbookMessage" class="block text-gray-700 text-sm font-bold mb-2">
+                        Tu Mensaje:
+                    </label>
+                    <textarea id="guestbookMessage" name="guestbookMessage" rows="4" required
+                              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-y"></textarea>
+                </div>
+                <div>
+                    <label for="guestbookSigner" class="block text-gray-700 text-sm font-bold mb-2">
+                        Tu Nombre:
+                    </label>
+                    <input type="text" id="guestbookSigner" name="guestbookSigner" required
+                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <button type="submit"
+                        class="bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+                    Firmar Libro
+                </button>
+            </form>
+            <div id="guestbookMessageDiv" class="hidden mt-4 text-center text-base font-semibold"></div>
+        </div>
+
+        <!-- RSVP Section (Manteniéndola abajo para consistencia de flujo) -->
+        <div id="rsvpSection" class="mt-8 pt-4 border-t border-gray-200">
+            <button id="showRsvpFormButton"
+                    class="inline-block bg-gradient-to-r from-yellow-600 to-yellow-800 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 display-font tracking-wide">
+                Confirmar Asistencia
+            </button>
+            <div id="rsvpFormContainer" class="hidden mt-6 text-left">
+                <form id="rsvpForm" class="space-y-4">
+                    <div>
+                        <label for="guestName" class="block text-gray-700 text-sm font-bold mb-2">
+                            Tu Nombre Completo:
+                        </label>
+                        <input type="text" id="guestName" name="guestName" required
+                               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                    <div>
+                        <label for="numAdults" class="block text-gray-700 text-sm font-bold mb-2">
+                            ¿Cuántos adultos asistirán?
+                        </label>
+                        <input type="number" id="numAdults" name="numAdults" min="0" value="1" required
+                               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                    <div>
+                        <label for="numMinors" class="block text-gray-700 text-sm font-bold mb-2">
+                            ¿Cuántos menores (niños) asistirán?
+                        </label>
+                        <input type="number" id="numMinors" name="numMinors" min="0" value="0" required
+                               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                    <div class="flex justify-between items-center pt-4">
+                        <button type="submit"
+                                class="bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+                            Enviar Confirmación
+                        </button>
+                        <button type="button" id="declineButton"
+                                class="bg-gray-400 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+                            No asistiré
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div id="rsvpMessage" class="hidden mt-6 text-center text-lg font-semibold text-gray-800">
+                <!-- Confirmation message will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Firebase Configuration (provided globally by the Canvas environment)
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let app, db, auth, userId;
+        let isAuthReady = false;
+
+        // Function to display messages within a specific div (e.g., rsvpMessage, songMessage, guestbookMessageDiv)
+        function displayMessage(targetDivId, message, isError = false) {
+            const messageDiv = document.getElementById(targetDivId);
+            messageDiv.textContent = message;
+            messageDiv.classList.remove('hidden', 'message-success', 'message-error');
+            if (isError) {
+                messageDiv.classList.add('message-error');
+            } else {
+                messageDiv.classList.add('message-success');
+            }
+
+            // For success messages, hide the message after a delay and potentially show a button
+            if (!isError) {
+                setTimeout(() => {
+                    messageDiv.classList.add('hidden');
+                    // Special handling for RSVP button to reappear
+                    if (targetDivId === 'rsvpMessage') {
+                        document.getElementById('showRsvpFormButton').classList.remove('hidden');
+                        document.getElementById('rsvpFormContainer').classList.add('hidden'); // Hide form again
+                    }
+                }, 3000); // Hide message after 3 seconds
+            }
+        }
+
+        // Initialize Firebase and set up authentication
+        const initializeFirebase = async () => {
+            try {
+                if (!firebaseConfig.apiKey) {
+                    console.error("Firebase config is missing API key. Cannot initialize Firebase.");
+                    displayMessage('rsvpMessage', "Error: Firebase no configurado. No se pueden enviar confirmaciones.", true);
+                    displayMessage('songMessage', "Error: Firebase no configurado. No se pueden enviar sugerencias.", true);
+                    displayMessage('guestbookMessageDiv', "Error: Firebase no configurado. No se pueden enviar mensajes.", true);
+                    return;
+                }
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                // Listen for authentication state changes
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        console.log("Firebase Authenticated. User ID:", userId);
+                        isAuthReady = true;
+                    } else {
+                        console.log("No user signed in. Attempting anonymous sign-in.");
+                        try {
+                            if (initialAuthToken) {
+                                await signInWithCustomToken(auth, initialAuthToken);
+                            } else {
+                                await signInAnonymously(auth);
+                            }
+                            isAuthReady = true; // Set true after successful sign-in attempt
+                        } catch (error) {
+                            console.error("Firebase Anonymous Sign-in or Custom Token Sign-in Error:", error);
+                            displayMessage('rsvpMessage', "Error de autenticación. Inténtalo de nuevo más tarde.", true);
+                            displayMessage('songMessage', "Error de autenticación. Inténtalo de nuevo más tarde.", true);
+                            displayMessage('guestbookMessageDiv', "Error de autenticación. Inténtalo de nuevo más tarde.", true);
+                            isAuthReady = true; // Still set to true to avoid infinite loading, but indicate failure.
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error("Error initializing Firebase:", error);
+                displayMessage('rsvpMessage', "Error al inicializar la aplicación. Por favor, recarga la página.", true);
+                displayMessage('songMessage', "Error al inicializar la aplicación. Por favor, recarga la página.", true);
+                displayMessage('guestbookMessageDiv', "Error al inicializar la aplicación. Por favor, recarga la página.", true);
+            }
+        };
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeFirebase(); // Initialize Firebase when DOM is ready
+
+            const showRsvpFormButton = document.getElementById('showRsvpFormButton');
+            const rsvpFormContainer = document.getElementById('rsvpFormContainer');
+            const rsvpForm = document.getElementById('rsvpForm');
+            const declineButton = document.getElementById('declineButton');
+
+            const songRequestForm = document.getElementById('songRequestForm');
+            const guestbookForm = document.getElementById('guestbookForm');
+
+            // --- Countdown Logic ---
+            const weddingDate = new Date("September 20, 2025 20:00:00").getTime(); // 8:00 PM
+            const updateCountdown = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = weddingDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("days").innerHTML = String(days).padStart(2, '0');
+                document.getElementById("hours").innerHTML = String(hours).padStart(2, '0');
+                document.getElementById("minutes").innerHTML = String(minutes).padStart(2, '0');
+                document.getElementById("seconds").innerHTML = String(seconds).padStart(2, '0');
+
+                if (distance < 0) {
+                    clearInterval(updateCountdown);
+                    document.getElementById("countdown").innerHTML = "¡Ya nos casamos!";
+                }
+            }, 1000);
+
+            // --- Photo Gallery Logic ---
+            const galleryInner = document.getElementById('galleryInner');
+            const galleryImages = galleryInner.getElementsByTagName('img');
+            const galleryPrev = document.getElementById('galleryPrev');
+            const galleryNext = document.getElementById('galleryNext');
+            let currentImageIndex = 0;
+
+            const updateGallery = () => {
+                // Ensure currentImageIndex is within bounds
+                if (galleryImages.length === 0) return; // No images to display
+                if (currentImageIndex < 0) {
+                    currentImageIndex = galleryImages.length - 1;
+                } else if (currentImageIndex >= galleryImages.length) {
+                    currentImageIndex = 0;
+                }
+                const offset = -currentImageIndex * 100;
+                galleryInner.style.transform = `translateX(${offset}%)`;
+            };
+
+            galleryPrev.addEventListener('click', () => {
+                currentImageIndex--;
+                updateGallery();
+            });
+
+            galleryNext.addEventListener('click', () => {
+                currentImageIndex++;
+                updateGallery();
+            });
+
+            // Initial gallery load (ensure it's called after images are loaded, or for static images on DOMContentLoaded)
+            if (galleryImages.length > 0) {
+                updateGallery();
+            }
+
+
+            // Show the RSVP form when the main button is clicked
+            showRsvpFormButton.addEventListener('click', () => {
+                showRsvpFormButton.classList.add('hidden');
+                rsvpFormContainer.classList.remove('hidden');
+                document.getElementById('rsvpMessage').classList.add('hidden'); // Hide any previous messages
+            });
+
+            // Handle form submission for 'Confirmar Asistencia'
+            rsvpForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!isAuthReady || !db) {
+                    displayMessage('rsvpMessage', "Por favor, espera un momento mientras cargamos la aplicación o hubo un error de inicialización.", true);
+                    return;
+                }
+
+                const guestName = document.getElementById('guestName').value.trim();
+                const numAdults = parseInt(document.getElementById('numAdults').value, 10);
+                const numMinors = parseInt(document.getElementById('numMinors').value, 10);
+
+                if (!guestName) {
+                    displayMessage('rsvpMessage', "Por favor, introduce tu nombre.", true);
+                    return;
+                }
+                if (isNaN(numAdults) || numAdults < 0) {
+                    displayMessage('rsvpMessage', "Por favor, introduce un número válido de adultos (0 o más).", true);
+                    return;
+                }
+                if (isNaN(numMinors) || numMinors < 0) {
+                    displayMessage('rsvpMessage', "Por favor, introduce un número válido de menores (0 o más).", true);
+                    return;
+                }
+
+                if (numAdults === 0 && numMinors === 0) {
+                    displayMessage('rsvpMessage', "Has indicado 0 adultos y 0 menores. Si no puedes asistir, usa el botón 'No asistiré'. Si es un error, por favor, ajusta los números.", true);
+                    return;
+                }
+
+                try {
+                    const rsvpData = {
+                        guestName: guestName,
+                        adults: numAdults,
+                        minors: numMinors,
+                        timestamp: new Date(),
+                        status: 'confirmed',
+                        submittedBy: userId || crypto.randomUUID() // Use authenticated userId or generate a random one if anonymous
+                    };
+
+                    const rsvpsCollectionRef = collection(db, `artifacts/${appId}/public/data/rsvps`);
+                    await addDoc(rsvpsCollectionRef, rsvpData);
+
+                    displayMessage('rsvpMessage', `¡Gracias, ${guestName}! Tu asistencia de ${numAdults} adulto(s) y ${numMinors} menor(es) ha sido confirmada.`, false);
+                    rsvpForm.reset();
+                    // After successful submission, hide the form and show the button again
+                    rsvpFormContainer.classList.add('hidden');
+                    showRsvpFormButton.classList.remove('hidden');
+
+                }
+                catch (error) {
+                    console.error("Error submitting RSVP:", error);
+                    displayMessage('rsvpMessage', "Error al enviar tu confirmación. Por favor, inténtalo de nuevo.", true);
+                }
+            });
+
+            // Handle 'No asistiré' button click
+            declineButton.addEventListener('click', async () => {
+                if (!isAuthReady || !db) {
+                    displayMessage('rsvpMessage', "Por favor, espera un momento mientras cargamos la aplicación o hubo un error de inicialización.", true);
+                    return;
+                }
+
+                const guestName = document.getElementById('guestName').value.trim();
+                if (!guestName) {
+                    displayMessage('rsvpMessage', "Por favor, introduce tu nombre para registrar tu no asistencia.", true);
+                    return;
+                }
+
+                try {
+                    const rsvpData = {
+                        guestName: guestName,
+                        adults: 0,
+                        minors: 0,
+                        timestamp: new Date(),
+                        status: 'declined',
+                        submittedBy: userId || crypto.randomUUID()
+                    };
+
+                    const rsvpsCollectionRef = collection(db, `artifacts/${appId}/public/data/rsvps`);
+                    await addDoc(rsvpsCollectionRef, rsvpData);
+
+                    displayMessage('rsvpMessage', `¡Gracias, ${guestName}! Lamentamos que no puedas asistir.`, false);
+                    rsvpForm.reset();
+                    // After successful submission, hide the form and show the button again
+                    rsvpFormContainer.classList.add('hidden');
+                    showRsvpFormButton.classList.remove('hidden');
+
+                } catch (error) {
+                    console.error("Error submitting decline:", error);
+                    displayMessage('rsvpMessage', "Error al registrar tu no asistencia. Por favor, inténtalo de nuevo.", true);
+                }
+            });
+
+            // Handle song request form submission
+            songRequestForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!isAuthReady || !db) {
+                    displayMessage('songMessage', "Por favor, espera un momento mientras cargamos la aplicación.", true);
+                    return;
+                }
+
+                const songName = document.getElementById('songName').value.trim();
+                const songArtist = document.getElementById('songArtist').value.trim();
+                const requesterNameSong = document.getElementById('requesterNameSong').value.trim();
+
+                if (!songName) {
+                    displayMessage('songMessage', "Por favor, introduce el título de la canción.", true);
+                    return;
+                }
+
+                try {
+                    const songRequestData = {
+                        songName: songName,
+                        songArtist: songArtist || 'Desconocido', // Default if artist is empty
+                        requesterName: requesterNameSong || 'Anónimo', // Default if requester is empty
+                        timestamp: new Date(),
+                        submittedBy: userId || crypto.randomUUID()
+                    };
+
+                    const songRequestsCollectionRef = collection(db, `artifacts/${appId}/public/data/songRequests`);
+                    await addDoc(songRequestsCollectionRef, songRequestData);
+
+                    displayMessage('songMessage', `¡Gracias por tu sugerencia, ${songName} por ${songArtist || 'Artista Desconocido'} ha sido añadida!`, false);
+                    songRequestForm.reset();
+                } catch (error) {
+                    console.error("Error submitting song request:", error);
+                    displayMessage('songMessage', "Error al enviar tu sugerencia de canción. Por favor, inténtalo de nuevo.", true);
+                }
+            });
+
+            // Handle guestbook form submission
+            guestbookForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!isAuthReady || !db) {
+                    displayMessage('guestbookMessageDiv', "Por favor, espera un momento mientras cargamos la aplicación.", true);
+                    return;
+                }
+
+                const guestbookMessage = document.getElementById('guestbookMessage').value.trim();
+                const guestbookSigner = document.getElementById('guestbookSigner').value.trim();
+
+                if (!guestbookMessage) {
+                    displayMessage('guestbookMessageDiv', "Por favor, escribe tu mensaje.", true);
+                    return;
+                }
+                if (!guestbookSigner) {
+                    displayMessage('guestbookMessageDiv', "Por favor, introduce tu nombre para firmar.", true);
+                    return;
+                }
+
+                try {
+                    const guestbookEntryData = {
+                        message: guestbookMessage,
+                        signer: guestbookSigner,
+                        timestamp: new Date(),
+                        submittedBy: userId || crypto.randomUUID()
+                    };
+
+                    const guestbookCollectionRef = collection(db, `artifacts/${appId}/public/data/guestbookEntries`);
+                    await addDoc(guestbookCollectionRef, guestbookEntryData);
+
+                    displayMessage('guestbookMessageDiv', `¡Gracias, ${guestbookSigner}! Tu mensaje ha sido guardado.`, false);
+                    guestbookForm.reset();
+                } catch (error) {
+                    console.error("Error submitting guestbook entry:", error);
+                    displayMessage('guestbookMessageDiv', "Error al enviar tu mensaje. Por favor, inténtalo de nuevo.", true);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
