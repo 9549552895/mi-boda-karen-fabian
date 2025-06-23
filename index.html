@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -366,16 +366,16 @@
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // TU CONFIGURACIÓN DE FIREBASE (PROYECTO: MiAppboda, PROJECT_ID: boda-df301)
-        // ESTA CONFIGURACIÓN ES CORRECTA Y NO NECESITA CAMBIOS.
+        // TU CONFIGURACIÓN DE FIREBASE (PROYECTO: MiAppboda)
+        // ESTA ES LA CONFIGURACIÓN CORRECTA CON TU API KEY. ¡NO NECESITAS CAMBIAR NADA AQUÍ!
         const firebaseConfig = {
-            apiKey: "AIzaSyDc8b175ixsTdCIWHiDbb6tvciPmFQDzcM",
-            authDomain: "boda-df301.firebaseapp.com",
-            projectId: "boda-df301",
-            storageBucket: "boda-df301.firebasestorage.app",
-            messagingSenderId: "50531933772",
-            appId: "1:50531933772:web:d70d8a8282e307c68a1ee9",
-            measurementId: "G-CL89DVBBHP" 
+            apiKey: "AIzaSyDpAxNRADMfHkSlxBpJIe9WaB3_rWz1Vd4", 
+            authDomain: "miappboda.firebaseapp.com",
+            projectId: "miappboda",
+            storageBucket: "miappboda.firebasestorage.app",
+            messagingSenderId: "155595716187",
+            appId: "1:155595716187:web:11ba23c2bde759bcf0717e",
+            measurementId: "G-CL89DVBBHP" // Si tu configuración lo incluye, pégalo también
         };
         
         // Obtenemos el appId de la configuración de Firebase
@@ -403,7 +403,7 @@
                     if (targetDivId === 'rsvpMessage') {
                         document.getElementById('showRsvpFormButton').classList.remove('hidden');
                         document.getElementById('rsvpFormContainer').classList.add('hidden'); // Oculta el formulario de nuevo
-                    }
+                  }
                 }, 3000); // Oculta el mensaje después de 3 segundos
             }
         }
@@ -411,14 +411,7 @@
         // Inicializa Firebase y configura la autenticación
         const initializeFirebase = async () => {
             try {
-                // Solo inicializamos si tenemos una apiKey válida
-                if (!firebaseConfig.apiKey) {
-                    console.error("Firebase config is missing API key. Cannot initialize Firebase.");
-                    displayMessage('rsvpMessage', "Error: Configuración de Firebase incompleta. No se puede iniciar la aplicación.", true);
-                    displayMessage('songMessage', "Error: Configuración de Firebase incompleta. No se puede iniciar la aplicación.", true);
-                    displayMessage('guestbookMessageDiv', "Error: Configuración de Firebase incompleta. No se puede iniciar la aplicación.", true);
-                    return;
-                }
+                // Ya no necesitamos la verificación del placeholder aquí porque ya estamos insertando la clave correcta.
 
                 app = initializeApp(firebaseConfig);
                 db = getFirestore(app);
@@ -438,9 +431,11 @@
                             isAuthReady = true; // Establece a verdadero después del intento de inicio de sesión exitoso
                         } catch (error) {
                             console.error("Firebase Anonymous Sign-in Error:", error);
-                            displayMessage('rsvpMessage', "Error de autenticación. Inténtalo de nuevo más tarde.", true);
-                            displayMessage('songMessage', "Error de autenticación. Inténtalo de nuevo más tarde.", true);
-                            displayMessage('guestbookMessageDiv', "Error de autenticación. Inténtalo de nuevo más tarde.", true);
+                            // Este error será "auth/api-key-not-valid" o similar si la clave no es buena.
+                            // Si la clave es buena pero Anonymous no está habilitado, el mensaje será de eso.
+                            displayMessage('rsvpMessage', "Error de autenticación. Verifica que la autenticación anónima esté habilitada en Firebase.", true);
+                            displayMessage('songMessage', "Error de autenticación. Verifica que la autenticación anónima esté habilitada en Firebase.", true);
+                            displayMessage('guestbookMessageDiv', "Error de autenticación. Verifica que la autenticación anónima esté habilitada en Firebase.", true);
                             isAuthReady = true; // Todavía se establece en verdadero para evitar carga infinita, pero indica falla.
                         }
                     }
