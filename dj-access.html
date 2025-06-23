@@ -30,7 +30,7 @@
             padding: 2.5rem; /* Mayor padding */
             text-align: center;
             width: 100%;
-            max-width: 600px; /* Adjusted max-width */
+            max-width: 600px; /* Ajuste para acomodar más texto */
             margin: 1.5rem auto; /* Más margen */
         }
         .golden-text {
@@ -64,8 +64,8 @@
             background-color: #fcfafa; /* Light background for list item */
             border: 1px solid #eee;
             border-radius: 0.5rem;
-            padding: 0.75rem 1rem;
-            margin-bottom: 0.5rem;
+            padding: 1rem; /* Aumentado el padding para el detalle */
+            margin-bottom: 0.75rem; /* Más espacio entre elementos */
             text-align: left;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             transition: transform 0.2s ease;
@@ -73,30 +73,42 @@
         .song-list-item:hover {
             transform: translateY(-2px);
         }
-        .song-title, .song-artist, .song-requester {
-            color: #333; /* Darker text for readability */
-            margin-bottom: 0.2rem;
-            line-height: 1.3;
+        /* New styles for detailed song info */
+        .song-info-line {
+            margin-bottom: 0.3rem; /* Espacio entre líneas de info */
+            line-height: 1.4;
         }
-        .song-title strong {
-            font-weight: 700;
-            color: #a07a1e; /* Golden label */
-        }
-        .song-artist strong, .song-requester strong {
+        .song-info-line strong {
+            display: inline-block; /* Para alinear etiquetas y valores */
+            min-width: 80px; /* Ancho mínimo para las etiquetas */
+            color: #555; /* Color sutil para la etiqueta */
             font-weight: 600;
-            color: #555; /* Slightly lighter for secondary labels */
         }
-        .song-artist {
-            font-size: 0.95rem;
+        .song-info-line span {
+            color: #333; /* Color más oscuro para el valor */
+            font-weight: 500;
         }
-        .song-requester {
+        .song-explanation {
             font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.8rem; /* Separación de la explicación */
+            border-top: 1px dashed #e0d8cc; /* Línea separadora sutil */
+            padding-top: 0.8rem;
             font-style: italic;
         }
+        .song-explanation strong {
+             color: #a07a1e; /* Color dorado para la etiqueta de explicación */
+             font-weight: 700;
+             margin-right: 5px;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 640px) {
             .dj-card {
                 padding: 1.5rem; /* Ajuste para móviles */
+            }
+            .song-info-line strong {
+                min-width: 60px; /* Reduce ancho mínimo para móviles */
             }
         }
     </style>
@@ -129,7 +141,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, getDocs, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // YOUR FIREBASE CONFIGURATION (Same as in index.html and dashboard.html)
         const firebaseConfig = {
@@ -171,14 +183,12 @@
 
                 // Fetch Song Request Data
                 const songRequestsCollectionRef = collection(db, `artifacts/${appId}/public/data/songRequests`);
-                // Optional: You can add orderBy('timestamp', 'desc') if you want the latest songs first
-                const q = query(songRequestsCollectionRef); // Removed orderBy as per previous instructions to avoid index issues. Data will be sorted in JS if needed.
+                const q = query(songRequestsCollectionRef);
                 const songRequestSnapshot = await getDocs(q);
 
                 if (songRequestSnapshot.empty) {
                     noSongsMessage.classList.remove('hidden');
                 } else {
-                    // Sort songs by timestamp in JavaScript if needed, as orderBy was removed from query
                     const songs = [];
                     songRequestSnapshot.forEach((doc) => {
                         songs.push(doc.data());
@@ -187,14 +197,14 @@
                     // Sort by timestamp (most recent first)
                     songs.sort((a, b) => b.timestamp.toDate() - a.timestamp.toDate());
 
-
                     songs.forEach((songData) => {
                         const listItem = document.createElement('li');
                         listItem.classList.add('song-list-item');
                         listItem.innerHTML = `
-                            <div class="song-title"><strong>Canción Nombre:</strong> ${songData.songName || 'N/A'}</div>
-                            <div class="song-artist"><strong>Autor:</strong> ${songData.songArtist || 'Desconocido'}</div>
-                            <div class="song-requester"><strong>Solicita:</strong> ${songData.requesterName || 'Anónimo'}</div>
+                            <div class="song-info-line"><strong>Canción Nombre:</strong> <span>${songData.songName || 'N/A'}</span></div>
+                            <div class="song-info-line"><strong>Autor:</strong> <span>${songData.songArtist || 'Desconocido'}</span></div>
+                            <div class="song-info-line"><strong>Solicita:</strong> <span>${songData.requesterName || 'Anónimo'}</span></div>
+                            ${songData.explanation ? `<div class="song-explanation"><strong>Explicación:</strong> ${songData.explanation}</div>` : ''}
                         `;
                         songRequestsList.appendChild(listItem);
                     });
