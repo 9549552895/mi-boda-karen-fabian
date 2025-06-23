@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
     <!-- Iconos Phosphor (para controles de música y FAQ) -->
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/dist/phosphor.js"></script>
+    <!-- Tone.js para generar el sonido de clic (NO carga URLs externas para el clic) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
     <style>
         /* Estilos personalizados para el fondo de la tarjeta y elementos decorativos sutiles */
         body {
@@ -284,10 +286,8 @@
                 <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
                 Tu navegador no soporta el elemento de audio.
             </audio>
-            <!-- Audio para el sonido de clic -->
-            <audio id="clickSound" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" preload="auto"></audio>
             
-            <button id="musicToggle" class="music-player-button">
+            <button id="musicToggle" class="music-player-button" aria-label="Reproducir o pausar música de fondo">
                 <i class="ph ph-pause" id="musicIcon"></i>
             </button>
             <span class="music-player-text">Música de Fondo</span>
@@ -353,7 +353,7 @@
                 <button id="galleryPrev" class="gallery-nav-button" aria-label="Anterior">&#10094;</button>
                 <button id="galleryNext" class="gallery-nav-button" aria-label="Siguiente">&#10095;</button>
                 <div class="flex justify-center mt-4">
-                    <button id="slideshowToggle" class="music-player-button !text-base !font-medium !text-gray-600 !px-4 !py-2 !rounded-full !bg-gray-100 hover:!bg-gray-200">
+                    <button id="slideshowToggle" class="music-player-button !text-base !font-medium !text-gray-600 !px-4 !py-2 !rounded-full !bg-gray-100 hover:!bg-gray-200" aria-label="Alternar reproducción automática de galería">
                         <i class="ph ph-pause" id="slideshowIcon"></i> Auto
                     </button>
                 </div>
@@ -390,8 +390,8 @@
                     allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
-            <a href="https://maps.app.goo.gl/YourActualGoogleMapsLinkHere" target="_blank" rel="noopener noreferrer"
-               class="text-blue-600 hover:underline text-sm md:text-base transition-colors duration-200" onclick="playClickSound()">
+            <a id="mapLink" href="https://maps.app.goo.gl/YourActualGoogleMapsLinkHere" target="_blank" rel="noopener noreferrer"
+               class="text-blue-600 hover:underline text-sm md:text-base transition-colors duration-200">
                 Ver en Google Maps (enlace provisional)
             </a>
         </div>
@@ -403,8 +403,8 @@
                 ¡Tu presencia es nuestro mejor regalo!
                 Si deseas hacernos un obsequio, puedes contribuir a nuestro fondo de luna de miel.
             </p>
-            <a href="https://paypal.me/yourweddingfund" target="_blank" rel="noopener noreferrer"
-               class="inline-block bg-gradient-to-r from-teal-500 to-teal-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300 mt-4" onclick="playClickSound()">
+            <a id="giftsLink" href="https://paypal.me/yourweddingfund" target="_blank" rel="noopener noreferrer"
+               class="inline-block bg-gradient-to-r from-teal-500 to-teal-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300 mt-4">
                <i class="ph ph-gift-bold mr-2"></i> Contribuir al Fondo de Luna de Miel
             </a>
             <p class="text-sm italic text-gray-500 mt-2">
@@ -416,10 +416,10 @@
         <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
             <h3 class="text-2xl display-font golden-text mb-4">Contacto para Dudas</h3>
             <p class="text-gray-700 text-base md:text-lg">
-                Karen: <a href="tel:+17862855066" class="text-blue-600 hover:underline transition-colors duration-200" onclick="playClickSound()">786-285-5066</a>
+                Karen: <a id="karenPhone" href="tel:+17862855066" class="text-blue-600 hover:underline transition-colors duration-200">786-285-5066</a>
             </p>
             <p class="text-gray-700 text-base md:text-lg">
-                Fabián: <a href="tel:+19549552895" class="text-blue-600 hover:underline transition-colors duration-200" onclick="playClickSound()">954-955-2895</a>
+                Fabián: <a id="fabianPhone" href="tel:+19549552895" class="text-blue-600 hover:underline transition-colors duration-200">954-955-2895</a>
             </p>
         </div>
 
@@ -468,7 +468,7 @@
                            class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
                 </div>
                 <button type="submit"
-                        class="bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300" onclick="playClickSound()">
+                        class="bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300">
                     <i class="ph ph-paper-plane-tilt-fill mr-2"></i> Enviar Sugerencia
                 </button>
             </form>
@@ -494,7 +494,7 @@
                            class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
                 </div>
                 <button type="submit"
-                        class="bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300" onclick="playClickSound()">
+                        class="bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300">
                     <i class="ph ph-pencil-simple-line-fill mr-2"></i> Firmar Libro
                 </button>
             </form>
@@ -504,7 +504,7 @@
         <!-- Sección RSVP -->
         <div id="rsvpSection" class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
             <button id="showRsvpFormButton"
-                    class="inline-block bg-gradient-to-r from-yellow-600 to-yellow-800 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-300 display-font tracking-wide" onclick="playClickSound()">
+                    class="inline-block bg-gradient-to-r from-yellow-600 to-yellow-800 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-300 display-font tracking-wide">
                 <i class="ph ph-check-circle-fill mr-2"></i> Confirmar Asistencia
             </button>
             <div id="rsvpFormContainer" class="hidden mt-6 text-left">
@@ -532,11 +532,11 @@
                     </div>
                     <div class="flex justify-between items-center pt-4">
                         <button type="submit"
-                                class="bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300" onclick="playClickSound()">
+                                class="bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300">
                             <i class="ph ph-paper-plane-right-fill mr-2"></i> Enviar Confirmación
                         </button>
                         <button type="button" id="declineButton"
-                                class="bg-gray-400 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300" onclick="playClickSound()">
+                                class="bg-gray-400 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300">
                             <i class="ph ph-x-circle-fill mr-2"></i> No asistiré
                         </button>
                     </div>
@@ -682,19 +682,51 @@
             }
         };
 
-        // Función para reproducir el sonido de clic
-        function playClickSound() {
-            const clickSound = document.getElementById('clickSound');
-            if (clickSound) {
-                clickSound.currentTime = 0; // Reinicia el audio si ya está reproduciéndose
-                clickSound.play().catch(error => {
-                    console.warn("No se pudo reproducir el sonido de clic:", error);
-                });
+        // --- Lógica del sonido de clic con Tone.js ---
+        let clickSynth;
+        async function initializeClickSound() {
+            try {
+                // Inicia el contexto de audio solo si no está ya iniciado
+                if (Tone.context.state !== 'running') {
+                    await Tone.start();
+                    console.log("AudioContext iniciado.");
+                }
+
+                clickSynth = new Tone.PolySynth(Tone.Synth, {
+                    oscillator: { type: "sine" }, // Un tono de onda sinusoidal para un sonido limpio
+                    envelope: {
+                        attack: 0.001, // Ataque muy rápido
+                        decay: 0.05,  // Decay rápido
+                        sustain: 0.0, // No hay sustain
+                        release: 0.05 // Liberación rápida
+                    }
+                }).toDestination();
+                console.log("Sintetizador de sonido de clic inicializado.");
+            } catch (e) {
+                console.error("Error al inicializar el sonido de clic con Tone.js:", e);
             }
         }
 
+        function playClickSound() {
+            if (clickSynth) {
+                // Toca una nota muy corta para simular un clic
+                clickSynth.triggerAttackRelease("C6", "16n", Tone.context.currentTime, 0.2); // Nota C6, duración de 1/16 de nota, volumen 0.2
+            } else {
+                console.warn("Sintetizador de clic no inicializado.");
+                // Intenta inicializarlo si no lo está y el contexto de audio no está suspendido
+                if (Tone.context.state === 'suspended') {
+                    Tone.context.resume().then(() => {
+                        initializeClickSound();
+                    });
+                }
+            }
+        }
+        // --- FIN Lógica del sonido de clic con Tone.js ---
+
+
         document.addEventListener('DOMContentLoaded', () => {
             initializeFirebase(); // Inicializa Firebase cuando el DOM esté listo
+            initializeClickSound(); // Inicializa Tone.js al cargar la página
 
             const showRsvpFormButton = document.getElementById('showRsvpFormButton');
             const rsvpFormContainer = document.getElementById('rsvpFormContainer');
@@ -703,6 +735,17 @@
 
             const songRequestForm = document.getElementById('songRequestForm');
             const guestbookForm = document.getElementById('guestbookForm');
+
+            // --- Añadir listeners de clic a todos los botones y enlaces relevantes ---
+            // Nodos estáticos
+            const elementsToClickSound = document.querySelectorAll(
+                'button, a, .faq-question, .gallery-nav-button'
+            );
+            elementsToClickSound.forEach(el => {
+                el.addEventListener('click', playClickSound);
+            });
+            // Fin añadir listeners
+
 
             // --- Lógica de Cuenta Regresiva ---
             const weddingDate = new Date("September 20, 2025 20:00:00").getTime(); // 8:00 P.M.
@@ -764,28 +807,11 @@
                 galleryInner.style.transform = `translateX(${offset}%)`;
             };
 
-            galleryPrev.addEventListener('click', () => {
-                playClickSound(); // Sonido de clic
-                pauseSlideshow(); // Pausar slideshow al interactuar manualmente
-                currentImageIndex--;
+            // Carga inicial de la galería
+            if (galleryImages.length > 0) {
                 updateGallery();
-            });
-
-            galleryNext.addEventListener('click', () => {
-                playClickSound(); // Sonido de clic
-                pauseSlideshow(); // Pausar slideshow al interactuar manualmente
-                currentImageIndex++;
-                updateGallery();
-            });
-
-            slideshowToggle.addEventListener('click', () => {
-                playClickSound(); // Sonido de clic
-                if (isSlideshowPlaying) {
-                    pauseSlideshow();
-                } else {
-                    startSlideshow();
-                }
-            });
+                startSlideshow(); // Iniciar slideshow automáticamente al cargar
+            }
 
             // Lógica para el modal de imagen en pantalla completa
             const imageModal = document.getElementById('imageModal');
@@ -794,7 +820,6 @@
 
             Array.from(galleryImages).forEach(img => {
                 img.addEventListener('click', (e) => {
-                    playClickSound(); // Sonido de clic al abrir modal
                     const largeSrc = e.target.getAttribute('data-src-large') || e.target.src;
                     modalImage.src = largeSrc;
                     imageModal.classList.add('active');
@@ -803,7 +828,6 @@
             });
 
             imageModalClose.addEventListener('click', () => {
-                playClickSound(); // Sonido de clic al cerrar modal
                 imageModal.classList.remove('active');
                 // Podríamos reiniciar el slideshow aquí si se desea
                 // startSlideshow();
@@ -812,18 +836,11 @@
             imageModal.addEventListener('click', (e) => {
                 // Cerrar modal solo si se hace clic en el overlay, no en la imagen
                 if (e.target === imageModal) {
-                    playClickSound(); // Sonido de clic
                     imageModal.classList.remove('active');
                     // startSlideshow();
                 }
             });
 
-
-            // Carga inicial de la galería
-            if (galleryImages.length > 0) {
-                updateGallery();
-                startSlideshow(); // Iniciar slideshow automáticamente al cargar
-            }
 
             // --- Lógica de Música de Fondo ---
             const backgroundMusic = document.getElementById('backgroundMusic');
@@ -840,7 +857,6 @@
             });
 
             musicToggle.addEventListener('click', () => {
-                playClickSound(); // Sonido de clic
                 if (backgroundMusic.paused) {
                     backgroundMusic.play();
                     musicIcon.className = 'ph ph-pause';
@@ -879,7 +895,6 @@
                 const arrow = item.querySelector('.faq-arrow');
 
                 question.addEventListener('click', () => {
-                    playClickSound(); // Sonido de clic
                     // Cierra otras respuestas abiertas
                     faqItems.forEach(otherItem => {
                         if (otherItem !== item) {
@@ -897,7 +912,6 @@
 
             // Muestra el formulario RSVP cuando se hace clic en el botón principal
             showRsvpFormButton.addEventListener('click', () => {
-                playClickSound(); // Sonido de clic
                 showRsvpFormButton.classList.add('hidden');
                 rsvpFormContainer.classList.remove('hidden');
                 document.getElementById('rsvpMessage').classList.add('hidden'); // Oculta cualquier mensaje anterior
@@ -905,7 +919,6 @@
 
             // Maneja el envío del formulario para 'Confirmar Asistencia'
             rsvpForm.addEventListener('submit', async (e) => {
-                playClickSound(); // Sonido de clic
                 e.preventDefault();
                 if (!isAuthReady || !db) {
                     displayMessage('rsvpMessage', "Por favor, espera un momento mientras cargamos la aplicación o hubo un error de inicialización.", true);
@@ -962,7 +975,6 @@
 
             // Maneja el clic en el botón 'No asistiré'
             declineButton.addEventListener('click', async () => {
-                playClickSound(); // Sonido de clic
                 if (!isAuthReady || !db) {
                     displayMessage('rsvpMessage', "Por favor, espera un momento mientras cargamos la aplicación o hubo un error de inicialización.", true);
                     return;
@@ -1001,7 +1013,6 @@
 
             // Maneja el envío del formulario de solicitud de canción
             songRequestForm.addEventListener('submit', async (e) => {
-                playClickSound(); // Sonido de clic
                 e.preventDefault();
                 if (!isAuthReady || !db) {
                     displayMessage('songMessage', "Por favor, espera un momento mientras cargamos la aplicación.", true);
@@ -1039,7 +1050,6 @@
 
             // Maneja el envío del formulario del libro de visitas
             guestbookForm.addEventListener('submit', async (e) => {
-                playClickSound(); // Sonido de clic
                 e.preventDefault();
                 if (!isAuthReady || !db) {
                     displayMessage('guestbookMessageDiv', "Por favor, espera un momento mientras cargamos la aplicación.", true);
