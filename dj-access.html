@@ -19,19 +19,19 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
+            padding: 1.5rem; /* Increased padding around the body */
             box-sizing: border-box; /* Ensures padding doesn't cause overflow */
         }
         .dj-card {
             background: #ffffff;
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.08); /* Sombra ligeramente más pronunciada */
-            border: 1px solid #d4c8bc; /* Borde más sutil */
-            border-radius: 1.25rem; /* Bordes un poco más redondeados */
-            padding: 2.5rem; /* Mayor padding */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.05); /* Softer, larger shadow */
+            border: 1px solid #d4c8bc; /* Subtle border */
+            border-radius: 1.5rem; /* Slightly more rounded corners */
+            padding: 3rem; /* Increased padding for more internal space */
             text-align: center;
             width: 100%;
-            max-width: 600px; /* Ajuste para acomodar más texto */
-            margin: 1.5rem auto; /* Más margen */
+            max-width: 650px; /* Adjusted for better content flow */
+            margin: 2rem auto; /* More margin around the card */
         }
         .golden-text {
             color: #a07a1e;
@@ -40,75 +40,98 @@
             font-family: 'Playfair Display', serif;
         }
         .message-box {
-            background-color: #fefcbf; /* Tailwind yellow-100 */
-            color: #8b5f0a; /* Tailwind yellow-800 */
-            border: 1px solid #fbd38d; /* Tailwind yellow-400 */
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin-top: 1.5rem; /* Más margen superior */
-            font-size: 0.95rem; /* Ligeramente más grande */
+            background-color: #fffbeb; /* Lighter yellow for messages */
+            color: #8b5f0a;
+            border: 1px solid #fbd38d;
+            padding: 1.25rem; /* More padding */
+            border-radius: 0.75rem; /* More rounded */
+            margin-top: 1.75rem;
+            font-size: 1rem;
             text-align: left;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Subtle shadow */
         }
         .error-box {
-            background-color: #fee2e2; /* Tailwind red-100 */
-            color: #991b1b; /* Tailwind red-800 */
-            border: 1px solid #fca5a5; /* Tailwind red-400 */
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
         }
         /* Styles for song requests list */
         .song-list {
             list-style: none;
             padding: 0;
-            margin-top: 1.5rem;
+            margin-top: 2rem; /* More space above the list */
         }
         .song-list-item {
-            background-color: #fcfafa; /* Light background for list item */
-            border: 1px solid #eee;
-            border-radius: 0.5rem;
-            padding: 1rem; /* Aumentado el padding para el detalle */
-            margin-bottom: 0.75rem; /* Más espacio entre elementos */
+            background-color: #ffffff; /* White background for items */
+            border: 1px solid #e5e5e5; /* Lighter border */
+            border-radius: 0.75rem; /* More rounded */
+            padding: 1.25rem; /* Increased padding for more detail space */
+            margin-bottom: 1rem; /* More space between items */
             text-align: left;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            transition: transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Clearer shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover */
         }
         .song-list-item:hover {
-            transform: translateY(-2px);
+            transform: translateY(-5px); /* More noticeable lift */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); /* Stronger shadow on hover */
         }
         /* New styles for detailed song info */
         .song-info-line {
-            margin-bottom: 0.3rem; /* Espacio entre líneas de info */
-            line-height: 1.4;
+            margin-bottom: 0.4rem; /* More space between info lines */
+            line-height: 1.5;
+            display: flex; /* Use flex for alignment */
+            align-items: baseline;
         }
         .song-info-line strong {
-            display: inline-block; /* Para alinear etiquetas y valores */
-            min-width: 80px; /* Ancho mínimo para las etiquetas */
-            color: #555; /* Color sutil para la etiqueta */
-            font-weight: 600;
+            min-width: 95px; /* Wider min-width for labels */
+            color: #333; /* Darker color for labels */
+            font-weight: 700; /* More bold for labels */
+            margin-right: 8px; /* More space between label and value */
+            flex-shrink: 0; /* Prevent label from shrinking */
         }
         .song-info-line span {
-            color: #333; /* Color más oscuro para el valor */
+            color: #444; /* Slightly darker for values */
             font-weight: 500;
+            flex-grow: 1; /* Allow value to take remaining space */
         }
         .song-explanation {
-            font-size: 0.9rem;
+            font-size: 0.95rem; /* Slightly larger font for explanation */
             color: #666;
-            margin-top: 0.8rem; /* Separación de la explicación */
-            border-top: 1px dashed #e0d8cc; /* Línea separadora sutil */
-            padding-top: 0.8rem;
+            margin-top: 1rem; /* More separation for explanation */
+            border-top: 1px dashed #e0d8cc; /* Subtle separating line */
+            padding-top: 1rem;
             font-style: italic;
         }
         .song-explanation strong {
-             color: #a07a1e; /* Color dorado para la etiqueta de explicación */
+             color: #333; /* Darker color for explanation label */
              font-weight: 700;
              margin-right: 5px;
         }
 
         /* Responsive adjustments */
         @media (max-width: 640px) {
+            body {
+                padding: 1rem;
+            }
             .dj-card {
-                padding: 1.5rem; /* Ajuste para móviles */
+                padding: 1.5rem;
+                border-radius: 1rem;
+                margin: 1rem auto;
+            }
+            .song-list-item {
+                padding: 1rem;
+            }
+            .song-info-line {
+                flex-direction: column; /* Stack on very small screens */
+                align-items: flex-start;
+                margin-bottom: 0.6rem;
             }
             .song-info-line strong {
-                min-width: 60px; /* Reduce ancho mínimo para móviles */
+                min-width: unset; /* Remove min-width when stacked */
+                margin-bottom: 0.2rem;
+            }
+            .song-explanation {
+                font-size: 0.85rem;
             }
         }
     </style>
@@ -204,7 +227,7 @@
                             <div class="song-info-line"><strong>Canción Nombre:</strong> <span>${songData.songName || 'N/A'}</span></div>
                             <div class="song-info-line"><strong>Autor:</strong> <span>${songData.songArtist || 'Desconocido'}</span></div>
                             <div class="song-info-line"><strong>Solicita:</strong> <span>${songData.requesterName || 'Anónimo'}</span></div>
-                            ${songData.explanation ? `<div class="song-explanation"><strong>Explicación:</strong> ${songData.explanation}</div>` : ''}
+                            <div class="song-explanation"><strong>Explicación:</strong> <span>${songData.explanation || 'Sin explicación'}</span></div>
                         `;
                         songRequestsList.appendChild(listItem);
                     });
