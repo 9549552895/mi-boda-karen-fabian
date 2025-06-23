@@ -3,180 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Control Elegante - Karen & Fabián</title>
+    <title>Panel de Invitados - Boda Karen & Fabián</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts para tipografía elegante -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
-    <!-- Iconos Phosphor (para un toque visual) -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- Iconos Phosphor -->
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/dist/phosphor.js"></script>
     <style>
-        /* Estilos base del cuerpo y fondo general */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f7f3ed; /* Color crema suave de la invitación */
-            line-height: 1.6;
-            color: #333;
-        }
-        /* Estilos para las tarjetas de cada sección del panel */
-        .container-card {
-            background-color: #ffffff; /* Blanco limpio */
-            border-radius: 1rem; /* Más redondeado */
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.08); /* Sombra más pronunciada pero suave */
-            border: 2px solid #e0d8cc; /* Borde más visible y elegante */
-            padding: 2.5rem; /* Más padding para espacio */
-            margin: 2rem auto; /* Más margen para separación */
-            max-width: 95%; /* Más ancho en móviles */
-            width: 100%;
+            background: #f7f3ed; /* Consistent background with invitation */
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            gap: 2rem; /* Mayor espacio entre elementos internos */
-            transition: all 0.3s ease-in-out; /* Transición suave para efectos */
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            box-sizing: border-box; /* Ensures padding doesn't cause overflow */
         }
-        .container-card:hover {
-            transform: translateY(-5px); /* Efecto de "levantar" al pasar el ratón */
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 8px 15px rgba(0, 0, 0, 0.1);
+        .dashboard-card {
+            background: #ffffff;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.08); /* Sombra ligeramente más pronunciada */
+            border: 1px solid #d4c8bc; /* Borde más sutil */
+            border-radius: 1.25rem; /* Bordes un poco más redondeados */
+            padding: 2.5rem; /* Mayor padding */
+            text-align: center;
+            width: 100%;
+            max-width: 550px; /* Ligeramente más ancho */
+            margin: 1.5rem auto; /* Más margen */
         }
-
-        /* Estilo para los títulos de cada sección (Confirmaciones, Canciones, Mensajes) */
-        .section-title {
-            font-family: 'Playfair Display', serif; /* Fuente de títulos de la invitación */
-            font-size: 2.25rem; /* text-4xl para más impacto */
+        .golden-text {
+            color: #a07a1e;
+        }
+        .display-font {
+            font-family: 'Playfair Display', serif;
+        }
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0.5rem; /* Mayor padding interno */
+            border-bottom: 1px dashed #e7e2da; /* Línea más clara */
+        }
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+        .stat-label {
+            font-size: 1.2rem; /* Ligeramente más grande */
+            color: #4B5563; /* gray-700 */
+            font-family: 'Playfair Display', serif; /* Usar fuente display también aquí */
+        }
+        .stat-value {
+            font-size: 1.8rem; /* Más grande y llamativo */
             font-weight: 700; /* font-bold */
-            color: #a07a1e; /* Color dorado más vibrante */
-            margin-bottom: 1.5rem; /* Más espacio */
-            text-align: center;
-            border-bottom: 2px solid #e0d8cc; /* Borde inferior suave */
-            padding-bottom: 1rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Sombra de texto ligera */
+            color: #a07a1e; /* golden-text */
         }
-        .section-title i {
-            margin-right: 0.5rem;
-            color: #d4af37; /* Dorado más claro para el icono */
+        .message-box {
+            background-color: #fefcbf; /* Tailwind yellow-100 */
+            color: #8b5f0a; /* Tailwind yellow-800 */
+            border: 1px solid #fbd38d; /* Tailwind yellow-400 */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1.5rem; /* Más margen superior */
+            font-size: 0.95rem; /* Ligeramente más grande */
+            text-align: left;
         }
-
-        /* Estilo para el título principal del panel */
-        .main-title {
-            font-family: 'Great Vibes', cursive; /* Fuente elegante de los nombres en la invitación */
-            font-size: 4.5rem; /* Aumentado para destacarse aún más */
-            font-weight: 700;
-            color: #a07a1e; /* Color dorado principal */
-            text-align: center;
-            margin-top: 3rem;
-            margin-bottom: 2.5rem;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3); /* Sombra más profunda */
+        .error-box {
+            background-color: #fee2e2; /* Tailwind red-100 */
+            color: #991b1b; /* Tailwind red-800 */
+            border: 1px solid #fca5a5; /* Tailwind red-400 */
         }
 
-        /* Estilo para cada elemento de la lista (un RSVP, una canción, un mensaje) */
-        .list-item {
-            background-color: #fdfaf7; /* Un blanco roto, ligeramente más cálido y premium */
-            padding: 1.5rem; /* Más padding */
-            border-radius: 0.75rem; /* Más redondeado */
-            margin-bottom: 1rem; /* Espacio entre items */
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05); /* Sombra interna y externa sutil */
-            border: 1px solid #f0e6da; /* Borde muy suave */
-            transition: background-color 0.2s ease;
-        }
-        .list-item:hover {
-            background-color: #fcf6f0; /* Un sutil cambio de color al pasar el ratón */
-        }
-        .list-item:last-child {
-            margin-bottom: 0;
-        }
-        .list-item p {
-            font-size: 1.05rem; /* Ligeramente más grande para legibilidad */
-            color: #4B5563; /* Gris oscuro para legibilidad */
-            margin-bottom: 0.4rem;
-        }
-        .list-item span {
-            font-weight: 700; /* Más negrita para etiquetas */
-            color: #2D3748; /* Un gris más oscuro para etiquetas */
-        }
-        .list-item .status-tag {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px; /* Píldora */
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-left: 0.5rem;
-            vertical-align: middle;
-        }
-        .status-confirmed {
-            background-color: #d1fae5; /* green-100 */
-            color: #065f46; /* green-800 */
-        }
-        .status-declined {
-            background-color: #fee2e2; /* red-100 */
-            color: #991b1b; /* red-800 */
-        }
-        .status-na {
-            background-color: #e2e8f0; /* gray-200 */
-            color: #4a5568; /* gray-700 */
-        }
-
-
-        .loading-text, .empty-state {
-            text-align: center;
-            font-style: italic;
-            color: #718096; /* Gris medio */
-            padding: 2rem;
-            border: 1px dashed #dbe0e7; /* Borde más suave */
-            border-radius: 0.75rem;
-            background-color: #fdfdfc; /* Fondo casi blanco */
-            font-size: 1.1rem;
-        }
-        .message-error-dashboard {
-            color: #EF4444; /* Tailwind red-500 */
-            font-weight: 600;
-        }
-
-        /* Ajustes responsivos */
-        @media (max-width: 768px) {
-            .main-title { font-size: 3.5rem; } /* Más pequeño para móvil */
-            .section-title { font-size: 1.75rem; }
-            .container-card { padding: 1.5rem; margin: 1.5rem auto; }
-            .list-item { padding: 1.25rem; }
-        }
-        @media (min-width: 1024px) {
-            .container-card {
-                max-width: 860px; /* lg:max-w-3xl for larger screens */
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .dashboard-card {
+                padding: 1.5rem; /* Ajuste para móviles */
+            }
+            .stat-label {
+                font-size: 1.05rem;
+            }
+            .stat-value {
+                font-size: 1.5rem;
             }
         }
     </style>
 </head>
-<body class="min-h-screen p-4 flex flex-col items-center">
-    <h1 class="main-title">Panel de Control</h1>
+<body>
+    <div class="dashboard-card">
+        <h1 class="text-3xl md:text-4xl display-font golden-text mb-8">Resumen de Asistencia</h1>
 
-    <div class="container-card">
-        <h2 class="section-title"><i class="ph ph-calendar-blank"></i> Confirmaciones de Asistencia (RSVP)</h2>
-        <div id="rsvpsList" class="space-y-3">
-            <p class="loading-text">Cargando confirmaciones...</p>
+        <div id="loadingMessage" class="message-box">
+            <i class="ph ph-hourglass-simple-fill animate-pulse mr-2"></i> Cargando datos...
         </div>
-    </div>
 
-    <div class="container-card">
-        <h2 class="section-title"><i class="ph ph-music-note"></i> Sugerencias de Canciones</h2>
-        <div id="songRequestsList" class="space-y-3">
-            <p class="loading-text">Cargando sugerencias de canciones...</p>
+        <div id="errorMessage" class="message-box error-box hidden">
+            <i class="ph ph-x-circle-fill mr-2"></i> Hubo un error al cargar los datos. Por favor, inténtalo de nuevo más tarde o verifica tu conexión a internet.
         </div>
-    </div>
 
-    <div class="container-card">
-        <h2 class="section-title"><i class="ph ph-notebook"></i> Mensajes del Libro de Firmas</h2>
-        <div id="guestbookEntriesList" class="space-y-3">
-            <p class="loading-text">Cargando mensajes del libro...</p>
+        <div id="dataContainer" class="hidden space-y-4">
+            <div class="stat-item">
+                <span class="stat-label">Total de Confirmaciones (Personas):</span>
+                <span id="totalConfirmedGuests" class="stat-value">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Adultos Confirmados:</span>
+                <span id="totalAdults" class="stat-value">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Menores Confirmados:</span>
+                <span id="totalMinors" class="stat-value">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Número total de RSVP:</span>
+                <span id="totalRsvpEntries" class="stat-value">0</span>
+            </div>
         </div>
+
+        <a href="https://9549552895.github.io/mi-boda-karen-fabian/" class="inline-block mt-10 bg-gray-200 text-gray-700 font-semibold py-3 px-8 rounded-full shadow-md hover:bg-gray-300 transform hover:scale-105 active:scale-95 transition-all duration-300">
+            <i class="ph ph-arrow-left-bold mr-2"></i> Volver a la Invitación
+        </a>
     </div>
 
     <!-- SDKs de Firebase -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // TU CONFIGURACIÓN DE FIREBASE (PROYECTO: MiAppboda)
+        // TU CONFIGURACIÓN DE FIREBASE (Misma que en index.html)
         const firebaseConfig = {
-            apiKey: "AIzaSyDpAxNRADMfHkSlxBpJIe9WaB3_rWz1Vd4",
+            apiKey: "AIzaSyDpAxNRADMfHkSlxBpJIe9WaB3_rWz1Vd4", 
             authDomain: "miappboda.firebaseapp.com",
             projectId: "miappboda",
             storageBucket: "miappboda.firebasestorage.app",
@@ -185,174 +142,65 @@
             measurementId: "G-CL89DVBBHP" 
         };
         
+        // Obtenemos el appId de la configuración de Firebase
         const appId = firebaseConfig.appId;
+
         let db, auth;
-        let isAuthReady = false;
 
-        // Función para mostrar mensajes de error/estado en el dashboard
-        function displayStatus(elementId, message, isError = false) {
-            const element = document.getElementById(elementId);
-            if (element) {
-                element.innerHTML = `<p class="${isError ? 'message-error-dashboard' : 'text-gray-600'} text-center italic">${message}</p>`;
-            }
-        }
+        document.addEventListener('DOMContentLoaded', async () => {
+            const loadingMessage = document.getElementById('loadingMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            const dataContainer = document.getElementById('dataContainer');
 
-        // Inicializa Firebase y autentica anónimamente
-        const initializeFirebase = async () => {
+            loadingMessage.classList.remove('hidden');
+            errorMessage.classList.add('hidden');
+            dataContainer.classList.add('hidden');
+
             try {
-                if (!firebaseConfig.apiKey) {
-                    console.error("Firebase config is missing API key. Cannot initialize Firebase.");
-                    displayStatus('rsvpsList', "Error: Configuración de Firebase incompleta.");
-                    displayStatus('songRequestsList', "Error: Configuración de Firebase incompleta.");
-                    displayStatus('guestbookEntriesList', "Error: Configuración de Firebase incompleta.");
-                    return;
-                }
-
+                // Initialize Firebase
                 const app = initializeApp(firebaseConfig);
                 db = getFirestore(app);
                 auth = getAuth(app);
 
-                // onAuthStateChanged se dispara cuando cambia el estado de autenticación
-                // Esto asegura que tengamos un usuario (anónimo o no) antes de intentar acceder a Firestore
-                onAuthStateChanged(auth, async (user) => {
-                    if (!user) {
-                        try {
-                            await signInAnonymously(auth); // Intenta iniciar sesión anónimamente
-                        } catch (error) {
-                            console.error("Firebase Anonymous Sign-in Error:", error);
-                            displayStatus('rsvpsList', "Error de autenticación. Revisa que la autenticación anónima esté habilitada en tu proyecto Firebase.", true);
-                            displayStatus('songRequestsList', "Error de autenticación. Revisa que la autenticación anónima esté habilitada en tu proyecto Firebase.", true);
-                            displayStatus('guestbookEntriesList', "Error de autenticación. Revisa que la autenticación anónima esté habilitada en tu proyecto Firebase.", true);
-                            return; // Salir si la autenticación falla
-                        }
-                    }
-                    // Si llegamos aquí, la autenticación fue exitosa o ya había un usuario
-                    isAuthReady = true;
-                    console.log("Firebase Auth Ready. Loading data...");
-                    // Cargar datos una vez que la autenticación esté lista
-                    loadRsvps();
-                    loadSongRequests();
-                    loadGuestbookEntries();
+                // Sign in anonymously for data access
+                await signInAnonymously(auth);
+                console.log("Firebase Authenticated for dashboard.");
 
-                    // ¡NUEVO! Actualización periódica cada 1 minuto (60000 milisegundos)
-                    setInterval(() => {
-                        console.log("Actualizando datos del panel...");
-                        loadRsvps();
-                        loadSongRequests();
-                        loadGuestbookEntries();
-                    }, 60000); // 60 segundos
+                // Reference to the 'rsvps' collection (public data)
+                const rsvpsCollectionRef = collection(db, `artifacts/${appId}/public/data/rsvps`);
+
+                // Query for documents where status is 'confirmed'
+                const q = query(rsvpsCollectionRef, where("status", "==", "confirmed"));
+                const querySnapshot = await getDocs(q);
+
+                let totalAdults = 0;
+                let totalMinors = 0;
+                let totalRsvpEntries = 0; // Count of distinct RSVP submissions (not guests)
+
+                querySnapshot.forEach((doc) => {
+                    const rsvpData = doc.data();
+                    totalAdults += rsvpData.adults || 0;
+                    totalMinors += rsvpData.minors || 0;
+                    totalRsvpEntries++;
                 });
+
+                const totalConfirmedGuests = totalAdults + totalMinors;
+
+                // Update the DOM with the fetched data
+                document.getElementById('totalConfirmedGuests').textContent = totalConfirmedGuests;
+                document.getElementById('totalAdults').textContent = totalAdults;
+                document.getElementById('totalMinors').textContent = totalMinors;
+                document.getElementById('totalRsvpEntries').textContent = totalRsvpEntries;
+
+                loadingMessage.classList.add('hidden');
+                dataContainer.classList.remove('hidden');
 
             } catch (error) {
-                console.error("Error initializing Firebase:", error);
-                displayStatus('rsvpsList', "Error al inicializar Firebase. Posiblemente un problema de configuración de Firebase.", true);
-                displayStatus('songRequestsList', "Error al inicializar Firebase. Posiblemente un problema de configuración de Firebase.", true);
-                displayStatus('guestbookEntriesList', "Error al inicializar Firebase. Posiblemente un problema de configuración de Firebase.", true);
+                console.error("Error fetching RSVP data:", error);
+                loadingMessage.classList.add('hidden');
+                errorMessage.classList.remove('hidden');
             }
-        };
-
-        // Cargar y mostrar RSVPs en tiempo real
-        const loadRsvps = () => {
-            if (!db || !isAuthReady) {
-                 displayStatus('rsvpsList', "La base de datos no está lista para cargar datos.", true);
-                 return;
-            }
-            // Realiza la consulta solo si la autenticación anónima está habilitada
-            // y las reglas de seguridad lo permiten
-            const q = query(collection(db, `artifacts/${appId}/public/data/rsvps`));
-            onSnapshot(q, (snapshot) => {
-                const rsvpsList = document.getElementById('rsvpsList');
-                rsvpsList.innerHTML = ''; // Limpiar lista
-                if (snapshot.empty) {
-                    rsvpsList.innerHTML = '<p class="empty-state">No hay confirmaciones de asistencia aún.</p>';
-                    return;
-                }
-                snapshot.forEach((doc) => {
-                    const data = doc.data();
-                    const listItem = document.createElement('div');
-                    listItem.className = 'list-item';
-                    const statusClass = data.status === 'confirmed' ? 'status-confirmed' : 'status-declined';
-                    const statusText = data.status === 'confirmed' ? 'Confirmado' : 'No Asistirá';
-                    listItem.innerHTML = `
-                        <p><span>Nombre:</span> ${data.guestName}</p>
-                        <p><span>Adultos:</span> ${data.adults}</p>
-                        <p><span>Menores:</span> ${data.minors}</p>
-                        <p><span>Estado:</span> <span class="${statusClass} status-tag">${statusText}</span></p>
-                        <p class="text-xs text-gray-500"><span>Fecha:</span> ${new Date(data.timestamp.seconds * 1000).toLocaleString()}</p>
-                    `;
-                    rsvpsList.appendChild(listItem);
-                });
-            }, (error) => {
-                console.error("Error al cargar RSVPs:", error);
-                displayStatus('rsvpsList', "Error al cargar confirmaciones de asistencia. Revisa las reglas de seguridad de Firestore.", true);
-            });
-        };
-
-        // Cargar y mostrar solicitudes de canciones en tiempo real
-        const loadSongRequests = () => {
-            if (!db || !isAuthReady) {
-                displayStatus('songRequestsList', "La base de datos no está lista para cargar datos.", true);
-                return;
-            }
-            const q = query(collection(db, `artifacts/${appId}/public/data/songRequests`));
-            onSnapshot(q, (snapshot) => {
-                const songRequestsList = document.getElementById('songRequestsList');
-                songRequestsList.innerHTML = ''; // Limpiar lista
-                if (snapshot.empty) {
-                    songRequestsList.innerHTML = '<p class="empty-state">No hay sugerencias de canciones aún.</p>';
-                    return;
-                }
-                snapshot.forEach((doc) => {
-                    const data = doc.data();
-                    const listItem = document.createElement('div');
-                    listItem.className = 'list-item';
-                    listItem.innerHTML = `
-                        <p><span>Canción:</span> ${data.songName}</p>
-                        <p><span>Artista:</span> ${data.songArtist || 'N/A'}</p>
-                        <p><span>Sugerido por:</span> ${data.requesterName || 'Anónimo'}</p>
-                        <p class="text-xs text-gray-500"><span>Fecha:</span> ${new Date(data.timestamp.seconds * 1000).toLocaleString()}</p>
-                    `;
-                    songRequestsList.appendChild(listItem);
-                });
-            }, (error) => {
-                console.error("Error al cargar solicitudes de canciones:", error);
-                displayStatus('songRequestsList', "Error al cargar sugerencias de canciones. Revisa las reglas de seguridad de Firestore.", true);
-            });
-        };
-
-        // Cargar y mostrar entradas del libro de firmas en tiempo real
-        const loadGuestbookEntries = () => {
-            if (!db || !isAuthReady) {
-                displayStatus('guestbookEntriesList', "La base de datos no está lista para cargar datos.", true);
-                return;
-            }
-            const q = query(collection(db, `artifacts/${appId}/public/data/guestbookEntries`));
-            onSnapshot(q, (snapshot) => {
-                const guestbookEntriesList = document.getElementById('guestbookEntriesList');
-                guestbookEntriesList.innerHTML = ''; // Limpiar lista
-                if (snapshot.empty) {
-                    guestbookEntriesList.innerHTML = '<p class="empty-state">No hay mensajes en el libro de firmas aún.</p>';
-                    return;
-                }
-                snapshot.forEach((doc) => {
-                    const data = doc.data();
-                    const listItem = document.createElement('div');
-                    listItem.className = 'list-item';
-                    listItem.innerHTML = `
-                        <p><span>Mensaje:</span> ${data.message}</p>
-                        <p><span>Firmado por:</span> ${data.signer}</p>
-                        <p class="text-xs text-gray-500"><span>Fecha:</span> ${new Date(data.timestamp.seconds * 1000).toLocaleString()}</p>
-                    `;
-                    guestbookEntriesList.appendChild(listItem);
-                });
-            }, (error) => {
-                console.error("Error al cargar entradas del libro de firmas:", error);
-                displayStatus('guestbookEntriesList', "Error al cargar mensajes del libro de firmas. Revisa las reglas de seguridad de Firestore.", true);
-            });
-        };
-
-        // Inicia la inicialización de Firebase cuando el DOM esté completamente cargado
-        document.addEventListener('DOMContentLoaded', initializeFirebase);
+        });
     </script>
 </body>
 </html>
