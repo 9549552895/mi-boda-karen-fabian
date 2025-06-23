@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canciones Solicitadas - Boda Karen & Fabián</title>
+    <title id="pageTitle">Canciones Solicitadas - Boda Karen & Fabián</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts para tipografía elegante -->
@@ -32,6 +32,7 @@
             width: 100%;
             max-width: 650px; /* Adjusted for better content flow */
             margin: 2rem auto; /* More margin around the card */
+            position: relative; /* Needed for language buttons absolute positioning */
         }
         .golden-text {
             color: #a07a1e;
@@ -108,6 +109,32 @@
              margin-right: 5px;
         }
 
+        /* Language Selector Styles */
+        .language-selector {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+        .lang-button {
+            background-color: #f0e8df;
+            color: #555;
+            padding: 0.3rem 0.7rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            border: 1px solid #e0d8cc;
+        }
+        .lang-button.active, .lang-button:hover {
+            background-color: #a07a1e;
+            color: white;
+            border-color: #a07a1e;
+        }
+
+
         /* Responsive adjustments */
         @media (max-width: 640px) {
             body {
@@ -129,23 +156,43 @@
             .song-info-line strong {
                 min-width: unset; /* Remove min-width when stacked */
                 margin-bottom: 0.2rem;
+                display: block; /* Make label take full width when stacked */
+                text-align: left;
+            }
+            .song-info-line span {
+                display: block; /* Make value take full width when stacked */
+                text-align: left;
             }
             .song-explanation {
                 font-size: 0.85rem;
             }
+            .language-selector {
+                top: 0.75rem; /* Adjust position for smaller screens */
+                right: 0.75rem;
+                gap: 0.3rem;
+            }
+            .lang-button {
+                padding: 0.2rem 0.5rem;
+                font-size: 0.7rem;
+            }
         }
     </style>
 </head>
-<body>
+<body class="lang-es">
     <div class="dj-card">
-        <h1 class="text-3xl md:text-4xl display-font golden-text mb-8">Canciones Solicitadas para la Boda</h1>
+        <div class="language-selector">
+            <button id="langEs" class="lang-button active" data-lang="es">ES</button>
+            <button id="langEn" class="lang-button" data-lang="en">EN</button>
+        </div>
+
+        <h1 id="mainTitle" class="text-3xl md:text-4xl display-font golden-text mb-8">Canciones Solicitadas para la Boda</h1>
 
         <div id="loadingMessage" class="message-box">
-            <i class="ph ph-hourglass-simple-fill animate-pulse mr-2"></i> Cargando lista de canciones...
+            <i class="ph ph-hourglass-simple-fill animate-pulse mr-2"></i> <span id="loadingText">Cargando lista de canciones...</span>
         </div>
 
         <div id="errorMessage" class="message-box error-box hidden">
-            <i class="ph ph-x-circle-fill mr-2"></i> Hubo un error al cargar las canciones. Por favor, inténtalo de nuevo más tarde.
+            <i class="ph ph-x-circle-fill mr-2"></i> <span id="errorText">Hubo un error al cargar las canciones. Por favor, inténtalo de nuevo más tarde.</span>
         </div>
 
         <div id="songRequestsListContainer" class="max-h-96 overflow-y-auto hidden">
@@ -155,8 +202,8 @@
             <p id="noSongsMessage" class="text-gray-500 italic mt-4 hidden">No hay canciones solicitadas aún.</p>
         </div>
 
-        <a href="https://9549552895.github.io/mi-boda-karen-fabian/" class="inline-block mt-10 bg-gray-200 text-gray-700 font-semibold py-3 px-8 rounded-full shadow-md hover:bg-gray-300 transform hover:scale-105 active:scale-95 transition-all duration-300">
-            <i class="ph ph-arrow-left-bold mr-2"></i> Volver a la Invitación
+        <a id="backToInvitationBtn" href="https://9549552895.github.io/mi-boda-karen-fabian/" class="inline-block mt-10 bg-gray-200 text-gray-700 font-semibold py-3 px-8 rounded-full shadow-md hover:bg-gray-300 transform hover:scale-105 active:scale-95 transition-all duration-300">
+            <i class="ph ph-arrow-left-bold mr-2"></i> <span id="backToInvitationText">Volver a la Invitación</span>
         </a>
     </div>
 
@@ -182,36 +229,151 @@
 
         let db, auth;
 
+        // --- Translation Data ---
+        const translations = {
+            es: {
+                pageTitle: "Canciones Solicitadas - Boda Karen & Fabián",
+                mainTitle: "Canciones Solicitadas para la Boda",
+                loadingText: "Cargando lista de canciones...",
+                errorText: "Hubo un error al cargar las canciones. Por favor, inténtalo de nuevo más tarde.",
+                noSongsMessage: "No hay canciones solicitadas aún.",
+                backToInvitationText: "Volver a la Invitación",
+                songNameLabel: "Canción Nombre:",
+                songArtistLabel: "Autor:",
+                songRequesterLabel: "Solicita:",
+                songExplanationLabel: "Explicación:",
+                na: "N/A",
+                unknown: "Desconocido",
+                anonymous: "Anónimo",
+                noExplanation: "Sin explicación"
+            },
+            en: {
+                pageTitle: "Requested Songs - Karen & Fabian Wedding",
+                mainTitle: "Requested Songs for the Wedding",
+                loadingText: "Loading song list...",
+                errorText: "There was an error loading the songs. Please try again later.",
+                noSongsMessage: "No songs requested yet.",
+                backToInvitationText: "Back to Invitation",
+                songNameLabel: "Song Name:",
+                songArtistLabel: "Artist:",
+                songRequesterLabel: "Requested by:",
+                songExplanationLabel: "Explanation:",
+                na: "N/A",
+                unknown: "Unknown",
+                anonymous: "Anonymous",
+                noExplanation: "No explanation"
+            }
+        };
+
+        let currentLang = localStorage.getItem('djLang') || 'es'; // Default to Spanish
+
+        // Function to apply translations
+        function applyTranslations(lang) {
+            document.getElementById('pageTitle').textContent = translations[lang].pageTitle;
+            document.getElementById('mainTitle').textContent = translations[lang].mainTitle;
+            document.getElementById('loadingText').textContent = translations[lang].loadingText;
+            document.getElementById('errorText').textContent = translations[lang].errorText;
+            document.getElementById('noSongsMessage').textContent = translations[lang].noSongsMessage;
+            document.getElementById('backToInvitationText').textContent = translations[lang].backToInvitationText;
+
+            // Update song list items if they exist
+            const songListItems = document.querySelectorAll('.song-list-item');
+            songListItems.forEach(item => {
+                // Assuming the structure is consistent:
+                // song-info-line for song name, artist, requester
+                // song-explanation for explanation
+                const songNameSpan = item.querySelector('.song-info-line:nth-child(1) span');
+                if (songNameSpan) {
+                    item.querySelector('.song-info-line:nth-child(1) strong').textContent = translations[lang].songNameLabel;
+                }
+                const songArtistSpan = item.querySelector('.song-info-line:nth-child(2) span');
+                if (songArtistSpan) {
+                    item.querySelector('.song-info-line:nth-child(2) strong').textContent = translations[lang].songArtistLabel;
+                }
+                const songRequesterSpan = item.querySelector('.song-info-line:nth-child(3) span');
+                if (songRequesterSpan) {
+                    item.querySelector('.song-info-line:nth-child(3) strong').textContent = translations[lang].songRequesterLabel;
+                }
+                const explanationDiv = item.querySelector('.song-explanation');
+                if (explanationDiv) {
+                    explanationDiv.querySelector('strong').textContent = translations[lang].songExplanationLabel;
+                }
+            });
+
+            // Update active language button state
+            document.querySelectorAll('.lang-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.getElementById(`lang${lang.charAt(0).toUpperCase() + lang.slice(1)}`).classList.add('active');
+
+            // Set body lang attribute for CSS/accessibility
+            document.body.lang = lang;
+            currentLang = lang; // Update current language variable
+            localStorage.setItem('djLang', lang); // Save preference
+        }
+
+        // Function to render song list using current language
+        function renderSongList(songs) {
+            const songRequestsList = document.getElementById('songRequestsList');
+            songRequestsList.innerHTML = ''; // Clear existing list
+
+            if (songs.length === 0) {
+                document.getElementById('noSongsMessage').classList.remove('hidden');
+            } else {
+                document.getElementById('noSongsMessage').classList.add('hidden');
+                songs.forEach((songData) => {
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('song-list-item');
+                    listItem.innerHTML = `
+                        <div class="song-info-line"><strong>${translations[currentLang].songNameLabel}</strong> <span>${songData.songName || translations[currentLang].na}</span></div>
+                        <div class="song-info-line"><strong>${translations[currentLang].songArtistLabel}</strong> <span>${songData.songArtist || translations[currentLang].unknown}</span></div>
+                        <div class="song-info-line"><strong>${translations[currentLang].songRequesterLabel}</strong> <span>${songData.requesterName || translations[currentLang].anonymous}</span></div>
+                        <div class="song-explanation"><strong>${translations[currentLang].songExplanationLabel}</strong> <span>${songData.explanation || translations[currentLang].noExplanation}</span></div>
+                    `;
+                    songRequestsList.appendChild(listItem);
+                });
+            }
+        }
+
+
         document.addEventListener('DOMContentLoaded', async () => {
+            applyTranslations(currentLang); // Apply initial language on load
+
             const loadingMessage = document.getElementById('loadingMessage');
             const errorMessage = document.getElementById('errorMessage');
             const songRequestsListContainer = document.getElementById('songRequestsListContainer');
-            const songRequestsList = document.getElementById('songRequestsList');
-            const noSongsMessage = document.getElementById('noSongsMessage');
 
-            loadingMessage.classList.remove('hidden');
-            errorMessage.classList.add('hidden');
-            songRequestsListContainer.classList.add('hidden'); // Hide song list initially
-            noSongsMessage.classList.add('hidden'); // Hide "no songs" message initially
+            // Language button event listeners
+            document.getElementById('langEs').addEventListener('click', () => {
+                applyTranslations('es');
+                // Re-render songs to update labels
+                fetchSongsAndRender();
+            });
+            document.getElementById('langEn').addEventListener('click', () => {
+                applyTranslations('en');
+                // Re-render songs to update labels
+                fetchSongsAndRender();
+            });
 
-            try {
-                // Initialize Firebase
-                const app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
+            async function fetchSongsAndRender() {
+                loadingMessage.classList.remove('hidden');
+                errorMessage.classList.add('hidden');
+                songRequestsListContainer.classList.add('hidden');
 
-                // Sign in anonymously for data access
-                await signInAnonymously(auth);
-                console.log("Firebase Authenticated for DJ dashboard.");
+                try {
+                    // Initialize Firebase if not already initialized
+                    if (!db) {
+                        const app = initializeApp(firebaseConfig);
+                        db = getFirestore(app);
+                        auth = getAuth(app);
+                        await signInAnonymously(auth);
+                        console.log("Firebase Authenticated for DJ dashboard.");
+                    }
 
-                // Fetch Song Request Data
-                const songRequestsCollectionRef = collection(db, `artifacts/${appId}/public/data/songRequests`);
-                const q = query(songRequestsCollectionRef);
-                const songRequestSnapshot = await getDocs(q);
+                    const songRequestsCollectionRef = collection(db, `artifacts/${appId}/public/data/songRequests`);
+                    const q = query(songRequestsCollectionRef);
+                    const songRequestSnapshot = await getDocs(q);
 
-                if (songRequestSnapshot.empty) {
-                    noSongsMessage.classList.remove('hidden');
-                } else {
                     const songs = [];
                     songRequestSnapshot.forEach((doc) => {
                         songs.push(doc.data());
@@ -220,27 +382,20 @@
                     // Sort by timestamp (most recent first)
                     songs.sort((a, b) => b.timestamp.toDate() - a.timestamp.toDate());
 
-                    songs.forEach((songData) => {
-                        const listItem = document.createElement('li');
-                        listItem.classList.add('song-list-item');
-                        listItem.innerHTML = `
-                            <div class="song-info-line"><strong>Canción Nombre:</strong> <span>${songData.songName || 'N/A'}</span></div>
-                            <div class="song-info-line"><strong>Autor:</strong> <span>${songData.songArtist || 'Desconocido'}</span></div>
-                            <div class="song-info-line"><strong>Solicita:</strong> <span>${songData.requesterName || 'Anónimo'}</span></div>
-                            <div class="song-explanation"><strong>Explicación:</strong> <span>${songData.explanation || 'Sin explicación'}</span></div>
-                        `;
-                        songRequestsList.appendChild(listItem);
-                    });
+                    renderSongList(songs); // Render with current language
+
+                    songRequestsListContainer.classList.remove('hidden');
+                    loadingMessage.classList.add('hidden');
+
+                } catch (error) {
+                    console.error("Error fetching song request data for DJ:", error);
+                    loadingMessage.classList.add('hidden');
+                    errorMessage.classList.remove('hidden');
+                    document.getElementById('errorText').textContent = translations[currentLang].errorText; // Ensure error message is in current language
                 }
-                songRequestsListContainer.classList.remove('hidden'); // Show song requests list
-
-                loadingMessage.classList.add('hidden');
-
-            } catch (error) {
-                console.error("Error fetching song request data for DJ:", error);
-                loadingMessage.classList.add('hidden');
-                errorMessage.classList.remove('hidden');
             }
+
+            fetchSongsAndRender(); // Initial fetch and render
         });
     </script>
 </body>
