@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Nos Casamos! Karen & Fabián</title>
+    <title id="pageTitle">¡Nos Casamos! Karen & Fabián</title>
 
     <!-- Open Graph Meta Tags para Previsualización en Redes Sociales y WhatsApp -->
     <meta property="og:title" content="¡Nos Casamos! Boda de Karen & Fabián">
@@ -29,24 +29,196 @@
         body {
             font-family: 'Inter', sans-serif;
             background: #f7f3ed; /* Fondo claro y cremoso para toda la página */
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
             overflow-x: hidden; /* Evita el scroll horizontal por animaciones */
         }
-        .card-bg {
-            background: #ffffff; /* Fondo blanco para la tarjeta principal */
-            /* Sombra más pronunciada y elegante */
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e0d8cc; /* Borde suave */
+        .header-bg {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1517457375823-bff7980b1822?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center center / cover no-repeat;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
             position: relative;
-            overflow: hidden; /* Oculta elementos decorativos que se desborden */
+        }
+        .header-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3); /* Darker overlay */
+            z-index: 1;
+        }
+        .header-content {
+            position: relative;
+            z-index: 2;
         }
         .golden-text {
-            color: #a07a1e; /* Un color dorado ligeramente más intenso */
+            color: #a07a1e; /* A rich golden color */
+        }
+        .display-font {
+            font-family: 'Playfair Display', serif;
         }
         .great-vibes-font {
             font-family: 'Great Vibes', cursive; /* Nueva fuente de escritura elegante */
         }
-        .display-font {
-            font-family: 'Playfair Display', serif;
+        .button-primary {
+            background: linear-gradient(to right, #a07a1e, #d4af37);
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .button-primary:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+        .button-primary:active {
+            transform: translateY(0) scale(0.98);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .section-padding {
+            padding: 4rem 1.5rem;
+        }
+        .card {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .flower-divider {
+            width: 100px;
+            height: auto;
+            margin: 2rem auto;
+            opacity: 0.7;
+        }
+        .message-box {
+            background-color: #fefcbf; /* Tailwind yellow-100 */
+            color: #8b5f0a; /* Tailwind yellow-800 */
+            border: 1px solid #fbd38d; /* Tailwind yellow-400 */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1.5rem;
+        }
+        .error-box {
+            background-color: #fee2e2; /* Tailwind red-100 */
+            color: #991b1b; /* Tailwind red-800 */
+            border: 1px solid #fca5a5; /* Tailwind red-400 */
+        }
+        .confirm-button {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .cancel-button {
+            background-color: #f44336; /* Red */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+
+        /* Countdown specific styles */
+        #countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+        .countdown-item {
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            border-radius: 1rem;
+            padding: 1rem 1.25rem;
+            text-align: center;
+            min-width: 100px;
+        }
+        .countdown-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1;
+        }
+        .countdown-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.25rem;
+            text-transform: uppercase;
+        }
+
+        /* RSVP form styling */
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #d4c8bc;
+            border-radius: 0.5rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: #333;
+        }
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: #a07a1e;
+            box-shadow: 0 0 0 2px rgba(160, 122, 30, 0.2);
+        }
+        .form-label {
+            display: block;
+            text-align: left;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #555;
+        }
+        .submit-button {
+            background: linear-gradient(to right, #a07a1e, #d4af37);
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            border: none;
+            cursor: pointer;
+            width: auto; /* Ensure button doesn't take full width */
+            margin-top: 1rem;
+        }
+        .submit-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background: #ccc;
+            box-shadow: none;
+        }
+        .submit-button:hover:not(:disabled) {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+        .submit-button:active:not(:disabled) {
+            transform: translateY(0) scale(0.98);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         /* Sombra de texto para los nombres para dar un efecto sutil de relieve */
@@ -88,22 +260,6 @@
             width: 100%;
             height: 100%;
             border: 0;
-        }
-
-        /* Estilos específicos para la cuenta regresiva */
-        .countdown-item {
-            display: inline-block;
-            margin: 0 0.5rem;
-            font-size: 1.25rem; /* text-xl */
-            font-weight: 600; /* font-semibold */
-            color: #a07a1e; /* golden-text */
-        }
-        .countdown-item span {
-            display: block;
-            font-size: 0.75rem; /* text-xs */
-            font-weight: 400; /* font-normal */
-            color: #4B5563; /* gray-700 */
-            text-transform: uppercase;
         }
 
         /* Estilos de la galería de fotos */
@@ -223,12 +379,57 @@
             position: relative; /* Para que la sombra del texto funcione bien */
             z-index: 1; /* Asegura que el fondo esté detrás del texto si hay otros elementos */
         }
+
+        /* Language Selector Styles (for main invitation) */
+        .language-selector-main {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10; /* Asegura que esté por encima de otros elementos */
+        }
+        .lang-button-main {
+            background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente */
+            color: #555;
+            padding: 0.3rem 0.7rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+            border: 1px solid #e0d8cc;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .lang-button-main.active, .lang-button-main:hover {
+            background-color: #a07a1e; /* Dorado activo/hover */
+            color: white;
+            border-color: #a07a1e;
+            transform: translateY(-2px);
+        }
+        @media (max-width: 640px) {
+            .language-selector-main {
+                top: 0.75rem;
+                right: 0.75rem;
+                gap: 0.3rem;
+            }
+            .lang-button-main {
+                padding: 0.2rem 0.5rem;
+                font-size: 0.7rem;
+            }
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-4">
+<body class="min-h-screen flex flex-col items-center justify-center p-4 lang-es">
     <div class="card-bg max-w-sm md:max-w-md w-full rounded-xl p-8 text-center space-y-6">
+        <!-- Selector de idioma -->
+        <div class="language-selector-main">
+            <button id="langEsMain" class="lang-button-main active" data-lang="es">ES</button>
+            <button id="langEnMain" class="lang-button-main" data-lang="en">EN</button>
+        </div>
+
         <!-- "SAVE THE DATE" equivalente -->
-        <p class="text-xl display-font tracking-widest uppercase text-gray-700 fade-in-up">NOS CASAMOS</p>
+        <p id="saveTheDateText" class="text-xl display-font tracking-widest uppercase text-gray-700 fade-in-up">NOS CASAMOS</p>
 
         <!-- Nombres con Fondo de Corazones -->
         <div class="names-with-hearts-bg">
@@ -238,39 +439,39 @@
         </div>
 
         <!-- Frase bonita -->
-        <p class="text-lg italic text-gray-600 display-font mt-4 fade-in-up">
+        <p id="quoteText" class="text-lg italic text-gray-600 display-font mt-4 fade-in-up">
             "El amor es la fuerza más sutil del mundo."
         </p>
 
         <!-- Texto de invitación -->
-        <p class="text-base md:text-lg text-gray-700 leading-relaxed mt-4 fade-in-up">
+        <p id="invitationText" class="text-base md:text-lg text-gray-700 leading-relaxed mt-4 fade-in-up">
             Nos complace invitarte a celebrar con nosotros este día tan especial.
             Tu presencia es el mejor regalo.
         </p>
 
         <!-- Fecha y Hora -->
         <div class="space-y-2 mt-6 fade-in-up">
-            <p class="text-2xl md:text-3xl display-font uppercase text-gray-800">20 DE SEPTIEMBRE 2025</p>
-            <p class="text-xl md:text-2xl display-font text-gray-700">8:00 P.M.</p>
-            <p class="text-lg md:text-xl display-font text-gray-600">LUGAR A CONFIRMAR</p>
+            <p id="dateText" class="text-2xl md:text-3xl display-font uppercase text-gray-800">20 DE SEPTIEMBRE 2025</p>
+            <p id="timeText" class="text-xl md:text-2xl display-font text-gray-700">8:00 P.M.</p>
+            <p id="locationText" class="text-lg md:text-xl display-font text-gray-600">LUGAR A CONFIRMAR</p>
         </div>
 
         <!-- Cuenta Regresiva -->
         <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
-            <h3 class="text-2xl display-font golden-text mb-4">¡Falta Poco!</h3>
+            <h3 id="countdownTitle" class="text-2xl display-font golden-text mb-4">¡Falta Poco!</h3>
             <div id="countdown" class="text-center">
-                <span class="countdown-item"><span id="days">00</span>Días</span>
-                <span class="countdown-item"><span id="hours">00</span>Horas</span>
-                <span class="countdown-item"><span id="minutes">00</span>Minutos</span>
-                <span class="countdown-item"><span id="seconds">00</span>Segundos</span>
+                <span class="countdown-item"><span id="days">00</span><span id="daysLabel">Días</span></span>
+                <span class="countdown-item"><span id="hours">00</span><span id="hoursLabel">Horas</span></span>
+                <span class="countdown-item"><span id="minutes">00</span><span id="minutesLabel">Minutos</span></span>
+                <span class="countdown-item"><span id="seconds">00</span><span id="secondsLabel">Segundos</span></span>
             </div>
-            <p class="text-sm italic text-gray-500 mt-2">(Hasta el 20 de Septiembre de 2025 a las 8:00 P.M.)</p>
+            <p id="countdownSubtitle" class="text-sm italic text-gray-500 mt-2">(Hasta el 20 de Septiembre de 2025 a las 8:00 P.M.)</p>
         </div>
 
         <!-- Nuestra Historia -->
         <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
-            <h3 class="text-2xl display-font golden-text mb-4">Nuestra Historia</h3>
-            <p class="text-gray-700 text-base md:text-lg leading-relaxed">
+            <h3 id="ourStoryTitle" class="text-2xl display-font golden-text mb-4">Nuestra Historia</h3>
+            <p id="ourStoryText" class="text-gray-700 text-base md:text-lg leading-relaxed">
                 Cada historia de amor es única, y la nuestra comenzó en un inesperado encuentro,
                 donde dos caminos se cruzaron para crear un universo propio. Desde ese día,
                 cada momento ha sido una aventura, un aprendizaje y un crecimiento mutuo.
@@ -288,32 +489,32 @@
 
         <!-- Galería de Fotos Mejorada -->
         <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
-            <h3 class="text-2xl display-font golden-text mb-4">Nuestros Momentos</h3>
+            <h3 id="galleryTitle" class="text-2xl display-font golden-text mb-4">Nuestros Momentos</h3>
             <div class="gallery-container">
                 <div id="galleryInner" class="gallery-inner">
                     <!-- Las siguientes rutas han sido actualizadas con tus nombres de archivo. -->
                     <!-- Asegúrate de que estos archivos estén en la carpeta 'fotos/' de tu repositorio de GitHub. -->
-                    <img src="fotos/IMG_0759.jpg" data-src-large="fotos/IMG_0759.jpg" alt="Karen y Fabián con fuegos artificiales" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=IMG_0759.jpg';">
-                    <img src="fotos/IMG_1680.jpg" data-src-large="fotos/IMG_1680.jpg" alt="Karen y Fabián en Bunbury con amigos" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=IMG_1680.jpg';">
-                    <img src="fotos/IMG_1766.jpg" data-src-large="fotos/IMG_1766.jpg" alt="Karen y Fabián en cena con amigos" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=IMG_1766.jpg';">
-                    <img src="fotos/IMG_1899.jpg" data-src-large="fotos/IMG_1899.jpg" alt="Karen y Fabián con amigos en restaurante" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=IMG_1899.jpg';">
-                    <img src="fotos/IMG_1904.jpg" data-src-large="fotos/IMG_1904.jpg" alt="Karen y Fabián en una reunión al aire libre" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=IMG_1904.jpg';">
-                    <img src="fotos/IMG_5550.jpg" data-src-large="fotos/IMG_5550.jpg" alt="Karen y Fabián en un restaurante" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=IMG_5550.jpg';">
-                    <img src="fotos/IMG_5556.jpg" data-src-large="fotos/IMG_5556.jpg" alt="Karen, Fabián y un familiar en restaurante" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=IMG_5556.jpg';">
-                    <img src="fotos/IMG_5558.jpg" data-src-large="fotos/IMG_5558.jpg" alt="Fabián en un restaurante con babero de langosta" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=IMG_5558.jpg';">
-                    <img src="fotos/IMG_5567.jpg" data-src-large="fotos/IMG_5567.jpg" alt="Karen y Fabián en la entrada de La Pata Gorda" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=IMG_5567.jpg';">
-                    <img src="fotos/IMG_0180.jpg" data-src-large="fotos/IMG_0180.jpg" alt="Karen y Fabián celebrando con un regalo" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=IMG_0180.jpg';">
+                    <img src="fotos/IMG_0759.jpg" data-src-large="fotos/IMG_0759.jpg" alt="Foto de Karen y Fabián 1" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+1';">
+                    <img src="fotos/IMG_1680.jpg" data-src-large="fotos/IMG_1680.jpg" alt="Foto de Karen y Fabián 2" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+2';">
+                    <img src="fotos/IMG_1766.jpg" data-src-large="fotos/IMG_1766.jpg" alt="Foto de Karen y Fabián 3" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+3';">
+                    <img src="fotos/IMG_1899.jpg" data-src-large="fotos/IMG_1899.jpg" alt="Foto de Karen y Fabián 4" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+4';">
+                    <img src="fotos/IMG_1904.jpg" data-src-large="fotos/IMG_1904.jpg" alt="Foto de Karen y Fabián 5" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+5';">
+                    <img src="fotos/IMG_5550.jpg" data-src-large="fotos/IMG_5550.jpg" alt="Foto de Karen y Fabián 6" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+6';">
+                    <img src="fotos/IMG_5556.jpg" data-src-large="fotos/IMG_5556.jpg" alt="Foto de Karen y Fabián 7" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+7';">
+                    <img src="fotos/IMG_5558.jpg" data-src-large="fotos/IMG_5558.jpg" alt="Foto de Karen y Fabián 8" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+8';">
+                    <img src="fotos/IMG_5567.jpg" data-src-large="fotos/IMG_5567.jpg" alt="Foto de Karen y Fabián 9" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+9';">
+                    <img src="fotos/IMG_0180.jpg" data-src-large="fotos/IMG_0180.jpg" alt="Foto de Karen y Fabián 10" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+10';">
                     <!-- Si tienes más fotos, añádelas aquí siguiendo el mismo formato -->
                 </div>
                 <button id="galleryPrev" class="gallery-nav-button" aria-label="Anterior">&#10094;</button>
                 <button id="galleryNext" class="gallery-nav-button" aria-label="Siguiente">&#10095;</button>
                 <div class="flex justify-center mt-4">
                     <button id="slideshowToggle" class=" !text-base !font-medium !text-gray-600 !px-4 !py-2 !rounded-full !bg-gray-100 hover:!bg-gray-200" aria-label="Alternar reproducción automática de galería">
-                        <i class="ph ph-pause" id="slideshowIcon"></i> Auto
+                        <i class="ph ph-pause" id="slideshowIcon"></i> <span id="autoGalleryText">Auto</span>
                     </button>
                 </div>
             </div>
-            <p class="text-sm italic text-gray-500 mt-2">Desliza para ver más de nuestra historia, o usa el modo automático.</p>
+            <p id="gallerySubtitle" class="text-sm italic text-gray-500 mt-2">Desliza para ver más de nuestra historia, o usa el modo automático.</p>
         </div>
 
         <!-- Modal para Imagen en Pantalla Completa -->
@@ -325,20 +526,20 @@
 
         <!-- Agenda / Cronograma -->
         <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
-            <h3 class="text-2xl display-font golden-text mb-4">Agenda del Día</h3>
+            <h3 id="agendaTitle" class="text-2xl display-font golden-text mb-4">Agenda del Día</h3>
             <div class="text-gray-700 text-base md:text-lg space-y-2">
                 <!-- Se ha modificado para que este texto sea un enlace que añade al calendario -->
                 <a href="#" id="addToCalendarBtn" class="block text-gray-700 hover:text-blue-600 hover:underline transition-colors duration-200">
-                    <strong>8:00 P.M.</strong> Inicio de la Celebración / Recepción
-                    <span class="block text-sm italic text-gray-500 mt-1">Toca para añadir al calendario</span>
+                    <strong id="agendaTime">8:00 P.M.</strong> <span id="agendaEvent">Inicio de la Celebración / Recepción</span>
+                    <span id="addToCalendarPrompt" class="block text-sm italic text-gray-500 mt-1">Toca para añadir al calendario</span>
                 </a>
             </div>
         </div>
 
         <!-- Lugar y Mapa -->
         <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
-            <h3 class="text-2xl display-font golden-text mb-4">Lugar</h3>
-            <p class="text-gray-700 text-base md:text-lg mb-4">
+            <h3 id="locationTitle" class="text-2xl display-font golden-text mb-4">Lugar</h3>
+            <p id="addressText" class="text-gray-700 text-base md:text-lg mb-4">
                 1250 NE 125 St, North Miami, FL 33161
             </p>
             <div class="map-container mb-4">
@@ -349,72 +550,72 @@
             </div>
             <a id="mapLink" href="https://maps.app.goo.gl/YourActualGoogleMapsLinkHere" target="_blank" rel="noopener noreferrer"
                class="text-blue-600 hover:underline text-sm md:text-base transition-colors duration-200">
-                Ver en Google Maps
+                <span id="viewMapText">Ver en Google Maps</span>
             </a>
         </div>
 
         <!-- Regalos -->
         <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
-            <h3 class="text-2xl display-font golden-text mb-4">Regalos</h3>
-            <p class="text-gray-700 text-base md:text-lg">
+            <h3 id="giftsTitle" class="text-2xl display-font golden-text mb-4">Regalos</h3>
+            <p id="giftsText1" class="text-gray-700 text-base md:text-lg">
                 ¡Tu presencia es nuestro mejor regalo!
                 Si deseas hacernos un obsequio, puedes contribuir a nuestro fondo de luna de miel.
             </p>
             <a id="giftsLink" href="https://paypal.me/yourweddingfund" target="_blank" rel="noopener noreferrer"
                class="inline-block bg-gradient-to-r from-teal-500 to-teal-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300 mt-4">
-               <i class="ph ph-gift-bold mr-2"></i> Contribuir al Fondo de Luna de Miel
+               <i class="ph ph-gift-bold mr-2"></i> <span id="contributeText">Contribuir al Fondo de Luna de Miel</span>
             </a>
-            <p class="text-sm italic text-gray-500 mt-2">
+            <p id="giftsNoteText" class="text-sm italic text-gray-500 mt-2">
                 (Este enlace es de ejemplo, reemplázalo con tu link real de PayPal, Venmo o similar.)
             </p>
         </div>
 
         <!-- Contacto para Dudas -->
         <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
-            <h3 class="text-2xl display-font golden-text mb-4">Contacto para Dudas</h3>
-            <p class="text-gray-700 text-base md:text-lg">
+            <h3 id="contactTitle" class="text-2xl display-font golden-text mb-4">Contacto para Dudas</h3>
+            <p id="karenContactText" class="text-gray-700 text-base md:text-lg">
                 <a href="#" id="karenContact" class="text-blue-600 hover:underline transition-colors duration-200">Karen: 786-285-5066</a>
             </p>
-            <p class="text-gray-700 text-base md:text-lg">
+            <p id="fabianContactText" class="text-gray-700 text-base md:text-lg">
                 <a href="#" id="fabianContact" class="text-blue-600 hover:underline transition-colors duration-200">Fabián: 954-955-2895</a>
             </p>
         </div>
 
         <!-- Sugiere una Canción -->
         <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
-            <h3 class="text-2xl display-font golden-text mb-4">¡Sugiere una Canción para la Fiesta!</h3>
+            <h3 id="songSuggestionTitle" class="text-2xl display-font golden-text mb-4">¡Sugiere una Canción para la Fiesta!</h3>
             <form id="songRequestForm" class="space-y-4">
                 <div>
-                    <label for="songName" class="block text-gray-700 text-sm font-bold mb-2">
+                    <label for="songName" id="songNameLabel" class="block text-gray-700 text-sm font-bold mb-2">
                         Título de la Canción:
                     </label>
                     <input type="text" id="songName" name="songName" required
                            class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
                 </div>
                 <div>
-                    <label for="songArtist" class="block text-gray-700 text-sm font-bold mb-2">
+                    <label for="songArtist" id="songArtistLabel" class="block text-gray-700 text-sm font-bold mb-2">
                         Artista/Banda (Opcional):
                     </label>
                     <input type="text" id="songArtist" name="songArtist"
                            class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
                 </div>
                 <div>
-                    <label for="songExplanation" class="block text-gray-700 text-sm font-bold mb-2">
+                    <label for="songExplanation" id="songExplanationLabel" class="block text-gray-700 text-sm font-bold mb-2">
                         Explicación/Mensaje para el DJ (Opcional):
                     </label>
                     <textarea id="songExplanation" name="songExplanation" rows="2"
                               class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent resize-y transition-all duration-200"></textarea>
                 </div>
                 <div>
-                    <label for="requesterNameSong" class="block text-gray-700 text-sm font-bold mb-2">
+                    <label for="requesterNameSong" id="requesterNameSongLabel" class="block text-gray-700 text-sm font-bold mb-2">
                         Tu Nombre (Opcional):
                     </label>
                     <input type="text" id="requesterNameSong" name="requesterNameSong"
                            class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
                 </div>
-                <button type="submit"
+                <button type="submit" id="submitSongBtn"
                         class="bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300">
-                    <i class="ph ph-paper-plane-tilt-fill mr-2"></i> Enviar Sugerencia
+                    <i class="ph ph-paper-plane-tilt-fill mr-2"></i> <span id="sendSuggestionText">Enviar Sugerencia</span>
                 </button>
             </form>
             <div id="songMessage" class="hidden mt-4 text-center text-base font-semibold"></div>
@@ -422,25 +623,25 @@
 
         <!-- Libro de Firmas Virtual -->
         <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
-            <h3 class="text-2xl display-font golden-text mb-4">Deja un Mensaje para los Novios</h3>
+            <h3 id="guestbookTitle" class="text-2xl display-font golden-text mb-4">Deja un Mensaje para los Novios</h3>
             <form id="guestbookForm" class="space-y-4">
                 <div>
-                    <label for="guestbookMessage" class="block text-gray-700 text-sm font-bold mb-2">
+                    <label for="guestbookMessage" id="guestbookMessageLabel" class="block text-gray-700 text-sm font-bold mb-2">
                         Tu Mensaje:
                     </label>
                     <textarea id="guestbookMessage" name="guestbookMessage" rows="4" required
                               class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent resize-y transition-all duration-200"></textarea>
                 </div>
                 <div>
-                    <label for="guestbookSigner" class="block text-gray-700 text-sm font-bold mb-2">
+                    <label for="guestbookSigner" id="guestbookSignerLabel" class="block text-gray-700 text-sm font-bold mb-2">
                         Tu Nombre:
                     </label>
                     <input type="text" id="guestbookSigner" name="guestbookSigner" required
                            class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
                 </div>
-                <button type="submit"
+                <button type="submit" id="signGuestbookBtn"
                         class="bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300">
-                    <i class="ph ph-pencil-simple-line-fill mr-2"></i> Firmar Libro
+                    <i class="ph ph-pencil-simple-line-fill mr-2"></i> <span id="signGuestbookText">Firmar Libro</span>
                 </button>
             </form>
             <div id="guestbookMessageDiv" class="hidden mt-4 text-center text-base font-semibold"></div>
@@ -450,39 +651,39 @@
         <div id="rsvpSection" class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
             <button id="showRsvpFormButton"
                     class="inline-block bg-gradient-to-r from-yellow-600 to-yellow-800 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-300 display-font tracking-wide">
-                <i class="ph ph-check-circle-fill mr-2"></i> Confirmar Asistencia
+                <i class="ph ph-check-circle-fill mr-2"></i> <span id="confirmAttendanceText">Confirmar Asistencia</span>
             </button>
             <div id="rsvpFormContainer" class="hidden mt-6 text-left">
                 <form id="rsvpForm" class="space-y-4">
                     <div>
-                        <label for="guestName" class="block text-gray-700 text-sm font-bold mb-2">
+                        <label for="guestName" id="rsvpGuestNameLabel" class="block text-gray-700 text-sm font-bold mb-2">
                             Tu Nombre Completo:
                         </label>
                         <input type="text" id="guestName" name="guestName" required
                                class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
                     </div>
                     <div>
-                        <label for="numAdults" class="block text-gray-700 text-sm font-bold mb-2">
+                        <label for="numAdults" id="numAdultsLabel" class="block text-gray-700 text-sm font-bold mb-2">
                             ¿Cuántos adultos asistirán?
                         </label>
                         <input type="number" id="numAdults" name="numAdults" min="0" value="1" required
                                class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
                     </div>
                     <div>
-                        <label for="numMinors" class="block text-gray-700 text-sm font-bold mb-2">
+                        <label for="numMinors" id="numMinorsLabel" class="block text-gray-700 text-sm font-bold mb-2">
                             ¿Cuántos menores (niños) asistirán?
                         </label>
                         <input type="number" id="numMinors" name="numMinors" min="0" value="0" required
                                class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
                     </div>
                     <div class="flex justify-between items-center pt-4">
-                        <button type="submit"
+                        <button type="submit" id="sendRsvpBtn"
                                 class="bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300">
-                            <i class="ph ph-paper-plane-right-fill mr-2"></i> Enviar Confirmación
+                            <i class="ph ph-paper-plane-right-fill mr-2"></i> <span id="sendConfirmationText">Enviar Confirmación</span>
                         </button>
                         <button type="button" id="declineButton"
                                 class="bg-gray-400 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300">
-                            <i class="ph ph-x-circle-fill mr-2"></i> No asistiré
+                            <i class="ph ph-x-circle-fill mr-2"></i> <span id="declineText">No asistiré</span>
                         </button>
                     </div>
                 </form>
@@ -517,10 +718,212 @@
         let app, db, auth, userId;
         let isAuthReady = false;
 
+        // --- Translation Data ---
+        const translations = {
+            es: {
+                pageTitle: "¡Nos Casamos! Karen & Fabián",
+                saveTheDateText: "NOS CASAMOS",
+                quoteText: "El amor es la fuerza más sutil del mundo.",
+                invitationText: "Nos complace invitarte a celebrar con nosotros este día tan especial. Tu presencia es el mejor regalo.",
+                dateText: "20 DE SEPTIEMBRE 2025",
+                timeText: "8:00 P.M.",
+                locationText: "LUGAR A CONFIRMAR",
+                countdownTitle: "¡Falta Poco!",
+                daysLabel: "Días",
+                hoursLabel: "Horas",
+                minutesLabel: "Minutos",
+                secondsLabel: "Segundos",
+                countdownSubtitle: "(Hasta el 20 de Septiembre de 2025 a las 8:00 P.M.)",
+                ourStoryTitle: "Nuestra Historia",
+                ourStoryText: "Cada historia de amor es única, y la nuestra comenzó en un inesperado encuentro, donde dos caminos se cruzaron para crear un universo propio. Desde ese día, cada momento ha sido una aventura, un aprendizaje y un crecimiento mutuo. Hoy, con el corazón lleno de gratitud y alegría, nos preparamos para escribir nuestro siguiente capítulo, ¡el más emocionante de todos!",
+                galleryTitle: "Nuestros Momentos",
+                gallerySubtitle: "Desliza para ver más de nuestra historia, o usa el modo automático.",
+                autoGalleryText: "Auto",
+                agendaTitle: "Agenda del Día",
+                agendaTime: "8:00 P.M.",
+                agendaEvent: "Inicio de la Celebración / Recepción",
+                addToCalendarPrompt: "Toca para añadir al calendario",
+                locationTitle: "Lugar",
+                addressText: "1250 NE 125 St, North Miami, FL 33161",
+                viewMapText: "Ver en Google Maps",
+                giftsTitle: "Regalos",
+                giftsText1: "¡Tu presencia es nuestro mejor regalo! Si deseas hacernos un obsequio, puedes contribuir a nuestro fondo de luna de miel.",
+                contributeText: "Contribuir al Fondo de Luna de Miel",
+                giftsNoteText: "(Este enlace es de ejemplo, reemplázalo con tu link real de PayPal, Venmo o similar.)",
+                contactTitle: "Contacto para Dudas",
+                songSuggestionTitle: "¡Sugiere una Canción para la Fiesta!",
+                songNameLabel: "Título de la Canción:",
+                songArtistLabel: "Artista/Banda (Opcional):",
+                songExplanationLabel: "Explicación/Mensaje para el DJ (Opcional):",
+                requesterNameSongLabel: "Tu Nombre (Opcional):",
+                sendSuggestionText: "Enviar Sugerencia",
+                guestbookTitle: "Deja un Mensaje para los Novios",
+                guestbookMessageLabel: "Tu Mensaje:",
+                guestbookSignerLabel: "Tu Nombre:",
+                signGuestbookText: "Firmar Libro",
+                confirmAttendanceText: "Confirmar Asistencia",
+                rsvpGuestNameLabel: "Tu Nombre Completo:",
+                numAdultsLabel: "¿Cuántos adultos asistirán?",
+                numMinorsLabel: "¿Cuántos menores (niños) asistirán?",
+                sendConfirmationText: "Enviar Confirmación",
+                declineText: "No asistiré",
+                rsvpSuccess: (name, adults, minors) => `¡Gracias, ${name}! Tu asistencia de ${adults} adulto(s) y ${minors} menor(es) ha sido confirmada.`,
+                rsvpDeclined: (name) => `¡Gracias, ${name}! Lamentamos que no puedas asistir.`,
+                songSuccess: (song, artist) => `¡Gracias por tu sugerencia, ${song} por ${artist || 'Artista Desconocido'} ha sido añadida!`,
+                guestbookSuccess: (signer) => `¡Gracias, ${signer}! Tu mensaje ha sido guardado.`,
+                formErrorGeneric: "Por favor, espera un momento mientras cargamos la aplicación o hubo un error de inicialización.",
+                formErrorName: "Por favor, introduce tu nombre.",
+                formErrorAdults: "Por favor, introduce un número válido de adultos (0 o más).",
+                formErrorMinors: "Por favor, introduce un número válido de menores (0 o más).",
+                formErrorZeroGuests: "Has indicado 0 adultos y 0 menores. Si no puedes asistir, usa el botón 'No asistiré'. Si es un error, por favor, ajusta los números.",
+                formErrorSongTitle: "Por favor, introduce el título de la canción.",
+                formErrorMessage: "Por favor, escribe tu mensaje.",
+                formErrorSigner: "Por favor, introduce tu nombre para firmar.",
+                errorSubmitting: "Error al enviar tu confirmación. Por favor, inténtalo de nuevo.",
+                errorSubmittingDecline: "Error al registrar tu no asistencia. Por favor, inténtalo de nuevo.",
+                errorSubmittingSong: "Error al enviar tu sugerencia de canción. Por favor, inténtalo de nuevo.",
+                errorSubmittingGuestbook: "Error al enviar tu mensaje. Por favor, inténtalo de nuevo.",
+            },
+            en: {
+                pageTitle: "We're Getting Married! Karen & Fabián",
+                saveTheDateText: "WE'RE GETTING MARRIED",
+                quoteText: "Love is the subtlest force in the world.",
+                invitationText: "We are delighted to invite you to celebrate with us this very special day. Your presence is the greatest gift.",
+                dateText: "SEPTEMBER 20, 2025",
+                timeText: "8:00 P.M.",
+                locationText: "LOCATION TO BE CONFIRMED",
+                countdownTitle: "Almost There!",
+                daysLabel: "Days",
+                hoursLabel: "Hours",
+                minutesLabel: "Minutes",
+                secondsLabel: "Seconds",
+                countdownSubtitle: "(Until September 20, 2025 at 8:00 P.M.)",
+                ourStoryTitle: "Our Story",
+                ourStoryText: "Every love story is unique, and ours began in an unexpected encounter, where two paths crossed to create a universe of our own. Since that day, every moment has been an adventure, a learning experience, and mutual growth. Today, with hearts full of gratitude and joy, we prepare to write our next chapter, the most exciting one yet!",
+                galleryTitle: "Our Moments",
+                gallerySubtitle: "Swipe to see more of our story, or use auto-play mode.",
+                autoGalleryText: "Auto",
+                agendaTitle: "Day's Agenda",
+                agendaTime: "8:00 P.M.",
+                agendaEvent: "Celebration / Reception Starts",
+                addToCalendarPrompt: "Tap to add to calendar",
+                locationTitle: "Location",
+                addressText: "1250 NE 125 St, North Miami, FL 33161",
+                viewMapText: "View on Google Maps",
+                giftsTitle: "Gifts",
+                giftsText1: "Your presence is our greatest gift! If you wish to give us a present, you can contribute to our honeymoon fund.",
+                contributeText: "Contribute to Honeymoon Fund",
+                giftsNoteText: "(This is an example link, replace it with your real PayPal, Venmo, or similar link.)",
+                contactTitle: "Contact for Questions",
+                songSuggestionTitle: "Suggest a Song for the Party!",
+                songNameLabel: "Song Title:",
+                songArtistLabel: "Artist/Band (Optional):",
+                songExplanationLabel: "Explanation/Message for DJ (Optional):",
+                requesterNameSongLabel: "Your Name (Optional):",
+                sendSuggestionText: "Send Suggestion",
+                guestbookTitle: "Leave a Message for the Couple",
+                guestbookMessageLabel: "Your Message:",
+                guestbookSignerLabel: "Your Name:",
+                signGuestbookText: "Sign Guestbook",
+                confirmAttendanceText: "Confirm Attendance",
+                rsvpGuestNameLabel: "Your Full Name:",
+                numAdultsLabel: "How many adults will attend?",
+                numMinorsLabel: "How many minors (children) will attend?",
+                sendConfirmationText: "Send Confirmation",
+                declineText: "Cannot attend",
+                rsvpSuccess: (name, adults, minors) => `Thank you, ${name}! Your attendance for ${adults} adult(s) and ${minors} minor(s) has been confirmed.`,
+                rsvpDeclined: (name) => `Thank you, ${name}! We're sorry you can't make it.`,
+                songSuccess: (song, artist) => `Thank you for your suggestion, ${song} by ${artist || 'Unknown Artist'} has been added!`,
+                guestbookSuccess: (signer) => `Thank you, ${signer}! Your message has been saved.`,
+                formErrorGeneric: "Please wait a moment while the application loads or there was an initialization error.",
+                formErrorName: "Please enter your name.",
+                formErrorAdults: "Please enter a valid number of adults (0 or more).",
+                formErrorMinors: "Please enter a valid number of minors (0 or more).",
+                formErrorZeroGuests: "You indicated 0 adults and 0 minors. If you cannot attend, please use the 'Cannot attend' button. If this is an error, please adjust the numbers.",
+                formErrorSongTitle: "Please enter the song title.",
+                formErrorMessage: "Please write your message.",
+                formErrorSigner: "Please enter your name to sign.",
+                errorSubmitting: "Error submitting your confirmation. Please try again.",
+                errorSubmittingDecline: "Error registering your declination. Please try again.",
+                errorSubmittingSong: "Error submitting your song suggestion. Please try again.",
+                errorSubmittingGuestbook: "Error submitting your message. Please try again.",
+            }
+        };
+
+        let currentLang = localStorage.getItem('weddingLang') || 'es'; // Default to Spanish for main invitation
+
+
+        // Function to apply translations
+        function applyTranslations(lang) {
+            document.getElementById('pageTitle').textContent = translations[lang].pageTitle;
+            document.getElementById('saveTheDateText').textContent = translations[lang].saveTheDateText;
+            document.getElementById('quoteText').textContent = translations[lang].quoteText;
+            document.getElementById('invitationText').textContent = translations[lang].invitationText;
+            document.getElementById('dateText').textContent = translations[lang].dateText;
+            document.getElementById('timeText').textContent = translations[lang].timeText;
+            document.getElementById('locationText').textContent = translations[lang].locationText;
+            document.getElementById('countdownTitle').textContent = translations[lang].countdownTitle;
+            document.getElementById('daysLabel').textContent = translations[lang].daysLabel;
+            document.getElementById('hoursLabel').textContent = translations[lang].hoursLabel;
+            document.getElementById('minutesLabel').textContent = translations[lang].minutesLabel;
+            document.getElementById('secondsLabel').textContent = translations[lang].secondsLabel;
+            document.getElementById('countdownSubtitle').textContent = translations[lang].countdownSubtitle;
+            document.getElementById('ourStoryTitle').textContent = translations[lang].ourStoryTitle;
+            document.getElementById('ourStoryText').textContent = translations[lang].ourStoryText;
+            document.getElementById('galleryTitle').textContent = translations[lang].galleryTitle;
+            document.getElementById('gallerySubtitle').textContent = translations[lang].gallerySubtitle;
+            document.getElementById('autoGalleryText').textContent = translations[lang].autoGalleryText;
+            document.getElementById('agendaTitle').textContent = translations[lang].agendaTitle;
+            document.getElementById('agendaTime').textContent = translations[lang].agendaTime; // Time value
+            document.getElementById('agendaEvent').textContent = translations[lang].agendaEvent;
+            document.getElementById('addToCalendarPrompt').textContent = translations[lang].addToCalendarPrompt;
+            document.getElementById('locationTitle').textContent = translations[lang].locationTitle;
+            document.getElementById('addressText').textContent = translations[lang].addressText;
+            document.getElementById('viewMapText').textContent = translations[lang].viewMapText;
+            document.getElementById('giftsTitle').textContent = translations[lang].giftsTitle;
+            document.getElementById('giftsText1').textContent = translations[lang].giftsText1;
+            document.getElementById('contributeText').textContent = translations[lang].contributeText;
+            document.getElementById('giftsNoteText').textContent = translations[lang].giftsNoteText;
+            document.getElementById('contactTitle').textContent = translations[lang].contactTitle;
+            // Update contact links' text
+            document.getElementById('karenContact').textContent = `Karen: 786-285-5066`; // Phone number static
+            document.getElementById('fabianContact').textContent = `Fabián: 954-955-2895`; // Phone number static
+            document.getElementById('songSuggestionTitle').textContent = translations[lang].songSuggestionTitle;
+            document.getElementById('songNameLabel').textContent = translations[lang].songNameLabel;
+            document.getElementById('songArtistLabel').textContent = translations[lang].songArtistLabel;
+            document.getElementById('songExplanationLabel').textContent = translations[lang].songExplanationLabel;
+            document.getElementById('requesterNameSongLabel').textContent = translations[lang].requesterNameSongLabel;
+            document.getElementById('submitSongBtn').querySelector('span').textContent = translations[lang].sendSuggestionText;
+            document.getElementById('guestbookTitle').textContent = translations[lang].guestbookTitle;
+            document.getElementById('guestbookMessageLabel').textContent = translations[lang].guestbookMessageLabel;
+            document.getElementById('guestbookSignerLabel').textContent = translations[lang].guestbookSignerLabel;
+            document.getElementById('signGuestbookBtn').querySelector('span').textContent = translations[lang].signGuestbookText;
+            document.getElementById('confirmAttendanceText').textContent = translations[lang].confirmAttendanceText;
+            document.getElementById('rsvpGuestNameLabel').textContent = translations[lang].rsvpGuestNameLabel;
+            document.getElementById('numAdultsLabel').textContent = translations[lang].numAdultsLabel;
+            document.getElementById('numMinorsLabel').textContent = translations[lang].numMinorsLabel;
+            document.getElementById('sendConfirmationText').textContent = translations[lang].sendConfirmationText;
+            document.getElementById('declineText').textContent = translations[lang].declineText;
+
+
+            // Update active language button state
+            document.querySelectorAll('.lang-button-main').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.getElementById(`lang${lang.charAt(0).toUpperCase() + lang.slice(1)}Main`).classList.add('active');
+
+            document.body.lang = lang; // Update body lang attribute for CSS/accessibility
+            currentLang = lang; // Update current language variable
+            localStorage.setItem('weddingLang', lang); // Save preference
+        }
+
+
         // Función para mostrar mensajes dentro de un div específico (ej. rsvpMessage, songMessage, guestbookMessageDiv)
-        function displayMessage(targetDivId, message, isError = false) {
+        function displayMessage(targetDivId, messageKey, isError = false, ...args) {
             const messageDiv = document.getElementById(targetDivId);
-            messageDiv.textContent = message;
+            const messageTemplate = translations[currentLang][messageKey];
+            messageDiv.textContent = typeof messageTemplate === 'function' ? messageTemplate(...args) : messageTemplate;
+
             messageDiv.classList.remove('hidden', 'message-success', 'message-error');
             if (isError) {
                 messageDiv.classList.add('message-error');
@@ -560,24 +963,30 @@
                             isAuthReady = true;
                         } catch (error) {
                             console.error("Firebase Anonymous Sign-in Error:", error);
-                            displayMessage('rsvpMessage', "Error de autenticación. Verifica que la autenticación anónima esté habilitada en Firebase.", true);
-                            displayMessage('songMessage', "Error de autenticación. Verifica que la autenticación anónima esté habilitada en Firebase.", true);
-                            displayMessage('guestbookMessageDiv', "Error de autenticación. Verifica que la autenticación anónima esté habilitada en Firebase.", true);
+                            displayMessage('rsvpMessage', "formErrorGeneric", true);
+                            displayMessage('songMessage', "formErrorGeneric", true);
+                            displayMessage('guestbookMessageDiv', "formErrorGeneric", true);
                             isAuthReady = true;
                         }
                     }
                 });
             } catch (error) {
                 console.error("Error initializing Firebase:", error);
-                displayMessage('rsvpMessage', "Error al inicializar la aplicación. Por favor, recarga la página.", true);
-                displayMessage('songMessage', "Error al inicializar la aplicación. Por favor, recarga la página.", true);
-                displayMessage('guestbookMessageDiv', "Error al inicializar la aplicación. Por favor, recarga la página.", true);
+                displayMessage('rsvpMessage', "formErrorGeneric", true);
+                displayMessage('songMessage', "formErrorGeneric", true);
+                displayMessage('guestbookMessageDiv', "formErrorGeneric", true);
             }
         };
 
 
         document.addEventListener('DOMContentLoaded', () => {
             initializeFirebase(); // Inicializa Firebase cuando el DOM esté listo
+            applyTranslations(currentLang); // Apply initial translations on page load
+
+            // Language button event listeners
+            document.getElementById('langEsMain').addEventListener('click', () => applyTranslations('es'));
+            document.getElementById('langEnMain').addEventListener('click', () => applyTranslations('en'));
+
 
             const showRsvpFormButton = document.getElementById('showRsvpFormButton');
             const rsvpFormContainer = document.getElementById('rsvpFormContainer');
@@ -606,7 +1015,7 @@
 
                 if (distance < 0) {
                     clearInterval(updateCountdown);
-                    document.getElementById("countdown").innerHTML = "¡Ya nos casamos!";
+                    document.getElementById("countdown").innerHTML = translations[currentLang].countdownTitle; // Use translated message
                 }
             }, 1000);
 
@@ -732,7 +1141,7 @@
             rsvpForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 if (!isAuthReady || !db) {
-                    displayMessage('rsvpMessage', "Por favor, espera un momento mientras cargamos la aplicación o hubo un error de inicialización.", true);
+                    displayMessage('rsvpMessage', "formErrorGeneric", true);
                     return;
                 }
 
@@ -741,20 +1150,20 @@
                 const numMinors = parseInt(document.getElementById('numMinors').value, 10);
 
                 if (!guestName) {
-                    displayMessage('rsvpMessage', "Por favor, introduce tu nombre.", true);
+                    displayMessage('rsvpMessage', "formErrorName", true);
                     return;
                 }
                 if (isNaN(numAdults) || numAdults < 0) {
-                    displayMessage('rsvpMessage', "Por favor, introduce un número válido de adultos (0 o más).", true);
+                    displayMessage('rsvpMessage', "formErrorAdults", true);
                     return;
                 }
                 if (isNaN(numMinors) || numMinors < 0) {
-                    displayMessage('rsvpMessage', "Por favor, introduce un número válido de menores (0 o más).", true);
+                    displayMessage('rsvpMessage', "formErrorMinors", true);
                     return;
                 }
 
                 if (numAdults === 0 && numMinors === 0) {
-                    displayMessage('rsvpMessage', "Has indicado 0 adultos y 0 menores. Si no puedes asistir, usa el botón 'No asistiré'. Si es un error, por favor, ajusta los números.", true);
+                    displayMessage('rsvpMessage', "formErrorZeroGuests", true);
                     return;
                 }
 
@@ -771,7 +1180,7 @@
                     const rsvpsCollectionRef = collection(db, `artifacts/${appId}/public/data/rsvps`);
                     await addDoc(rsvpsCollectionRef, rsvpData);
 
-                    displayMessage('rsvpMessage', `¡Gracias, ${guestName}! Tu asistencia de ${numAdults} adulto(s) y ${numMinors} menor(es) ha sido confirmada.`, false);
+                    displayMessage('rsvpMessage', 'rsvpSuccess', false, guestName, numAdults, numMinors);
                     rsvpForm.reset();
                     // Después del envío exitoso, oculta el formulario y muestra el botón de nuevo
                     rsvpFormContainer.classList.add('hidden');
@@ -780,20 +1189,20 @@
                 }
                 catch (error) {
                     console.error("Error al enviar RSVP:", error);
-                    displayMessage('rsvpMessage', "Error al enviar tu confirmación. Por favor, inténtalo de nuevo.", true);
+                    displayMessage('rsvpMessage', "errorSubmitting", true);
                 }
             });
 
             // Maneja el clic en el botón 'No asistiré'
             declineButton.addEventListener('click', async () => {
                 if (!isAuthReady || !db) {
-                    displayMessage('rsvpMessage', "Por favor, espera un momento mientras cargamos la aplicación o hubo un error de inicialización.", true);
+                    displayMessage('rsvpMessage', "formErrorGeneric", true);
                     return;
                 }
 
                 const guestName = document.getElementById('guestName').value.trim();
                 if (!guestName) {
-                    displayMessage('rsvpMessage', "Por favor, introduce tu nombre para registrar tu no asistencia.", true);
+                    displayMessage('rsvpMessage', "formErrorName", true);
                     return;
                 }
 
@@ -810,7 +1219,7 @@
                     const rsvpsCollectionRef = collection(db, `artifacts/${appId}/public/data/rsvps`);
                     await addDoc(rsvpsCollectionRef, rsvpData);
 
-                    displayMessage('rsvpMessage', `¡Gracias, ${guestName}! Lamentamos que no puedas asistir.`, false);
+                    displayMessage('rsvpMessage', 'rsvpDeclined', false, guestName);
                     rsvpForm.reset();
                     // Después del envío exitoso, oculta el formulario y muestra el botón de nuevo
                     rsvpFormContainer.classList.add('hidden');
@@ -818,7 +1227,7 @@
 
                 } catch (error) {
                     console.error("Error al enviar la negativa:", error);
-                    displayMessage('rsvpMessage', "Error al registrar tu no asistencia. Por favor, inténtalo de nuevo.", true);
+                    displayMessage('rsvpMessage', "errorSubmittingDecline", true);
                 }
             });
 
@@ -826,7 +1235,7 @@
             songRequestForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 if (!isAuthReady || !db) {
-                    displayMessage('songMessage', "Por favor, espera un momento mientras cargamos la aplicación.", true);
+                    displayMessage('songMessage', "formErrorGeneric", true);
                     return;
                 }
 
@@ -836,7 +1245,7 @@
                 const requesterNameSong = document.getElementById('requesterNameSong').value.trim();
 
                 if (!songName) {
-                    displayMessage('songMessage', "Por favor, introduce el título de la canción.", true);
+                    displayMessage('songMessage', "formErrorSongTitle", true);
                     return;
                 }
 
@@ -853,11 +1262,11 @@
                     const songRequestsCollectionRef = collection(db, `artifacts/${appId}/public/data/songRequests`);
                     await addDoc(songRequestsCollectionRef, songRequestData);
 
-                    displayMessage('songMessage', `¡Gracias por tu sugerencia, ${songName} por ${songArtist || 'Artista Desconocido'} ha sido añadida!`, false);
+                    displayMessage('songMessage', 'songSuccess', false, songName, songArtist);
                     songRequestForm.reset();
                 } catch (error) {
                     console.error("Error al enviar la solicitud de canción:", error);
-                    displayMessage('songMessage', "Error al enviar tu sugerencia de canción. Por favor, inténtalo de nuevo.", true);
+                    displayMessage('songMessage', "errorSubmittingSong", true);
                 }
             });
 
@@ -865,7 +1274,7 @@
             guestbookForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 if (!isAuthReady || !db) {
-                    displayMessage('guestbookMessageDiv', "Por favor, espera un momento mientras cargamos la aplicación.", true);
+                    displayMessage('guestbookMessageDiv', "formErrorGeneric", true);
                     return;
                 }
 
@@ -873,11 +1282,11 @@
                 const guestbookSigner = document.getElementById('guestbookSigner').value.trim();
 
                 if (!guestbookMessage) {
-                    displayMessage('guestbookMessageDiv', "Por favor, escribe tu mensaje.", true);
+                    displayMessage('guestbookMessageDiv', "formErrorMessage", true);
                     return;
                 }
                 if (!guestbookSigner) {
-                    displayMessage('guestbookMessageDiv', "Por favor, introduce tu nombre para firmar.", true);
+                    displayMessage('guestbookMessageDiv', "formErrorSigner", true);
                     return;
                 }
 
@@ -892,11 +1301,11 @@
                     const guestbookCollectionRef = collection(db, `artifacts/${appId}/public/data/guestbookEntries`);
                     await addDoc(guestbookCollectionRef, guestbookEntryData);
 
-                    displayMessage('guestbookMessageDiv', `¡Gracias, ${guestbookSigner}! Tu mensaje ha sido guardado.`, false);
+                    displayMessage('guestbookMessageDiv', 'guestbookSuccess', false, guestbookSigner);
                     guestbookForm.reset();
                 } catch (error) {
                     console.error("Error al enviar la entrada del libro de visitas:", error);
-                    displayMessage('guestbookMessageDiv', "Error al enviar tu mensaje. Por favor, inténtalo de nuevo.", true);
+                    displayMessage('guestbookMessageDiv', "errorSubmittingGuestbook", true);
                 }
             });
 
@@ -906,9 +1315,9 @@
                 addToCalendarBtn.addEventListener('click', (e) => {
                     e.preventDefault(); // Evita el comportamiento predeterminado del enlace
 
-                    const eventTitle = "Boda de Karen y Fabián - Celebración / Recepción";
-                    const eventLocation = "1250 NE 125 St, North Miami, FL 33161";
-                    const eventDescription = "Te esperamos para celebrar el amor de Karen y Fabián. Tu presencia es el mejor regalo.";
+                    const eventTitle = translations[currentLang].agendaEvent;
+                    const eventLocation = translations[currentLang].addressText;
+                    const eventDescription = translations[currentLang].invitationText; // Usar el texto de invitación como descripción
 
                     // Fecha y hora del evento: 20 de Septiembre de 2025, 8:00 P.M.
                     const startDate = new Date("September 20, 2025 20:00:00");
@@ -936,7 +1345,9 @@
             }
 
             // Lógica para abrir WhatsApp o SMS
-            function openWhatsAppOrSMS(phoneNumber, isWhatsAppPreferred = true, message = "Hola, tengo una pregunta sobre la boda.") {
+            function openWhatsAppOrSMS(phoneNumber, isWhatsAppPreferred = true, messageKey) {
+                let message = translations[currentLang][messageKey] || "Hola, tengo una pregunta sobre la boda.";
+
                 // Limpia el número para WhatsApp (solo dígitos, con código de país si falta)
                 let cleanedNumber = phoneNumber.replace(/[^0-9]/g, '');
                 if (cleanedNumber.length === 10) { // Asume un número de 10 dígitos de EE. UU.
@@ -970,13 +1381,20 @@
 
             document.getElementById('karenContact').addEventListener('click', (e) => {
                 e.preventDefault();
-                openWhatsAppOrSMS('7862855066', true, "Hola Karen, tengo una pregunta sobre la boda.");
+                openWhatsAppOrSMS('7862855066', true, "karenWhatsappMessage"); // Usar una clave de traducción
             });
 
             document.getElementById('fabianContact').addEventListener('click', (e) => {
                 e.preventDefault();
-                openWhatsAppOrSMS('9549552895', true, "Hola Fabián, tengo una pregunta sobre la boda.");
+                openWhatsAppOrSMS('9549552895', true, "fabianWhatsappMessage"); // Usar una clave de traducción
             });
+
+            // Add new translation keys for WhatsApp messages
+            translations.es.karenWhatsappMessage = "Hola Karen, tengo una pregunta sobre la boda.";
+            translations.es.fabianWhatsappMessage = "Hola Fabián, tengo una pregunta sobre la boda.";
+            translations.en.karenWhatsappMessage = "Hi Karen, I have a question about the wedding.";
+            translations.en.fabianWhatsappMessage = "Hi Fabián, I have a question about the wedding.";
+
 
         });
     </script>
