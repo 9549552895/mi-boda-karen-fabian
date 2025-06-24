@@ -25,7 +25,7 @@
     <!-- Iconos Phosphor (se mantienen si se usan en otros elementos) -->
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/dist/phosphor.js"></script>
     <style>
-        /* Estilos personalizados para el fondo de la tarjeta y elementos decorativos sutiles */
+        /* Estilos generales del cuerpo */
         body {
             font-family: 'Inter', sans-serif;
             background: #f7f3ed; /* Fondo claro y cremoso para toda la página */
@@ -35,208 +35,47 @@
             padding: 0;
             overflow-x: hidden; /* Evita el scroll horizontal por animaciones */
         }
-        .header-bg {
-            background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1517457375823-bff7980b1822?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center center / cover no-repeat;
-            min-height: 80vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            color: white;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        /* Estilos de la tarjeta principal */
+        .card-bg {
+            background: #ffffff; /* Fondo blanco para la tarjeta principal */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.05); /* Sombra más pronunciada y elegante */
+            border: 1px solid #e0d8cc; /* Borde suave */
             position: relative;
+            overflow: hidden; /* Oculta elementos decorativos que se desborden */
+            border-radius: 1rem; /* Bordes más redondeados */
+            padding: 2.5rem; /* Espaciado interno generoso */
+            width: 100%;
+            max-width: 44rem; /* Max-width para centrar bien en desktop */
+            margin: 1.5rem auto; /* Margen para centrar y espaciar */
         }
-        .header-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.3); /* Darker overlay */
-            z-index: 1;
-        }
-        .header-content {
-            position: relative;
-            z-index: 2;
-        }
+        /* Color dorado para textos importantes */
         .golden-text {
-            color: #a07a1e; /* A rich golden color */
+            color: #a07a1e;
         }
+        /* Fuentes específicas */
         .display-font {
             font-family: 'Playfair Display', serif;
         }
         .great-vibes-font {
-            font-family: 'Great Vibes', cursive; /* Nueva fuente de escritura elegante */
+            font-family: 'Great Vibes', cursive;
         }
-        .button-primary {
-            background: linear-gradient(to right, #a07a1e, #d4af37);
-            color: white;
-            font-weight: 600;
-            padding: 0.75rem 2rem;
-            border-radius: 9999px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-        .button-primary:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-        }
-        .button-primary:active {
-            transform: translateY(0) scale(0.98);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        .section-padding {
-            padding: 4rem 1.5rem;
-        }
-        .card {
-            background: white;
-            border-radius: 1.5rem;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            padding: 2.5rem;
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .flower-divider {
-            width: 100px;
-            height: auto;
-            margin: 2rem auto;
-            opacity: 0.7;
-        }
-        .message-box {
-            background-color: #fefcbf; /* Tailwind yellow-100 */
-            color: #8b5f0a; /* Tailwind yellow-800 */
-            border: 1px solid #fbd38d; /* Tailwind yellow-400 */
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin-top: 1.5rem;
-        }
-        .error-box {
-            background-color: #fee2e2; /* Tailwind red-100 */
-            color: #991b1b; /* Tailwind red-800 */
-            border: 1px solid #fca5a5; /* Tailwind red-400 */
-        }
-        .confirm-button {
-            background-color: #4CAF50; /* Green */
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 10px;
-        }
-        .cancel-button {
-            background-color: #f44336; /* Red */
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 10px;
-            margin-left: 10px;
-        }
-
-        /* Countdown specific styles */
-        #countdown-container {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 2.5rem;
-            flex-wrap: wrap;
-        }
-        .countdown-item {
-            background-color: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            border-radius: 1rem;
-            padding: 1rem 1.25rem;
-            text-align: center;
-            min-width: 100px;
-        }
-        .countdown-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: white;
-            line-height: 1;
-        }
-        .countdown-label {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-top: 0.25rem;
-            text-transform: uppercase;
-        }
-
-        /* RSVP form styling */
-        .form-input, .form-textarea, .form-select {
-            width: 100%;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: 1px solid #d4c8bc;
-            border-radius: 0.5rem;
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            color: #333;
-        }
-        .form-input:focus, .form-textarea:focus, .form-select:focus {
-            outline: none;
-            border-color: #a07a1e;
-            box-shadow: 0 0 0 2px rgba(160, 122, 30, 0.2);
-        }
-        .form-label {
-            display: block;
-            text-align: left;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #555;
-        }
-        .submit-button {
-            background: linear-gradient(to right, #a07a1e, #d4af37);
-            color: white;
-            font-weight: 600;
-            padding: 0.75rem 2rem;
-            border-radius: 9999px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            border: none;
-            cursor: pointer;
-            width: auto; /* Ensure button doesn't take full width */
-            margin-top: 1rem;
-        }
-        .submit-button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            background: #ccc;
-            box-shadow: none;
-        }
-        .submit-button:hover:not(:disabled) {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-        }
-        .submit-button:active:not(:disabled) {
-            transform: translateY(0) scale(0.98);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        /* Sombra de texto para los nombres para dar un efecto sutil de relieve */
+        /* Sombra de texto para los nombres */
         .name-shadow {
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3); /* Sombra más fuerte y visible */
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
         }
 
         /* Tamaños de fuente responsivos */
         @media (max-width: 640px) {
-            .text-7xl-custom { font-size: 4.5rem; } /* Ligeramente más pequeño para móvil */
+            .text-7xl-custom { font-size: 4.5rem; }
             .text-4xl { font-size: 2.5rem; }
             .text-2xl { font-size: 1.5rem; }
             .text-xl { font-size: 1.25rem; }
             .text-lg { font-size: 1.125rem; }
             .p-8 { padding: 1.5rem; }
+            .card-bg { padding: 1.5rem; margin: 1rem auto;}
         }
 
-        /* Estilos para mensajes de éxito/error dentro de la sección RSVP */
+        /* Mensajes de éxito/error */
         .message-success {
             color: #10B981; /* Tailwind green-500 */
         }
@@ -247,11 +86,11 @@
         /* Contenedor de mapa responsivo */
         .map-container {
             position: relative;
-            padding-bottom: 75%; /* Relación de aspecto 4:3 (3/4 * 100) */
+            padding-bottom: 75%; /* Relación de aspecto 4:3 */
             height: 0;
             overflow: hidden;
-            border-radius: 0.5rem; /* rounded-lg */
-            border: 1px solid #e0d8cc; /* Borde suave */
+            border-radius: 0.5rem;
+            border: 1px solid #e0d8cc;
         }
         .map-container iframe {
             position: absolute;
@@ -267,25 +106,25 @@
             position: relative;
             width: 100%;
             overflow: hidden;
-            border-radius: 0.5rem; /* rounded-lg */
+            border-radius: 0.5rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border: 1px solid #e0d8cc; /* Borde suave */
+            border: 1px solid #e0d8cc;
         }
         .gallery-inner {
             display: flex;
-            transition: transform 0.8s ease-in-out; /* Transición más suave y lenta */
+            transition: transform 0.8s ease-in-out;
             width: 100%;
-            flex-shrink: 0; /* Asegura que las imágenes no se encojan */
+            flex-shrink: 0;
         }
         .gallery-inner img {
             width: 100%;
-            flex-shrink: 0; /* Evita que las imágenes se encojan */
+            flex-shrink: 0;
             height: auto;
             object-fit: cover;
             border-radius: 0.5rem;
-            max-height: 250px; /* Limita la altura para consistencia estética */
-            margin: auto; /* Centra la imagen verticalmente si el contenedor es más alto */
-            cursor: pointer; /* Indica que la imagen es clickeable */
+            max-height: 250px;
+            margin: auto;
+            cursor: pointer;
         }
         .gallery-nav-button {
             position: absolute;
@@ -296,32 +135,32 @@
             border: none;
             padding: 0.5rem 0.75rem;
             cursor: pointer;
-            border-radius: 9999px; /* rounded-full */
+            border-radius: 9999px;
             font-size: 1.5rem;
             line-height: 1;
             z-index: 10;
-            user-select: none; /* Evita la selección de texto */
+            user-select: none;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
         .gallery-nav-button:hover {
             background-color: rgba(0, 0, 0, 0.7);
-            transform: translateY(-50%) scale(1.1); /* Ligero agrandamiento al pasar el ratón */
+            transform: translateY(-50%) scale(1.1);
         }
         .gallery-prev { left: 0.5rem; }
         .gallery-next { right: 0.5rem; }
 
-        /* Estilos para el modal de imagen en pantalla completa */
+        /* Modal de imagen en pantalla completa */
         .image-modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.85); /* Fondo oscuro semitransparente */
+            background-color: rgba(0, 0, 0, 0.85);
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1000; /* Asegura que esté por encima de todo */
+            z-index: 1000;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -333,7 +172,7 @@
         .image-modal-content {
             max-width: 90%;
             max-height: 90%;
-            object-fit: contain; /* Asegura que la imagen se ajuste */
+            object-fit: contain;
             border-radius: 0.5rem;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
         }
@@ -355,7 +194,7 @@
             background-color: rgba(255, 255, 255, 0.2);
         }
 
-        /* Animaciones al hacer scroll (fade-in-up) */
+        /* Animaciones al hacer scroll */
         .fade-in-up {
             opacity: 0;
             transform: translateY(20px);
@@ -366,31 +205,31 @@
             transform: translateY(0);
         }
 
-        /* Nuevo estilo para el fondo de corazones dorados en la sección de nombres */
+        /* Fondo de corazones dorados en la sección de nombres */
         .names-with-hearts-bg {
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzgiIGhlaWdodD0iMzgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMTEuOTk5OSAyMC45NzI1TDEwLjY3ODggMTkuNjg3NkM1LjQ1NzMgMTUuMDA4NSAy萍MTIuMDU0MyAyIDguNTk1OTJDMiA1LjY5MjIzIDQuMzY0IDMuMzI0ODQgNy40NDMzOSAzLjMyNDg0QzkuMTMzMjIgMy4zMjQ0IDguMTkwNDMgNS40MjUyNEMxMi4xMjU2IDUuNjk1ODcgMTIuNDI3MyA1Ljc2OTE3IDEy.NTU2MyA1.MzcXNkMxMy4yMjE2IDU.0MjA5MSAxNC44ODY2IDMuMzI0ODQgMTYuNTU2IDAuMzI0ODRDMTkuNjM1NSAzLjMyNDg0IDIyIDUuNjk2MTUgMjIgOC41OTU5MkMyMiAxMi4wNTQzIDE4LjU0MjcgMTUuMDA4NSAxMy4zMjIyIDE5LjY4NzZMMTAuOTk5OSAyMC45NzI1WiIgZmlsbD0iI0RBQTAwMCId3aW5kLW9wYWNpdHk9IjAuMDgiLz4KPC9zdmc+');
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzgiIGhlaWdodD0iMzgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMTEuOTk5OSAyMC45NzI1TDEwLjY3ODggMTkuNjg3NkM1LjQ1NzMgMTUuMDA4NSAy萍MTIuMDU0MyAyIDguNTk1OTJDMiA1LjY5MjIzIDQuMzY0IDMuMzI0ODQgNy40NDMzOSAzLjMyNDg0QzkuMTMzMjIgMy4zMjQ0IDguMTkwNDMgNS40MjUyNEMxMi4xMjU2IDUuNjk1ODcgMTIuNDI3MyA1LjU2OTE3IDEyLjU1NjMgNS42NzI1N0MxMy4yMjE2IDUuNjcwOTEgMTQuODg2NiAzLjMyNDg0IDE2LjU1NiAzLjMyNDg0QzE5LjYzNTUgMy4zMjQ4NCAyMiA1LjY5NjE1IDIyIDguNTk1OTJDMjIgMTIuMDU0MyAxOC41NDI3IDE1LjAwODUgMTMuMzIyMiAxOS42ODc2TDEwLjk5OTkgMjAuOTcyNVoiIGZpbGw9IiNEQUEwMDAiIG9wYWNpdHk9IjAuMDgiLz4KPC9zdmc+');
             background-repeat: repeat;
-            background-size: 38px 38px; /* Tamaño del patrón de corazón */
+            background-size: 38px 38px;
             background-position: center;
-            border-radius: 1rem; /* Bordes redondeados para la sección */
-            padding: 1rem; /* Espaciado interno */
+            border-radius: 1rem;
+            padding: 1rem;
             margin-top: 1.5rem;
             margin-bottom: 1.5rem;
-            position: relative; /* Para que la sombra del texto funcione bien */
-            z-index: 1; /* Asegura que el fondo esté detrás del texto si hay otros elementos */
+            position: relative;
+            z-index: 1;
         }
 
-        /* Language Selector Styles (for main invitation) */
+        /* Selector de idioma principal */
         .language-selector-main {
             position: absolute;
             top: 1.5rem;
             right: 1.5rem;
             display: flex;
             gap: 0.5rem;
-            z-index: 10; /* Asegura que esté por encima de otros elementos */
+            z-index: 10;
         }
         .lang-button-main {
-            background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente */
+            background-color: rgba(255, 255, 255, 0.8);
             color: #555;
             padding: 0.3rem 0.7rem;
             border-radius: 0.5rem;
@@ -402,7 +241,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         .lang-button-main.active, .lang-button-main:hover {
-            background-color: #a07a1e; /* Dorado activo/hover */
+            background-color: #a07a1e;
             color: white;
             border-color: #a07a1e;
             transform: translateY(-2px);
@@ -421,7 +260,7 @@
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4 lang-es">
-    <div class="card-bg max-w-sm md:max-w-md w-full rounded-xl p-8 text-center space-y-6">
+    <div class="card-bg">
         <!-- Selector de idioma -->
         <div class="language-selector-main">
             <button id="langEsMain" class="lang-button-main active" data-lang="es">ES</button>
@@ -492,18 +331,17 @@
             <h3 id="galleryTitle" class="text-2xl display-font golden-text mb-4">Nuestros Momentos</h3>
             <div class="gallery-container">
                 <div id="galleryInner" class="gallery-inner">
-                    <!-- Las siguientes rutas han sido actualizadas con tus nombres de archivo. -->
-                    <!-- Asegúrate de que estos archivos estén en la carpeta 'fotos/' de tu repositorio de GitHub. -->
-                    <img src="fotos/IMG_0759.jpg" data-src-large="fotos/IMG_0759.jpg" alt="Foto de Karen y Fabián 1" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+1';">
-                    <img src="fotos/IMG_1680.jpg" data-src-large="fotos/IMG_1680.jpg" alt="Foto de Karen y Fabián 2" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+2';">
-                    <img src="fotos/IMG_1766.jpg" data-src-large="fotos/IMG_1766.jpg" alt="Foto de Karen y Fabián 3" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+3';">
-                    <img src="fotos/IMG_1899.jpg" data-src-large="fotos/IMG_1899.jpg" alt="Foto de Karen y Fabián 4" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+4';">
-                    <img src="fotos/IMG_1904.jpg" data-src-large="fotos/IMG_1904.jpg" alt="Foto de Karen y Fabián 5" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+5';">
-                    <img src="fotos/IMG_5550.jpg" data-src-large="fotos/IMG_5550.jpg" alt="Foto de Karen y Fabián 6" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+6';">
-                    <img src="fotos/IMG_5556.jpg" data-src-large="fotos/IMG_5556.jpg" alt="Foto de Karen y Fabián 7" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+7';">
-                    <img src="fotos/IMG_5558.jpg" data-src-large="fotos/IMG_5558.jpg" alt="Foto de Karen y Fabián 8" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+8';">
-                    <img src="fotos/IMG_5567.jpg" data-src-large="fotos/IMG_5567.jpg" alt="Foto de Karen y Fabián 9" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+9';">
-                    <img src="fotos/IMG_0180.jpg" data-src-large="fotos/IMG_0180.jpg" alt="Foto de Karen y Fabián 10" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+10';">
+                    <!-- Las siguientes rutas han sido actualizadas con tus nombres de archivo y alt text descriptivos. -->
+                    <img src="fotos/IMG_0759.jpg" data-src-large="fotos/IMG_0759.jpg" alt="Karen y Fabián con fuegos artificiales" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+1';">
+                    <img src="fotos/IMG_1680.jpg" data-src-large="fotos/IMG_1680.jpg" alt="Karen y Fabián con amigos en una librería/bar" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+2';">
+                    <img src="fotos/IMG_1766.jpg" data-src-large="fotos/IMG_1766.jpg" alt="Grupo de amigos cenando en un restaurante" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+3';">
+                    <img src="fotos/IMG_1899.jpg" data-src-large="fotos/IMG_1899.jpg" alt="Karen y Fabián sonriendo en una cena al aire libre con amigos" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+4';">
+                    <img src="fotos/IMG_1904.jpg" data-src-large="fotos/IMG_1904.jpg" alt="Karen y Fabián en una reunión casual con amigos" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+5';">
+                    <img src="fotos/IMG_5550.jpg" data-src-large="fotos/IMG_5550.jpg" alt="Fabián abrazando a Karen en un restaurante" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+6';">
+                    <img src="fotos/IMG_5556.jpg" data-src-large="fotos/IMG_5556.jpg" alt="Karen, Fabián y un familiar en la mesa de un restaurante" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+7';">
+                    <img src="fotos/IMG_5558.jpg" data-src-large="fotos/IMG_5558.jpg" alt="Fabián usando un babero de restaurante con el logo 'La Pata Gorda'" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+8';">
+                    <img src="fotos/IMG_5567.jpg" data-src-large="fotos/IMG_5567.jpg" alt="Karen y Fabián posando frente a la cocina de 'La Pata Gorda'" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+9';">
+                    <img src="fotos/IMG_0180.jpg" data-src-large="fotos/IMG_0180.jpg" alt="Karen y Fabián sonriendo, Karen sostiene una bolsa de regalo" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+10';">
                     <!-- Si tienes más fotos, añádelas aquí siguiendo el mismo formato -->
                 </div>
                 <button id="galleryPrev" class="gallery-nav-button" aria-label="Anterior">&#10094;</button>
@@ -540,11 +378,11 @@
         <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
             <h3 id="locationTitle" class="text-2xl display-font golden-text mb-4">Lugar</h3>
             <p id="addressText" class="text-gray-700 text-base md:text-lg mb-4">
-                1250 NE 125 St, North Miami, FL 33161
+                A confirmar pronto dónde y cuándo lo diremos.
             </p>
             <div class="map-container mb-4">
                 <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3590.2785664188634!2d-80.17061732386994!3d25.90804470295801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9add50b1d3d63%3A0x6b4c10a471c6999a!2s1250%20NE%20125th%20St%2C%20North%20Miami%2C%20FL%2033161%2C%20USA!5e0!3m2!1sen!2sus!4v1719000000000!5m2!1sen!2sus"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114569.46736203063!2d-80.2642145326578!3d25.952994982635934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9afe52fb01801%3A0x1d37492c6867e3ee!2sNorth%20Miami%2C%20FL%2C%20USA!5e0!3m2!1sen!2sus!4v1719100000000!5m2!1sen!2sus"
                     allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
@@ -703,15 +541,15 @@
 
         // TU CONFIGURACIÓN DE FIREBASE (PROYECTO: MiAppboda)
         const firebaseConfig = {
-            apiKey: "AIzaSyDpAxNRADMfHkSlxBpJIe9WaB3_rWz1Vd4", 
+            apiKey: "AIzaSyDpAxNRADMfHkSlxBpJIe9WaB3_rWz1Vd4",
             authDomain: "miappboda.firebaseapp.com",
             projectId: "miappboda",
             storageBucket: "miappboda.firebasestorage.app",
             messagingSenderId: "155595716187",
             appId: "1:155595716187:web:11ba23c2bde759bcf0717e",
-            measurementId: "G-CL89DVBBHP" 
+            measurementId: "G-CL89DVBBHP"
         };
-        
+
         // Obtenemos el appId de la configuración de Firebase
         const appId = firebaseConfig.appId;
 
@@ -727,7 +565,7 @@
                 invitationText: "Nos complace invitarte a celebrar con nosotros este día tan especial. Tu presencia es el mejor regalo.",
                 dateText: "20 DE SEPTIEMBRE 2025",
                 timeText: "8:00 P.M.",
-                locationText: "LUGAR A CONFIRMAR",
+                locationText: "Lugar a confirmar pronto", // Changed text
                 countdownTitle: "¡Falta Poco!",
                 daysLabel: "Días",
                 hoursLabel: "Horas",
@@ -743,8 +581,8 @@
                 agendaTime: "8:00 P.M.",
                 agendaEvent: "Inicio de la Celebración / Recepción",
                 addToCalendarPrompt: "Toca para añadir al calendario",
-                locationTitle: "Lugar",
-                addressText: "1250 NE 125 St, North Miami, FL 33161",
+                locationTitle: "Lugar", // Changed title to just "Lugar"
+                addressText: "A confirmar pronto dónde y cuándo lo diremos.", // Changed address text
                 viewMapText: "Ver en Google Maps",
                 giftsTitle: "Regalos",
                 giftsText1: "¡Tu presencia es nuestro mejor regalo! Si deseas hacernos un obsequio, puedes contribuir a nuestro fondo de luna de miel.",
@@ -791,7 +629,7 @@
                 invitationText: "We are delighted to invite you to celebrate with us this very special day. Your presence is the greatest gift.",
                 dateText: "SEPTEMBER 20, 2025",
                 timeText: "8:00 P.M.",
-                locationText: "LOCATION TO BE CONFIRMED",
+                locationText: "Location to be confirmed soon", // Changed text
                 countdownTitle: "Almost There!",
                 daysLabel: "Days",
                 hoursLabel: "Hours",
@@ -807,8 +645,8 @@
                 agendaTime: "8:00 P.M.",
                 agendaEvent: "Celebration / Reception Starts",
                 addToCalendarPrompt: "Tap to add to calendar",
-                locationTitle: "Location",
-                addressText: "1250 NE 125 St, North Miami, FL 33161",
+                locationTitle: "Location", // Changed title to just "Location"
+                addressText: "To be confirmed soon where and when we will tell you.", // Changed address text
                 viewMapText: "View on Google Maps",
                 giftsTitle: "Gifts",
                 giftsText1: "Your presence is our greatest gift! If you wish to give us a present, you can contribute to our honeymoon fund.",
@@ -855,6 +693,7 @@
 
         // Function to apply translations
         function applyTranslations(lang) {
+            // Update all translatable text content
             document.getElementById('pageTitle').textContent = translations[lang].pageTitle;
             document.getElementById('saveTheDateText').textContent = translations[lang].saveTheDateText;
             document.getElementById('quoteText').textContent = translations[lang].quoteText;
@@ -874,7 +713,7 @@
             document.getElementById('gallerySubtitle').textContent = translations[lang].gallerySubtitle;
             document.getElementById('autoGalleryText').textContent = translations[lang].autoGalleryText;
             document.getElementById('agendaTitle').textContent = translations[lang].agendaTitle;
-            document.getElementById('agendaTime').textContent = translations[lang].agendaTime; // Time value
+            document.getElementById('agendaTime').textContent = translations[lang].agendaTime; // Time value (static)
             document.getElementById('agendaEvent').textContent = translations[lang].agendaEvent;
             document.getElementById('addToCalendarPrompt').textContent = translations[lang].addToCalendarPrompt;
             document.getElementById('locationTitle').textContent = translations[lang].locationTitle;
@@ -885,9 +724,9 @@
             document.getElementById('contributeText').textContent = translations[lang].contributeText;
             document.getElementById('giftsNoteText').textContent = translations[lang].giftsNoteText;
             document.getElementById('contactTitle').textContent = translations[lang].contactTitle;
-            // Update contact links' text
-            document.getElementById('karenContact').textContent = `Karen: 786-285-5066`; // Phone number static
-            document.getElementById('fabianContact').textContent = `Fabián: 954-955-2895`; // Phone number static
+            // Update contact links' text (phone numbers remain static)
+            document.getElementById('karenContact').textContent = `Karen: 786-285-5066`;
+            document.getElementById('fabianContact').textContent = `Fabián: 954-955-2895`;
             document.getElementById('songSuggestionTitle').textContent = translations[lang].songSuggestionTitle;
             document.getElementById('songNameLabel').textContent = translations[lang].songNameLabel;
             document.getElementById('songArtistLabel').textContent = translations[lang].songArtistLabel;
@@ -922,6 +761,7 @@
         function displayMessage(targetDivId, messageKey, isError = false, ...args) {
             const messageDiv = document.getElementById(targetDivId);
             const messageTemplate = translations[currentLang][messageKey];
+            // If the message is a function (like rsvpSuccess), call it with args; otherwise, use it directly
             messageDiv.textContent = typeof messageTemplate === 'function' ? messageTemplate(...args) : messageTemplate;
 
             messageDiv.classList.remove('hidden', 'message-success', 'message-error');
@@ -931,16 +771,15 @@
                 messageDiv.classList.add('message-success');
             }
 
-            // Para mensajes de éxito, oculta el mensaje después de un retraso y potencialmente muestra un botón
+            // For success messages, hide after a delay and potentially re-show RSVP button
             if (!isError) {
                 setTimeout(() => {
                     messageDiv.classList.add('hidden');
-                    // Manejo especial para que el botón RSVP vuelva a aparecer
                     if (targetDivId === 'rsvpMessage') {
                         document.getElementById('showRsvpFormButton').classList.remove('hidden');
-                        document.getElementById('rsvpFormContainer').classList.add('hidden'); // Oculta el formulario de nuevo
+                        document.getElementById('rsvpFormContainer').classList.add('hidden');
                   }
-                }, 3000); // Oculta el mensaje después de 3 segundos
+                }, 3000);
             }
         }
 
@@ -966,7 +805,7 @@
                             displayMessage('rsvpMessage', "formErrorGeneric", true);
                             displayMessage('songMessage', "formErrorGeneric", true);
                             displayMessage('guestbookMessageDiv', "formErrorGeneric", true);
-                            isAuthReady = true;
+                            isAuthReady = true; // Ensure isAuthReady is set even on error to avoid infinite loading
                         }
                     }
                 });
@@ -980,12 +819,15 @@
 
 
         document.addEventListener('DOMContentLoaded', () => {
-            initializeFirebase(); // Inicializa Firebase cuando el DOM esté listo
+            initializeFirebase(); // Initialize Firebase when DOM is ready
             applyTranslations(currentLang); // Apply initial translations on page load
 
-            // Language button event listeners
-            document.getElementById('langEsMain').addEventListener('click', () => applyTranslations('es'));
-            document.getElementById('langEnMain').addEventListener('click', () => applyTranslations('en'));
+            // Language button event listeners using event delegation
+            document.querySelectorAll('.language-selector-main .lang-button-main').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    applyTranslations(e.target.dataset.lang);
+                });
+            });
 
 
             const showRsvpFormButton = document.getElementById('showRsvpFormButton');
@@ -997,7 +839,7 @@
             const guestbookForm = document.getElementById('guestbookForm');
 
 
-            // --- Lógica de Cuenta Regresiva ---
+            // --- Countdown Logic ---
             const weddingDate = new Date("September 20, 2025 20:00:00").getTime(); // 8:00 P.M.
             const updateCountdown = setInterval(() => {
                 const now = new Date().getTime();
@@ -1019,7 +861,7 @@
                 }
             }, 1000);
 
-            // --- Lógica de Galería de Fotos Mejorada ---
+            // --- Gallery Logic ---
             const galleryInner = document.getElementById('galleryInner');
             const galleryImages = galleryInner.getElementsByTagName('img');
             const galleryPrev = document.getElementById('galleryPrev');
@@ -1028,14 +870,14 @@
             const slideshowIcon = document.getElementById('slideshowIcon');
             let currentImageIndex = 0;
             let slideshowInterval;
-            let isSlideshowPlaying = true; // Por defecto, inicia reproduciendo
+            let isSlideshowPlaying = true; // Default to auto-play
 
             const startSlideshow = () => {
-                if (slideshowInterval) clearInterval(slideshowInterval); // Limpiar cualquier intervalo anterior
+                if (slideshowInterval) clearInterval(slideshowInterval);
                 slideshowInterval = setInterval(() => {
                     currentImageIndex++;
                     updateGallery();
-                }, 5000); // Cambia de foto cada 5 segundos
+                }, 5000); // Change photo every 5 seconds
                 slideshowIcon.className = 'ph ph-pause';
                 isSlideshowPlaying = true;
             };
@@ -1057,7 +899,7 @@
                 galleryInner.style.transform = `translateX(${offset}%)`;
             };
 
-            // Event listeners para la galería (sin sonido de clic)
+            // Gallery event listeners
             galleryPrev.addEventListener('click', () => {
                 pauseSlideshow();
                 currentImageIndex--;
@@ -1078,7 +920,7 @@
                 }
             });
 
-            // Lógica para el modal de imagen en pantalla completa
+            // Full-screen image modal logic
             const imageModal = document.getElementById('imageModal');
             const modalImage = document.getElementById('modalImage');
             const imageModalClose = document.getElementById('imageModalClose');
@@ -1088,7 +930,7 @@
                     const largeSrc = e.target.getAttribute('data-src-large') || e.target.src;
                     modalImage.src = largeSrc;
                     imageModal.classList.add('active');
-                    pauseSlideshow(); // Pausar slideshow al abrir el modal
+                    pauseSlideshow(); // Pause slideshow when modal opens
                 });
             });
 
@@ -1102,27 +944,26 @@
                 }
             });
 
-
-            // Carga inicial de la galería
+            // Initial gallery load
             if (galleryImages.length > 0) {
                 updateGallery();
-                startSlideshow(); // Iniciar slideshow automáticamente al cargar
+                startSlideshow(); // Auto-start slideshow on load
             }
 
 
-            // --- Lógica de Animaciones al hacer Scroll (Intersection Observer) ---
+            // --- Scroll Animations (Intersection Observer) ---
             const animateOnScrollElements = document.querySelectorAll('.fade-in-up');
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('animate');
-                        observer.unobserve(entry.target); // Dejar de observar una vez que ha animado
+                        observer.unobserve(entry.target); // Stop observing once animated
                     }
                 });
             }, {
-                threshold: 0.1, // El 10% del elemento debe estar visible
-                rootMargin: '0px 0px -50px 0px' // Empezar un poco antes de que llegue al fondo de la pantalla
+                threshold: 0.1, // 10% of element must be visible
+                rootMargin: '0px 0px -50px 0px' // Start animation slightly before reaching bottom of screen
             });
 
             animateOnScrollElements.forEach(el => {
@@ -1130,14 +971,14 @@
             });
 
 
-            // Muestra el formulario RSVP cuando se hace clic en el botón principal
+            // Show RSVP form button click
             showRsvpFormButton.addEventListener('click', () => {
                 showRsvpFormButton.classList.add('hidden');
                 rsvpFormContainer.classList.remove('hidden');
-                document.getElementById('rsvpMessage').classList.add('hidden'); // Oculta cualquier mensaje anterior
+                document.getElementById('rsvpMessage').classList.add('hidden'); // Hide any previous messages
             });
 
-            // Maneja el envío del formulario para 'Confirmar Asistencia'
+            // Handle RSVP confirmation form submission
             rsvpForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 if (!isAuthReady || !db) {
@@ -1174,7 +1015,7 @@
                         minors: numMinors,
                         timestamp: new Date(),
                         status: 'confirmed',
-                        submittedBy: userId || crypto.randomUUID() // Usa el userId autenticado o genera uno aleatorio si es anónimo
+                        submittedBy: userId || crypto.randomUUID()
                     };
 
                     const rsvpsCollectionRef = collection(db, `artifacts/${appId}/public/data/rsvps`);
@@ -1182,18 +1023,14 @@
 
                     displayMessage('rsvpMessage', 'rsvpSuccess', false, guestName, numAdults, numMinors);
                     rsvpForm.reset();
-                    // Después del envío exitoso, oculta el formulario y muestra el botón de nuevo
-                    rsvpFormContainer.classList.add('hidden');
-                    showRsvpFormButton.classList.remove('hidden');
-
                 }
                 catch (error) {
-                    console.error("Error al enviar RSVP:", error);
+                    console.error("Error submitting RSVP:", error);
                     displayMessage('rsvpMessage', "errorSubmitting", true);
                 }
             });
 
-            // Maneja el clic en el botón 'No asistiré'
+            // Handle 'Cannot attend' button click
             declineButton.addEventListener('click', async () => {
                 if (!isAuthReady || !db) {
                     displayMessage('rsvpMessage', "formErrorGeneric", true);
@@ -1221,17 +1058,13 @@
 
                     displayMessage('rsvpMessage', 'rsvpDeclined', false, guestName);
                     rsvpForm.reset();
-                    // Después del envío exitoso, oculta el formulario y muestra el botón de nuevo
-                    rsvpFormContainer.classList.add('hidden');
-                    showRsvpFormButton.classList.remove('hidden');
-
                 } catch (error) {
-                    console.error("Error al enviar la negativa:", error);
+                    console.error("Error submitting declination:", error);
                     displayMessage('rsvpMessage', "errorSubmittingDecline", true);
                 }
             });
 
-            // Maneja el envío del formulario de solicitud de canción
+            // Handle song request form submission
             songRequestForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 if (!isAuthReady || !db) {
@@ -1241,7 +1074,7 @@
 
                 const songName = document.getElementById('songName').value.trim();
                 const songArtist = document.getElementById('songArtist').value.trim();
-                const songExplanation = document.getElementById('songExplanation').value.trim(); // Nueva línea
+                const songExplanation = document.getElementById('songExplanation').value.trim();
                 const requesterNameSong = document.getElementById('requesterNameSong').value.trim();
 
                 if (!songName) {
@@ -1252,9 +1085,9 @@
                 try {
                     const songRequestData = {
                         songName: songName,
-                        songArtist: songArtist || 'Desconocido', // Valor predeterminado si el artista está vacío
-                        explanation: songExplanation || '', // Guardar la explicación
-                        requesterName: requesterNameSong || 'Anónimo', // Valor predeterminado si el solicitante está vacío
+                        songArtist: songArtist || 'Desconocido',
+                        explanation: songExplanation || '',
+                        requesterName: requesterNameSong || 'Anónimo',
                         timestamp: new Date(),
                         submittedBy: userId || crypto.randomUUID()
                     };
@@ -1265,12 +1098,12 @@
                     displayMessage('songMessage', 'songSuccess', false, songName, songArtist);
                     songRequestForm.reset();
                 } catch (error) {
-                    console.error("Error al enviar la solicitud de canción:", error);
+                    console.error("Error submitting song request:", error);
                     displayMessage('songMessage', "errorSubmittingSong", true);
                 }
             });
 
-            // Maneja el envío del formulario del libro de visitas
+            // Handle guestbook form submission
             guestbookForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 if (!isAuthReady || !db) {
@@ -1304,27 +1137,24 @@
                     displayMessage('guestbookMessageDiv', 'guestbookSuccess', false, guestbookSigner);
                     guestbookForm.reset();
                 } catch (error) {
-                    console.error("Error al enviar la entrada del libro de visitas:", error);
+                    console.error("Error submitting guestbook entry:", error);
                     displayMessage('guestbookMessageDiv', "errorSubmittingGuestbook", true);
                 }
             });
 
-            // Lógica para añadir evento al calendario
+            // Logic to add event to calendar
             const addToCalendarBtn = document.getElementById('addToCalendarBtn');
             if (addToCalendarBtn) {
                 addToCalendarBtn.addEventListener('click', (e) => {
-                    e.preventDefault(); // Evita el comportamiento predeterminado del enlace
+                    e.preventDefault();
 
                     const eventTitle = translations[currentLang].agendaEvent;
                     const eventLocation = translations[currentLang].addressText;
-                    const eventDescription = translations[currentLang].invitationText; // Usar el texto de invitación como descripción
+                    const eventDescription = translations[currentLang].invitationText;
 
-                    // Fecha y hora del evento: 20 de Septiembre de 2025, 8:00 P.M.
                     const startDate = new Date("September 20, 2025 20:00:00");
-                    // Asumiendo que el evento dura 4 horas, termina el 21 de Septiembre a las 00:00:00
-                    const endDate = new Date(startDate.getTime() + (4 * 60 * 60 * 1000)); // Añadir 4 horas
+                    const endDate = new Date(startDate.getTime() + (4 * 60 * 60 * 1000));
 
-                    // Formatear fechas para Google Calendar (YYYYMMDDTHHMMSS)
                     const formatDateTime = (date) => {
                         const year = date.getFullYear();
                         const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -1335,23 +1165,19 @@
                         return `${year}${month}${day}T${hours}${minutes}${seconds}`;
                     };
 
-                    const startDateTimeFormatted = formatDateTime(startDate);
-                    const endDateTimeFormatted = formatDateTime(endDate);
-
-                    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventTitle)}&dates=${startDateTimeFormatted}/${endDateTimeFormatted}&details=${encodeURIComponent(eventDescription)}&location=${encodeURIComponent(eventLocation)}&sf=true&output=xml`;
+                    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventTitle)}&dates=${formatDateTime(startDate)}/${formatDateTime(endDate)}&details=${encodeURIComponent(eventDescription)}&location=${encodeURIComponent(eventLocation)}&sf=true&output=xml`;
 
                     window.open(googleCalendarUrl, '_blank');
                 });
             }
 
-            // Lógica para abrir WhatsApp o SMS
+            // Logic to open WhatsApp or SMS
             function openWhatsAppOrSMS(phoneNumber, isWhatsAppPreferred = true, messageKey) {
-                let message = translations[currentLang][messageKey] || "Hola, tengo una pregunta sobre la boda.";
+                let message = translations[currentLang][messageKey] || "Hello, I have a question about the wedding.";
 
-                // Limpia el número para WhatsApp (solo dígitos, con código de país si falta)
                 let cleanedNumber = phoneNumber.replace(/[^0-9]/g, '');
-                if (cleanedNumber.length === 10) { // Asume un número de 10 dígitos de EE. UU.
-                    cleanedNumber = '1' + cleanedNumber; // Añade el código de país de EE. UU.
+                if (cleanedNumber.length === 10) {
+                    cleanedNumber = '1' + cleanedNumber;
                 }
 
                 const whatsappUrl = `https://wa.me/${cleanedNumber}?text=${encodeURIComponent(message)}`;
@@ -1359,21 +1185,15 @@
 
                 if (isWhatsAppPreferred) {
                     const newWindow = window.open(whatsappUrl, '_blank');
-                    // Pequeño retardo para dar tiempo a que WhatsApp se abra si está instalado
                     setTimeout(() => {
-                        // Si la ventana no se abrió (pop-up bloqueado, o WhatsApp no instalada), intenta con SMS
                         try {
-                           // Verifica si la ventana se mantiene en blanco o si no hay un abridor
-                           // Esta comprobación es heurística y puede no ser 100% fiable
                             if (newWindow && newWindow.closed || !newWindow) {
                                 window.location.href = smsUrl;
                             }
                         } catch (e) {
-                            // En caso de error (ej. acceso denegado a newWindow.closed en algunos navegadores si es cross-origin)
-                            // Intenta siempre con SMS como fallback robusto
                             window.location.href = smsUrl;
                         }
-                    }, 1000); // Espera 1 segundo antes de intentar el SMS
+                    }, 1000);
                 } else {
                     window.location.href = smsUrl;
                 }
@@ -1381,21 +1201,19 @@
 
             document.getElementById('karenContact').addEventListener('click', (e) => {
                 e.preventDefault();
-                openWhatsAppOrSMS('7862855066', true, "karenWhatsappMessage"); // Usar una clave de traducción
+                openWhatsAppOrSMS('7862855066', true, "karenWhatsappMessage");
             });
 
             document.getElementById('fabianContact').addEventListener('click', (e) => {
                 e.preventDefault();
-                openWhatsAppOrSMS('9549552895', true, "fabianWhatsappMessage"); // Usar una clave de traducción
+                openWhatsAppOrSMS('9549552895', true, "fabianWhatsappMessage");
             });
 
-            // Add new translation keys for WhatsApp messages
-            translations.es.karenWhatsappMessage = "Hola Karen, tengo una pregunta sobre la boda.";
-            translations.es.fabianWhatsappMessage = "Hola Fabián, tengo una pregunta sobre la boda.";
-            translations.en.karenWhatsappMessage = "Hi Karen, I have a question about the wedding.";
-            translations.en.fabianWhatsappMessage = "Hi Fabián, I have a question about the wedding.";
-
-
+            // Add new translation keys for WhatsApp messages (if not already present)
+            translations.es.karenWhatsappMessage = translations.es.karenWhatsappMessage || "Hola Karen, tengo una pregunta sobre la boda.";
+            translations.es.fabianWhatsappMessage = translations.es.fabianWhatsappMessage || "Hola Fabián, tengo una pregunta sobre la boda.";
+            translations.en.karenWhatsappMessage = translations.en.karenWhatsappMessage || "Hi Karen, I have a question about the wedding.";
+            translations.en.fabianWhatsappMessage = translations.en.fabianWhatsappMessage || "Hi Fabián, I have a question about the wedding.";
         });
     </script>
 </body>
