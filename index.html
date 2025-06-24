@@ -207,7 +207,7 @@
 
         /* Fondo de corazones dorados en la sección de nombres */
         .names-with-hearts-bg {
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzgiIGhlaWdodD0iMzgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMTEuOTk5OSAyMC45NzI1TDEwLjY3ODggMTkuNjg3NkM1LjQ1NzMgMTUuMDA4NSAy萍MTIuMDU0MyAyIDguNTk1OTJDMiA1LjY5MjIzIDQuMzY0IDMuMzI0ODQgNy40NDMzOSAzLjMyNDg0QzkuMTMzMjIgMy4zMjQ0IDguMTkwNDMgNS40MjUyNEMxMi4xMjU2IDUuNjk1ODcgMTIuNDI3MyA1LjU2OTE3IDEyLjU1NjMgNS42NzI1N0MxMy4yMjE2IDUuNjcwOTEgMTQuODg2NiAzLjMyNDg0IDE2LjU1NiAzLjMyNDg0QzE5LjYzNTUgMy4zMjQ4NCAyMiA1LjY5NjE1IDIyIDguNTk1OTJDMjIgMTIuMDU0MyAxOC41NDI3IDE1LjAwODUgMTMuMzIyMiAxOS42ODc2TDEwLjk5OTkgMjAuOTcyNVoiIGZpbGw9IiNEQUEwMDAiIG9wYWNpdHk9IjAuMDgiLz4KPC9zdmc+');
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzgiIGhlaWdodD0iMzgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMTEuOTk5OSAyMC45NzI1TDEwLjY3ODggMTkuNjg3NkM1LjQ1NzMgMTUuMDA4NSAy萍MTIuMDU0MyAyIDguNTk1OTJDMiA1LjY5MjIzIDQuMzY0IDMuMzI0ODQgNy40NDMzOSAzLjMyNDg0QzkuMTMzMjIgMy4zMjQ0IDguMTkwNDMgNS40MjUyNEMxMi4xMjU2IDUuNjk1ODcgMTIuNDI3MyA1LjU2OTE3IDEyLjU1NjMgNS42NzI1N0MxMy4yMjE2IDUuNjcwOTEgMTQuODg2NiAzLjMyNDg0IDE2LjU1NiAzLjMyNDg0QzE5LjYzNTUgMy4zMjQ4NCAyMiA1LjY5NjE1IDIyIDguNTk1OTJDMjIgMTIuMDU0MyAxOC41NDI3IDE1LjAwODUgMTMuMzIyMiAxOS42ODc2TDEwLjkwOTkgMjAuOTcyNVoiIGZpbGw9IiNEQUEwMDAiIG9wYWNpdHk9IjAuMDgiLz4KPC9zdmc+');
             background-repeat: repeat;
             background-size: 38px 38px;
             background-position: center;
@@ -258,46 +258,32 @@
             }
         }
 
-        /* Estilos para el Libro de Recuerdos */
+        /* Estilos para el Libro de Recuerdos (Nuevo Diseño) */
         #guestbookFormContainer {
-            background-color: #fffdfa; /* Un color de página ligeramente diferente */
-            border: 1px solid #e0d8cc;
+            background-color: #fffbeb; /* Un amarillo crema muy suave */
+            border: 1px solid #fbd38d; /* Borde dorado sutil */
             border-radius: 0.75rem; /* Bordes suaves */
             padding: 2rem;
-            position: relative;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave para levantar el "libro" */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); /* Sombra más pronunciada pero suave */
             margin-top: 1.5rem;
-            overflow: hidden; /* Para el pseudo-elemento del lomo */
-        }
-        #guestbookFormContainer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 15px; /* Ancho del "lomo" */
-            height: 100%;
-            background: linear-gradient(to right, #d4c8bc, #e0d8cc); /* Degradado para el lomo */
-            border-right: 1px solid #c0b4a8; /* Borde para el lomo */
-            box-shadow: inset 1px 0 3px rgba(0,0,0,0.1); /* Sombra interior para profundidad */
-            border-top-left-radius: 0.75rem;
-            border-bottom-left-radius: 0.75rem;
+            position: relative; /* Para posibles elementos decorativos */
         }
 
-        #guestbookFormContainer .form-label { /* Estilo para las etiquetas dentro del libro */
+        #guestbookFormContainer .form-label {
             color: #555;
             font-weight: 500;
         }
         #guestbookFormContainer input,
         #guestbookFormContainer textarea {
-            border-color: #ccc !important; /* Bordes más claros para los inputs dentro del libro */
+            border-color: #d4c8bc !important; /* Bordes claros para los inputs */
             background-color: #ffffff !important;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
         #guestbookFormContainer input:focus,
         #guestbookFormContainer textarea:focus {
             border-color: #a07a1e !important; /* Resaltado dorado al enfocar */
             box-shadow: 0 0 0 2px rgba(160, 122, 30, 0.2) !important;
         }
-
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4 lang-es">
