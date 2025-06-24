@@ -515,12 +515,15 @@
         </div>
 
         <!-- Sección RSVP -->
-        <div id="rsvpSection" class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
+        <div id="rsvpSection" class="mt-8 pt-4 border-t border-gray-200 fade-in-up flex flex-col items-center">
+            <p id="rsvpDeadlineText" class="golden-text font-bold text-lg md:text-xl tracking-wide mb-4 text-center">
+                Fecha límite para tu confirmación: 13/07/2025
+            </p>
             <button id="showRsvpFormButton"
                     class="inline-block bg-gradient-to-r from-yellow-600 to-yellow-800 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-300 display-font tracking-wide">
                 <i class="ph ph-check-circle-fill mr-2"></i> <span id="confirmAttendanceText">Confirmar Asistencia</span>
             </button>
-            <div id="rsvpFormContainer" class="hidden mt-6 text-left">
+            <div id="rsvpFormContainer" class="hidden mt-6 text-left w-full">
                 <form id="rsvpForm" class="space-y-4">
                     <div>
                         <label for="guestName" id="rsvpGuestNameLabel" class="block text-gray-700 text-sm font-bold mb-2">
@@ -629,6 +632,7 @@
                 guestbookSignerLabel: "Tu Nombre:",
                 signGuestbookText: "Firmar Libro",
                 confirmAttendanceText: "Confirmar Asistencia",
+                rsvpDeadlineText: "Fecha límite para tu confirmación: 13/07/2025", // New translation
                 rsvpGuestNameLabel: "Tu Nombre Completo:",
                 numAdultsLabel: "¿Cuántos adultos asistirán?",
                 numMinorsLabel: "¿Cuántos menores (niños) asistirán?",
@@ -697,6 +701,7 @@
                 guestbookSignerLabel: "Your Name:",
                 signGuestbookText: "Sign Guestbook",
                 confirmAttendanceText: "Confirm Attendance",
+                rsvpDeadlineText: "RSVP deadline: 07/13/2025", // New translation
                 rsvpGuestNameLabel: "Your Full Name:",
                 numAdultsLabel: "How many adults will attend?",
                 numMinorsLabel: "How many minors (children) will attend?",
@@ -777,6 +782,7 @@
             document.getElementById('guestbookSignerLabel').textContent = translations[lang].guestbookSignerLabel;
             document.getElementById('signGuestbookBtn').querySelector('span').textContent = translations[lang].signGuestbookText;
             document.getElementById('confirmAttendanceText').textContent = translations[lang].confirmAttendanceText;
+            document.getElementById('rsvpDeadlineText').textContent = translations[lang].rsvpDeadlineText; // New line for deadline text
             document.getElementById('rsvpGuestNameLabel').textContent = translations[lang].rsvpGuestNameLabel;
             document.getElementById('numAdultsLabel').textContent = translations[lang].numAdultsLabel;
             document.getElementById('numMinorsLabel').textContent = translations[lang].numMinorsLabel;
