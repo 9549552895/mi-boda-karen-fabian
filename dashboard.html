@@ -3,187 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="pageTitle">Panel de Control de Boda</title>
+    <title id="pageTitle">¡Nos Casamos! Karen & Fabián</title>
+
+    <!-- Open Graph Meta Tags para Previsualización en Redes Sociales y WhatsApp -->
+    <meta property="og:title" content="¡Nos Casamos! Boda de Karen & Fabián">
+    <meta property="og:description" content="Nos complace invitarte a celebrar con nosotros este día tan especial. Tu presencia es el mejor regalo.">
+    <meta property="og:image" content="https://placehold.co/1200x630/DAA000/ffffff?text=Karen+%26+Fabian+Wedding">
+    <meta property="og:url" content="https://9549552895.github.io/mi-boda-karen-fabian/">
+    <meta property="og:type" content="website">
+    <!-- Twitter Card Tags (opcional, pero recomendado para Twitter) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="¡Nos Casamos! Boda de Karen & Fabián">
+    <meta name="twitter:description" content="Nos complace invitarte a celebrar con nosotros este día tan especial. Tu presencia es el mejor regalo.">
+    <meta name="twitter:image" content="https://placehold.co/1200x630/DAA000/ffffff?text=Karen+%26+Fabian+Wedding">
+
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts para tipografía elegante -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-    <!-- Chart.js CDN for charts -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
-    <!-- Iconos Phosphor -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+    <!-- Iconos Phosphor (se mantienen si se usan en otros elementos) -->
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/dist/phosphor.js"></script>
     <style>
+        /* Estilos generales del cuerpo */
         body {
             font-family: 'Inter', sans-serif;
-            background: #f7f3ed; /* Consistent background with invitation */
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start; /* Align content to top */
-            padding: 2rem;
-            box-sizing: border-box;
+            background: #f7f3ed; /* Fondo claro y cremoso para toda la página */
             color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Evita el scroll horizontal por animaciones */
         }
-        .dashboard-container {
-            background: #ffffff;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.05);
-            border: 1px solid #d4c8bc;
-            border-radius: 1.5rem;
-            padding: 2.5rem; /* Reduced padding slightly for better fit */
+        /* Estilos de la tarjeta principal */
+        .card-bg {
+            background: #ffffff; /* Fondo blanco para la tarjeta principal */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.05); /* Sombra más pronunciada y elegante */
+            border: 1px solid #e0d8cc; /* Borde suave */
+            position: relative;
+            overflow: hidden; /* Oculta elementos decorativos que se desborden */
+            border-radius: 1rem; /* Bordes más redondeados */
+            padding: 2.5rem; /* Espaciado interno generoso */
             width: 100%;
-            max-width: 900px; /* Increased max-width for more content */
-            margin: 2rem auto;
-            position: relative; /* For language selector positioning */
+            max-width: 44rem; /* Max-width para centrar bien en desktop */
+            margin: 1.5rem auto; /* Margen para centrar y espaciar */
         }
+        /* Color dorado para textos importantes */
         .golden-text {
             color: #a07a1e;
         }
+        /* Fuentes específicas */
         .display-font {
             font-family: 'Playfair Display', serif;
         }
-        .section-card {
-            background-color: #fcfafa; /* Lighter background for sections */
-            border: 1px solid #e0d8cc;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Subtle shadow for sections */
+        .great-vibes-font {
+            font-family: 'Great Vibes', cursive;
         }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Adjusted minmax */
-            gap: 1.5rem; /* Increased gap */
-            margin-top: 1.5rem;
-        }
-        .stat-item {
-            background-color: #fffbeb; /* Light yellow for stats */
-            border-radius: 0.75rem;
-            padding: 1.25rem; /* More padding */
-            text-align: center;
-            font-weight: 500;
-            color: #8b5f0a;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.08); /* More defined shadow */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .stat-value {
-            font-size: 2.25rem; /* text-4xl */
-            font-weight: 700;
-            color: #a07a1e; /* golden-text */
-            line-height: 1.2; /* Tighter line height */
-            margin-bottom: 0.25rem;
-        }
-        .stat-label {
-            font-size: 0.9rem; /* Smaller label for balance */
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: #6d6d6d;
-        }
-        .message-box {
-            background-color: #fffbeb;
-            color: #8b5f0a;
-            border: 1px solid #fbd38d;
-            padding: 1.25rem;
-            border-radius: 0.75rem;
-            margin-top: 1.75rem;
-            font-size: 1rem;
-            text-align: left;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        .error-box {
-            background-color: #fee2e2;
-            color: #991b1b;
-            border: 1px solid #fca5a5;
-        }
-        /* Table styles */
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1.5rem;
-            font-size: 0.95rem; /* Slightly smaller text for tables */
-        }
-        .data-table th, .data-table td {
-            border: 1px solid #e0d8cc;
-            padding: 0.8rem;
-            text-align: left;
-        }
-        .data-table th {
-            background-color: #f0e8df; /* Lighter header background */
-            font-weight: 600;
-            color: #555;
-            text-transform: uppercase;
-            font-size: 0.85rem; /* Smaller font for headers */
-        }
-        .data-table tr:nth-child(even) {
-            background-color: #fcf5ee; /* Slightly different background for even rows */
-        }
-        .data-table tr:hover {
-            background-color: #f5edda; /* Highlight on hover */
-        }
-        /* Chart specific styles */
-        .chart-container {
-            width: 100%;
-            max-width: 500px; /* Max width for chart to prevent stretching */
-            margin: 1.5rem auto 0;
+        /* Sombra de texto para los nombres */
+        .name-shadow {
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
         }
 
-        /* Language Selector Styles */
-        .language-selector-dash {
+        /* Tamaños de fuente responsivos */
+        @media (max-width: 640px) {
+            .text-7xl-custom { font-size: 4.5rem; }
+            .text-4xl { font-size: 2.5rem; }
+            .text-2xl { font-size: 1.5rem; }
+            .text-xl { font-size: 1.25rem; }
+            .text-lg { font-size: 1.125rem; }
+            .p-8 { padding: 1.5rem; }
+            .card-bg { padding: 1.5rem; margin: 1rem auto;}
+        }
+
+        /* Mensajes de éxito/error */
+        .message-success {
+            color: #10B981; /* Tailwind green-500 */
+        }
+        .message-error {
+            color: #EF4444; /* Tailwind red-500 */
+        }
+
+        /* Contenedor de mapa responsivo */
+        .map-container {
+            position: relative;
+            padding-bottom: 75%; /* Relación de aspecto 4:3 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            border: 1px solid #e0d8cc;
+        }
+        .map-container iframe {
             position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            display: flex;
-            gap: 0.5rem;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
         }
-        .lang-button-dash {
-            background-color: #f0e8df;
-            color: #555;
-            padding: 0.3rem 0.7rem;
+
+        /* Estilos de la galería de fotos */
+        .gallery-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
             border-radius: 0.5rem;
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s ease, color 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             border: 1px solid #e0d8cc;
         }
-        .lang-button-dash.active, .lang-button-dash:hover {
-            background-color: #a07a1e;
-            color: white;
-            border-color: #a07a1e;
+        .gallery-inner {
+            display: flex;
+            transition: transform 0.8s ease-in-out;
+            width: 100%;
+            flex-shrink: 0;
         }
-
-        /* Delete Button Style (Individual) */
-        .delete-btn {
-            background-color: #ef4444; /* red-500 */
-            color: white;
-            padding: 0.5rem 0.75rem;
+        .gallery-inner img {
+            width: 100%;
+            flex-shrink: 0;
+            height: auto;
+            object-fit: cover;
             border-radius: 0.5rem;
-            font-size: 0.8rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.2s ease, transform 0.1s ease;
+            max-height: 250px;
+            margin: auto;
             cursor: pointer;
         }
-        .delete-btn:hover {
-            background-color: #dc2626; /* red-700 */
-            transform: scale(1.05);
+        .gallery-nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 0.5rem 0.75rem;
+            cursor: pointer;
+            border-radius: 9999px;
+            font-size: 1.5rem;
+            line-height: 1;
+            z-index: 10;
+            user-select: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
-        .delete-btn i {
-            margin-right: 0.25rem;
+        .gallery-nav-button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+            transform: translateY(-50%) scale(1.1);
         }
+        .gallery-prev { left: 0.5rem; }
+        .gallery-next { right: 0.5rem; }
 
-        /* Confirmation Modal Styles (General) */
-        .modal-overlay {
+        /* Modal de imagen en pantalla completa */
+        .image-modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
+            background-color: rgba(0, 0, 0, 0.85);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -192,367 +165,381 @@
             visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
-        .modal-overlay.active {
+        .image-modal-overlay.active {
             opacity: 1;
             visibility: visible;
         }
-        .modal-content {
-            background-color: #ffffff;
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            transform: translateY(-20px);
-            transition: transform 0.3s ease;
+        .image-modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 0.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
         }
-        .modal-overlay.active .modal-content {
+        .image-modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 1001;
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+        .image-modal-close:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Animaciones al hacer scroll */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .fade-in-up.animate {
+            opacity: 1;
             transform: translateY(0);
         }
-        .modal-content h3 {
-            font-size: 1.5rem;
-            color: #333;
-            margin-bottom: 1rem;
-            font-family: 'Playfair Display', serif;
-        }
-        .modal-content p {
-            font-size: 1rem;
-            color: #555;
+
+        /* Fondo de corazones dorados en la sección de nombres */
+        .names-with-hearts-bg {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzgiIGhlaWdodD0iMzgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMTEuOTk5OSAyMC45NzI1TDEwLjY3ODggMTkuNjg3NkM1LjQ1NzMgMTUuMDA4NSAy萍MTIuMDU0MyAyIDguNTk1OTJDMiA1LjY5MjIzIDQuMzY0IDMuMzI0ODQgNy40NDMzOSAzLjMyNDg0QzkuMTMzMjIgMy4zMjQ0IDguMTkwNDMgNS40MjUyNEMxMi4xMjU2IDUuNjk1ODcgMTIuNDI3MyA1LjU2OTE3IDEyLjU1NjMgNS42NzI1N0MxMy4yMjE2IDUuNjcwOTEgMTQuODg2NiAzLjMyNDg0IDE2LjU1NiAzLjMyNDg0QzE5LjYzNTUgMy4zMjQ4NCAyMiA1LjY5NjE1IDIyIDguNTk1OTJDMjIgMTIuMDU0MyAxOC41NDI3IDE1LjAwODUgMTMuMzIyMiAxOS42ODc2TDEwLjk5OTkgMjAuOTcyNVoiIGZpbGw9IiNEQUEwMDAiIG9wYWNpdHk9IjAuMDgiLz4KPC9zdmc+');
+            background-repeat: repeat;
+            background-size: 38px 38px;
+            background-position: center;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-top: 1.5rem;
             margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
         }
-        .modal-buttons {
+
+        /* Selector de idioma principal */
+        .language-selector-main {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
             display: flex;
-            justify-content: center;
-            gap: 1rem;
+            gap: 0.5rem;
+            z-index: 10;
         }
-        .modal-button {
-            padding: 0.75rem 1.5rem;
+        .lang-button-main {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #555;
+            padding: 0.3rem 0.7rem;
             border-radius: 0.5rem;
+            font-size: 0.8rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.2s ease, transform 0.1s ease;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+            border: 1px solid #e0d8cc;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        .modal-button.confirm {
-            background-color: #ef4444; /* red-500 */
+        .lang-button-main.active, .lang-button-main:hover {
+            background-color: #a07a1e;
             color: white;
+            border-color: #a07a1e;
+            transform: translateY(-2px);
         }
-        .modal-button.confirm:hover {
-            background-color: #dc2626; /* red-700 */
-            transform: translateY(-1px);
-        }
-        .modal-button.cancel {
-            background-color: #e5e7eb; /* gray-200 */
-            color: #374151; /* gray-700 */
-        }
-        .modal-button.cancel:hover {
-            background-color: #d1d5db; /* gray-300 */
-            transform: translateY(-1px);
-        }
-
-        /* Password Form Styles */
-        #passwordProtection {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 50vh; /* Centered in available space */
-            text-align: center;
-            padding: 2rem;
-        }
-        #passwordProtection input[type="password"] {
-            width: 100%;
-            max-width: 250px;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: 1px solid #d4c8bc;
-            border-radius: 0.5rem;
-            font-family: 'Inter', sans-serif;
-            font-size: 1.25rem;
-            text-align: center;
-        }
-        #passwordProtection button {
-            background: linear-gradient(to right, #a07a1e, #d4af37);
-            color: white;
-            font-weight: 600;
-            padding: 0.75rem 2rem;
-            border-radius: 9999px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            border: none;
-            cursor: pointer;
-            width: auto;
-        }
-        #passwordProtection button:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-        }
-        #passwordProtection .message-box {
-            margin-top: 1rem;
-            max-width: 350px;
-            width: 100%;
-        }
-
-        /* Delete All Button Style */
-        #deleteAllDataBtn {
-            background-color: #b91c1c; /* red-700 */
-            color: white;
-            font-weight: 600;
-            padding: 0.75rem 2rem;
-            border-radius: 9999px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            margin-top: 2rem; /* Added margin-top */
-            margin-right: 1rem; /* Added margin-right to separate from back button */
-        }
-        #deleteAllDataBtn:hover {
-            background-color: #7f1d1d; /* red-900 */
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-        }
-
-
-        /* Responsive adjustments */
         @media (max-width: 640px) {
-            body {
-                padding: 1rem;
-            }
-            .dashboard-container {
-                padding: 1.5rem;
-                border-radius: 1rem;
-                margin: 1rem auto;
-            }
-            .section-card {
-                padding: 1rem;
-            }
-            .stats-grid {
-                grid-template-columns: 1fr; /* Stack stats on small screens */
-                gap: 1rem;
-            }
-            .stat-value {
-                font-size: 2rem;
-            }
-            .stat-label {
-                font-size: 0.8rem;
-            }
-            .language-selector-dash {
+            .language-selector-main {
                 top: 0.75rem;
                 right: 0.75rem;
                 gap: 0.3rem;
             }
-            .lang-button-dash {
+            .lang-button-main {
                 padding: 0.2rem 0.5rem;
                 font-size: 0.7rem;
-            }
-            .data-table th, .data-table td {
-                padding: 0.6rem;
-                font-size: 0.8rem;
-            }
-            .delete-btn {
-                padding: 0.4rem 0.6rem;
-                font-size: 0.7rem;
-            }
-            .delete-btn i {
-                margin-right: 0.1rem;
-                font-size: 0.9rem;
-            }
-            .modal-content {
-                padding: 1.5rem;
-                border-radius: 0.75rem;
-            }
-            .modal-content h3 {
-                font-size: 1.25rem;
-            }
-            .modal-content p {
-                font-size: 0.9rem;
-            }
-            .modal-buttons {
-                flex-direction: column;
-                gap: 0.75rem;
-            }
-            #deleteAllDataBtn {
-                margin-right: 0; /* Remove margin-right on small screens */
-                margin-bottom: 1rem; /* Add margin-bottom for better spacing */
-            }
-            .button-group {
-                flex-direction: column;
-                gap: 1rem;
             }
         }
     </style>
 </head>
-<body class="lang-es">
-    <div class="dashboard-container">
-        <!-- Language Selector -->
-        <div class="language-selector-dash">
-            <button id="langEsDash" class="lang-button-dash active" data-lang="es">ES</button>
-            <button id="langEnDash" class="lang-button-dash" data-lang="en">EN</button>
+<body class="min-h-screen flex flex-col items-center justify-center p-4 lang-es">
+    <div class="card-bg">
+        <!-- Selector de idioma -->
+        <div class="language-selector-main">
+            <button id="langEsMain" class="lang-button-main active" data-lang="es">ES</button>
+            <button id="langEnMain" class="lang-button-main" data-lang="en">EN</button>
         </div>
 
-        <h1 id="mainTitle" class="text-3xl md:text-4xl display-font golden-text mb-8 text-center">Panel de Control de la Boda de Karen & Fabián</h1>
+        <!-- "SAVE THE DATE" equivalente -->
+        <p id="saveTheDateText" class="text-xl display-font tracking-widest uppercase text-gray-700 fade-in-up">NOS CASAMOS</p>
 
-        <!-- Password Protection Section -->
-        <div id="passwordProtection">
-            <h2 id="passwordPromptTitle" class="text-2xl display-font golden-text mb-4">Acceso Restringido</h2>
-            <p id="passwordPromptText" class="text-gray-700 mb-6">Por favor, introduce la contraseña para acceder al panel de control.</p>
-            <input type="password" id="passwordInput" placeholder="Contraseña de 4 dígitos" maxlength="4" class="form-input">
-            <button id="passwordSubmitBtn"><i class="ph ph-lock-key-fill mr-2"></i> <span id="passwordSubmitText">Acceder</span></button>
-            <div id="passwordMessage" class="message-box hidden"></div>
+        <!-- Nombres con Fondo de Corazones -->
+        <div class="names-with-hearts-bg">
+            <h1 class="text-7xl-custom md:text-8xl great-vibes-font golden-text leading-tight name-shadow fade-in-up">Karen</h1>
+            <p class="text-4xl great-vibes-font golden-text fade-in-up">&amp;</p>
+            <h2 class="text-7xl-custom md:text-8xl great-vibes-font golden-text leading-tight name-shadow fade-in-up">Fabián</h2>
         </div>
 
-        <!-- Main Dashboard Content (Initially hidden) -->
-        <div id="dashboardContent" class="hidden">
-            <div id="loadingMessage" class="message-box">
-                <i class="ph ph-hourglass-simple-fill animate-pulse mr-2"></i> <span id="loadingText">Cargando datos del panel...</span>
-            </div>
+        <!-- Frase bonita -->
+        <p id="quoteText" class="text-lg italic text-gray-600 display-font mt-4 fade-in-up">
+            "El amor es la fuerza más sutil del mundo."
+        </p>
 
-            <div id="errorMessage" class="message-box error-box hidden">
-                <i class="ph ph-x-circle-fill mr-2"></i> <span id="errorText">Hubo un error al cargar los datos. Por favor, inténtalo de nuevo más tarde.</span>
-            </div>
+        <!-- Texto de invitación -->
+        <p id="invitationText" class="text-base md:text-lg text-gray-700 leading-relaxed mt-4 fade-in-up">
+            Nos complace invitarte a celebrar con nosotros este día tan especial.
+            Tu presencia es el mejor regalo.
+        </p>
 
-            <!-- Resumen de RSVP -->
-            <div id="rsvpSummary" class="section-card hidden">
-                <h2 id="rsvpSummaryTitle" class="text-2xl display-font golden-text mb-4">Resumen de RSVP</h2>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <span id="totalGuests" class="stat-value">0</span>
-                        <span id="totalGuestsLabel" class="stat-label">Invitados Totales</span>
-                    </div>
-                    <div class="stat-item">
-                        <span id="confirmedAdults" class="stat-value">0</span>
-                        <span id="confirmedAdultsLabel" class="stat-label">Adultos Confirmados</span>
-                    </div>
-                    <div class="stat-item">
-                        <span id="confirmedMinors" class="stat-value">0</span>
-                        <span id="confirmedMinorsLabel" class="stat-label">Menores Confirmados</span>
-                    </div>
-                    <div class="stat-item">
-                        <span id="declinedCount" class="stat-value">0</span>
-                        <span id="declinedCountLabel" class="stat-label">Invitados No Asistirán</span>
-                    </div>
+        <!-- Fecha y Hora -->
+        <div class="space-y-2 mt-6 fade-in-up">
+            <p id="dateText" class="text-2xl md:text-3xl display-font uppercase text-gray-800">20 DE SEPTIEMBRE 2025</p>
+            <p id="timeText" class="text-xl md:text-2xl display-font text-gray-700">8:00 P.M.</p>
+            <p id="locationText" class="text-lg md:text-xl display-font text-gray-600">Lugar a confirmar pronto</p>
+        </div>
+
+        <!-- Cuenta Regresiva -->
+        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
+            <h3 id="countdownTitle" class="text-2xl display-font golden-text mb-4">¡Falta Poco!</h3>
+            <div id="countdown" class="text-center">
+                <span class="countdown-item"><span id="days">00</span><span id="daysLabel">Días</span></span>
+                <span class="countdown-item"><span id="hours">00</span><span id="hoursLabel">Horas</span></span>
+                <span class="countdown-item"><span id="minutes">00</span><span id="minutesLabel">Minutos</span></span>
+                <span class="countdown-item"><span id="seconds">00</span><span id="secondsLabel">Segundos</span></span>
+            </div>
+            <p id="countdownSubtitle" class="text-sm italic text-gray-500 mt-2">(Hasta el 20 de Septiembre de 2025 a las 8:00 P.M.)</p>
+        </div>
+
+        <!-- Nuestra Historia -->
+        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
+            <h3 id="ourStoryTitle" class="text-2xl display-font golden-text mb-4">Nuestra Historia</h3>
+            <p id="ourStoryText" class="text-gray-700 text-base md:text-lg leading-relaxed">
+                Cada historia de amor es única, y la nuestra comenzó en un inesperado encuentro,
+                donde dos caminos se cruzaron para crear un universo propio. Desde ese día,
+                cada momento ha sido una aventura, un aprendizaje y un crecimiento mutuo.
+                Hoy, con el corazón lleno de gratitud y alegría, nos preparamos para escribir
+                nuestro siguiente capítulo, ¡el más emocionante de todos!
+            </p>
+            <!-- Puedes añadir un video aquí si lo deseas. Ejemplo: -->
+            <!-- <div class="mt-6 aspect-video w-full rounded-lg overflow-hidden shadow-lg">
+                <iframe src="https://www.youtube.com/embed/TU_ID_DE_VIDEO" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
+            </div>
+            <p class="text-sm italic text-gray-500 mt-2">
+                (Reemplaza TU_ID_DE_VIDEO con el ID de tu video de YouTube)
+            </p> -->
+        </div>
+
+        <!-- Galería de Fotos Mejorada -->
+        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
+            <h3 id="galleryTitle" class="text-2xl display-font golden-text mb-4">Nuestros Momentos</h3>
+            <div class="gallery-container">
+                <div id="galleryInner" class="gallery-inner">
+                    <!-- Las siguientes rutas han sido actualizadas con tus nombres de archivo y alt text descriptivos. -->
+                    <img src="fotos/IMG_0759.jpg" data-src-large="fotos/IMG_0759.jpg" alt="Karen y Fabián con fuegos artificiales" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+1';">
+                    <img src="fotos/IMG_1680.jpg" data-src-large="fotos/IMG_1680.jpg" alt="Karen y Fabián con amigos en una librería/bar" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+2';">
+                    <img src="fotos/IMG_1766.jpg" data-src-large="fotos/IMG_1766.jpg" alt="Grupo de amigos cenando en un restaurante" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+3';">
+                    <img src="fotos/IMG_1899.jpg" data-src-large="fotos/IMG_1899.jpg" alt="Karen y Fabián sonriendo en una cena al aire libre con amigos" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+4';">
+                    <img src="fotos/IMG_1904.jpg" data-src-large="fotos/IMG_1904.jpg" alt="Karen y Fabián en una reunión casual con amigos" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+5';">
+                    <img src="fotos/IMG_5550.jpg" data-src-large="fotos/IMG_5550.jpg" alt="Fabián abrazando a Karen en un restaurante" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+6';">
+                    <img src="fotos/IMG_5556.jpg" data-src-large="fotos/IMG_5556.jpg" alt="Karen, Fabián y un familiar en la mesa de un restaurante" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+7';">
+                    <img src="fotos/IMG_5558.jpg" data-src-large="fotos/IMG_5558.jpg" alt="Fabián usando un babero de restaurante con el logo 'La Pata Gorda'" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+8';">
+                    <img src="fotos/IMG_5567.jpg" data-src-large="fotos/IMG_5567.jpg" alt="Karen y Fabián posando frente a la cocina de 'La Pata Gorda'" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+9';">
+                    <img src="fotos/IMG_0180.jpg" data-src-large="fotos/IMG_0180.jpg" alt="Karen y Fabián sonriendo, Karen sostiene una bolsa de regalo" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/666666?text=Foto+10';">
+                    <!-- Si tienes más fotos, añádelas aquí siguiendo el mismo formato -->
                 </div>
-                <div class="chart-container">
-                    <canvas id="rsvpChart"></canvas>
+                <button id="galleryPrev" class="gallery-nav-button" aria-label="Anterior">&#10094;</button>
+                <button id="galleryNext" class="gallery-nav-button" aria-label="Siguiente">&#10095;</button>
+                <div class="flex justify-center mt-4">
+                    <button id="slideshowToggle" class=" !text-base !font-medium !text-gray-600 !px-4 !py-2 !rounded-full !bg-gray-100 hover:!bg-gray-200" aria-label="Alternar reproducción automática de galería">
+                        <i class="ph ph-pause" id="slideshowIcon"></i> <span id="autoGalleryText">Auto</span>
+                    </button>
                 </div>
             </div>
+            <p id="gallerySubtitle" class="text-sm italic text-gray-500 mt-2">Desliza para ver más de nuestra historia, o usa el modo automático.</p>
+        </div>
 
-            <!-- Lista de Invitados con RSVP -->
-            <div id="guestListSection" class="section-card hidden">
-                <h2 id="guestListTitle" class="text-2xl display-font golden-text mb-4">Lista de Invitados (RSVP)</h2>
-                <div class="overflow-x-auto">
-                    <table id="guestTable" class="data-table">
-                        <thead>
-                            <tr>
-                                <th id="tableHeaderName">Nombre</th>
-                                <th id="tableHeaderAdults">Adultos</th>
-                                <th id="tableHeaderMinors">Menores</th>
-                                <th id="tableHeaderStatus">Estado</th>
-                                <th id="tableHeaderTimestamp">Fecha/Hora</th>
-                                <th id="tableHeaderActions">Acciones</th> <!-- New column for actions -->
-                            </tr>
-                        </thead>
-                        <tbody id="guestTableBody">
-                            <!-- Guest data will be loaded here -->
-                        </tbody>
-                    </table>
-                </div>
-                <p id="noGuestsMessage" class="text-gray-500 italic mt-4 hidden">No hay RSVP registrados aún.</p>
-            </div>
+        <!-- Modal para Imagen en Pantalla Completa -->
+        <div id="imageModal" class="image-modal-overlay">
+            <button id="imageModalClose" class="image-modal-close" aria-label="Cerrar imagen"><i class="ph ph-x-circle"></i></button>
+            <img id="modalImage" class="image-modal-content" src="" alt="Imagen ampliada">
+        </div>
 
-            <!-- Lista de Solicitudes de Canciones -->
-            <div id="songRequestsSection" class="section-card hidden">
-                <h2 id="songRequestsTitle" class="text-2xl display-font golden-text mb-4">Solicitudes de Canciones</h2>
-                <div class="overflow-x-auto">
-                    <table id="songTable" class="data-table">
-                        <thead>
-                            <tr>
-                                <th id="songTableHeaderTitle">Título</th>
-                                <th id="songTableHeaderArtist">Artista</th>
-                                <th id="songTableHeaderRequester">Solicitante</th>
-                                <th id="songTableHeaderExplanation">Explicación</th>
-                                <th id="songTableHeaderTimestamp">Fecha/Hora</th>
-                                <th id="songTableHeaderActions">Acciones</th> <!-- New column for actions -->
-                            </tr>
-                        </thead>
-                        <tbody id="songTableBody">
-                            <!-- Song data will be loaded here -->
-                        </tbody>
-                    </table>
-                </div>
-                <p id="noSongRequestsMessage" class="text-gray-500 italic mt-4 hidden">No hay solicitudes de canciones aún.</p>
-            </div>
 
-            <!-- Lista de Mensajes del Libro de Firmas -->
-            <div id="guestbookSection" class="section-card hidden">
-                <h2 id="guestbookTitle" class="text-2xl display-font golden-text mb-4">Mensajes del Libro de Firmas</h2>
-                <div class="overflow-x-auto">
-                    <table id="guestbookTable" class="data-table">
-                        <thead>
-                            <tr>
-                                <th id="guestbookTableHeaderSigner">Firmante</th>
-                                <th id="guestbookTableHeaderMessage">Mensaje</th>
-                                <th id="guestbookTableHeaderTimestamp">Fecha/Hora</th>
-                                <th id="guestbookTableHeaderActions">Acciones</th> <!-- New column for actions -->
-                            </tr>
-                        </thead>
-                        <tbody id="guestbookTableBody">
-                            <!-- Guestbook messages will be loaded here -->
-                        </tbody>
-                    </table>
-                </div>
-                <p id="noGuestbookMessages" class="text-gray-500 italic mt-4 hidden">No hay mensajes en el libro de firmas aún.</p>
-            </div>
-
-            <!-- Button Group for Back to Invitation and Delete All -->
-            <div class="flex flex-col md:flex-row justify-center items-center mt-8 button-group">
-                <button id="deleteAllDataBtn">
-                    <i class="ph ph-trash-simple-fill mr-2"></i> <span id="deleteAllText">Borrar Todo</span>
-                </button>
-                <a id="backToInvitationBtn" href="https://9549552895.github.io/mi-boda-karen-fabian/" class="inline-block mt-8 md:mt-0 bg-gray-200 text-gray-700 font-semibold py-3 px-8 rounded-full shadow-md hover:bg-gray-300 transform hover:scale-105 active:scale-95 transition-all duration-300">
-                    <i class="ph ph-arrow-left-bold mr-2"></i> <span id="backToInvitationText">Volver a la Invitación</span>
+        <!-- Agenda / Cronograma -->
+        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
+            <h3 id="agendaTitle" class="text-2xl display-font golden-text mb-4">Agenda del Día</h3>
+            <div class="text-gray-700 text-base md:text-lg space-y-2">
+                <!-- Se ha modificado para que este texto sea un enlace que añade al calendario -->
+                <a href="#" id="addToCalendarBtn" class="block text-gray-700 hover:text-blue-600 hover:underline transition-colors duration-200">
+                    <strong id="agendaTime">8:00 P.M.</strong> <span id="agendaEvent">Inicio de la Celebración / Recepción</span>
+                    <span id="addToCalendarPrompt" class="block text-sm italic text-gray-500 mt-1">Toca para añadir al calendario</span>
                 </a>
             </div>
         </div>
-    </div>
 
-    <!-- Confirmation Modal (for individual deletion) -->
-    <div id="confirmModal" class="modal-overlay">
-        <div class="modal-content">
-            <h3 id="modalConfirmTitle">Confirmar Eliminación</h3>
-            <p id="modalConfirmMessage">¿Estás seguro de que quieres eliminar este elemento?</p>
-            <div class="modal-buttons">
-                <button id="modalConfirmYes" class="modal-button confirm">Sí, Eliminar</button>
-                <button id="modalConfirmNo" class="modal-button cancel">Cancelar</button>
+        <!-- Lugar y Mapa -->
+        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
+            <h3 id="locationTitle" class="text-2xl display-font golden-text mb-4">Lugar</h3>
+            <p id="addressText" class="text-gray-700 text-base md:text-lg mb-4">
+                A confirmar pronto dónde y cuándo lo diremos.
+            </p>
+            <div class="map-container mb-4">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114569.46736203063!2d-80.2642145326578!3d25.952994982635934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9afe52fb01801%3A0x1d37492c6867e3ee!2sNorth%20Miami%2C%20FL%2C%20USA!5e0!3m2!1sen!2sus!4v1719100000000!5m2!1sen!2sus"
+                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+            <a id="mapLink" href="https://maps.app.goo.gl/YourActualGoogleMapsLinkHere" target="_blank" rel="noopener noreferrer"
+               class="text-blue-600 hover:underline text-sm md:text-base transition-colors duration-200">
+                <span id="viewMapText">Ver en Google Maps</span>
+            </a>
+        </div>
+
+        <!-- Regalos -->
+        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
+            <h3 id="giftsTitle" class="text-2xl display-font golden-text mb-4">Regalos</h3>
+            <p id="giftsText1" class="text-gray-700 text-base md:text-lg">
+                ¡Tu presencia es nuestro mejor regalo!
+                Si gustas contribuir para la luna de miel, puedes enviar un Zelle a 9549552895.
+            </p>
+            <a id="giftsLink" href="#" onclick="return false;"
+               class="inline-block bg-gradient-to-r from-yellow-300 to-yellow-500 text-yellow-900 font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300 mt-4">
+               <i class="ph ph-gift-bold mr-2"></i> <span id="contributeText">Enviar Zelle</span>
+            </a>
+            <p id="giftsNoteText" class="text-sm italic text-gray-500 mt-2">
+                (Toca el botón para copiar el número de Zelle.)
+            </p>
+        </div>
+
+        <!-- Contacto para Dudas -->
+        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
+            <h3 id="contactTitle" class="text-2xl display-font golden-text mb-4">Contacto para Dudas</h3>
+            <p id="karenContactText" class="text-gray-700 text-base md:text-lg">
+                <a href="#" id="karenContact" class="text-blue-600 hover:underline transition-colors duration-200">Karen: 786-285-5066</a>
+            </p>
+            <p id="fabianContactText" class="text-gray-700 text-base md:text-lg">
+                <a href="#" id="fabianContact" class="text-blue-600 hover:underline transition-colors duration-200">Fabián: 954-955-2895</a>
+            </p>
+        </div>
+
+        <!-- Sugiere una Canción -->
+        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
+            <h3 id="songSuggestionTitle" class="text-2xl display-font golden-text mb-4">¡Sugiere una Canción para la Fiesta!</h3>
+            <form id="songRequestForm" class="space-y-4">
+                <div>
+                    <label for="songName" id="songNameLabel" class="block text-gray-700 text-sm font-bold mb-2">
+                        Título de la Canción:
+                    </label>
+                    <input type="text" id="songName" name="songName" required
+                           class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
+                </div>
+                <div>
+                    <label for="songArtist" id="songArtistLabel" class="block text-gray-700 text-sm font-bold mb-2">
+                        Artista/Banda (Opcional):
+                    </label>
+                    <input type="text" id="songArtist" name="songArtist"
+                           class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
+                </div>
+                <div>
+                    <label for="songExplanation" id="songExplanationLabel" class="block text-gray-700 text-sm font-bold mb-2">
+                        Explicación/Mensaje para el DJ (Opcional):
+                    </label>
+                    <textarea id="songExplanation" name="songExplanation" rows="2"
+                              class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent resize-y transition-all duration-200"></textarea>
+                </div>
+                <div>
+                    <label for="requesterNameSong" id="requesterNameSongLabel" class="block text-gray-700 text-sm font-bold mb-2">
+                        Tu Nombre (Opcional):
+                    </label>
+                    <input type="text" id="requesterNameSong" name="requesterNameSong"
+                           class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
+                </div>
+                <button type="submit" id="submitSongBtn"
+                        class="bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300">
+                    <i class="ph ph-paper-plane-tilt-fill mr-2"></i> <span id="sendSuggestionText">Enviar Sugerencia</span>
+                </button>
+            </form>
+            <div id="songMessage" class="hidden mt-4 text-center text-base font-semibold"></div>
+        </div>
+
+        <!-- Libro de Firmas Virtual -->
+        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
+            <h3 id="guestbookTitle" class="text-2xl display-font golden-text mb-4">Deja un Mensaje para los Novios</h3>
+            <form id="guestbookForm" class="space-y-4">
+                <div>
+                    <label for="guestbookMessage" id="guestbookMessageLabel" class="block text-gray-700 text-sm font-bold mb-2">
+                        Tu Mensaje:
+                    </label>
+                    <textarea id="guestbookMessage" name="guestbookMessage" rows="4" required
+                              class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent resize-y transition-all duration-200"></textarea>
+                </div>
+                <div>
+                    <label for="guestbookSigner" id="guestbookSignerLabel" class="block text-gray-700 text-sm font-bold mb-2">
+                        Tu Nombre:
+                    </label>
+                    <input type="text" id="guestbookSigner" name="guestbookSigner" required
+                           class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
+                </div>
+                <button type="submit" id="signGuestbookBtn"
+                        class="bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300">
+                    <i class="ph ph-pencil-simple-line-fill mr-2"></i> <span id="signGuestbookText">Firmar Libro</span>
+                </button>
+            </form>
+            <div id="guestbookMessageDiv" class="hidden mt-4 text-center text-base font-semibold"></div>
+        </div>
+
+        <!-- Sección RSVP -->
+        <div id="rsvpSection" class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
+            <button id="showRsvpFormButton"
+                    class="inline-block bg-gradient-to-r from-yellow-600 to-yellow-800 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-300 display-font tracking-wide">
+                <i class="ph ph-check-circle-fill mr-2"></i> <span id="confirmAttendanceText">Confirmar Asistencia</span>
+            </button>
+            <div id="rsvpFormContainer" class="hidden mt-6 text-left">
+                <form id="rsvpForm" class="space-y-4">
+                    <div>
+                        <label for="guestName" id="rsvpGuestNameLabel" class="block text-gray-700 text-sm font-bold mb-2">
+                            Tu Nombre Completo:
+                        </label>
+                        <input type="text" id="guestName" name="guestName" required
+                               class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
+                    </div>
+                    <div>
+                        <label for="numAdults" id="numAdultsLabel" class="block text-gray-700 text-sm font-bold mb-2">
+                            ¿Cuántos adultos asistirán?
+                        </label>
+                        <input type="number" id="numAdults" name="numAdults" min="0" value="1" required
+                               class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
+                    </div>
+                    <div>
+                        <label for="numMinors" id="numMinorsLabel" class="block text-gray-700 text-sm font-bold mb-2">
+                            ¿Cuántos menores (niños) asistirán?
+                        </label>
+                        <input type="number" id="numMinors" name="numMinors" min="0" value="0" required
+                               class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200">
+                    </div>
+                    <div class="flex justify-between items-center pt-4">
+                        <button type="submit" id="sendRsvpBtn"
+                                class="bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300">
+                            <i class="ph ph-paper-plane-right-fill mr-2"></i> <span id="sendConfirmationText">Enviar Confirmación</span>
+                        </button>
+                        <button type="button" id="declineButton"
+                                class="bg-gray-400 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300">
+                            <i class="ph ph-x-circle-fill mr-2"></i> <span id="declineText">No asistiré</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div id="rsvpMessage" class="hidden mt-6 text-center text-lg font-semibold text-gray-800">
+                <!-- El mensaje de confirmación se mostrará aquí -->
             </div>
         </div>
+
     </div>
 
-    <!-- Confirmation Modal (for Delete All) -->
-    <div id="deleteAllConfirmModal" class="modal-overlay">
-        <div class="modal-content">
-            <h3 id="deleteAllModalTitle">Borrar Todos los Datos</h3>
-            <p id="deleteAllModalMessage">¡ADVERTENCIA! Estás a punto de eliminar PERMANENTEMENTE TODOS los RSVP, solicitudes de canciones y mensajes del libro de firmas. Esta acción NO se puede deshacer de ninguna manera.</p>
-            <p id="deleteAllModalConfirmText">¿Estás absolutamente seguro de que quieres continuar?</p>
-            <div class="modal-buttons">
-                <button id="deleteAllModalYes" class="modal-button confirm">Sí, Borrar Todo</button>
-                <button id="deleteAllModalNo" class="modal-button cancel">Cancelar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Firebase SDKs -->
+    <!-- SDKs de Firebase -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, getDocs, query, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // YOUR FIREBASE CONFIGURATION (Same as in index.html and dj-access.html)
+        // TU CONFIGURACIÓN DE FIREBASE (PROYECTO: MiAppboda)
         const firebaseConfig = {
             apiKey: "AIzaSyDpAxNRADMfHkSlxBpJIe9WaB3_rWz1Vd4",
             authDomain: "miappboda.firebaseapp.com",
@@ -563,630 +550,689 @@
             measurementId: "G-CL89DVBBHP"
         };
 
-        // Get the appId from Firebase config
+        // Obtenemos el appId de la configuración de Firebase
         const appId = firebaseConfig.appId;
 
-        let db, auth;
-        let rsvpChartInstance = null; // To hold the Chart.js instance
-
-        // Variables for confirmation modal (individual deletion)
-        let docToDeleteId = null;
-        let docToDeleteCollectionPath = null;
+        let app, db, auth, userId;
+        let isAuthReady = false;
 
         // --- Translation Data ---
         const translations = {
             es: {
-                pageTitle: "Panel de Control de Boda",
-                mainTitle: "Panel de Control de la Boda de Karen & Fabián",
-                loadingText: "Cargando datos del panel...",
-                errorText: "Hubo un error al cargar los datos. Por favor, inténtalo de nuevo más tarde.",
-                rsvpSummaryTitle: "Resumen de RSVP",
-                totalGuestsLabel: "Invitados Totales",
-                confirmedAdultsLabel: "Adultos Confirmados",
-                confirmedMinorsLabel: "Menores Confirmados",
-                declinedCountLabel: "Invitados No Asistirán",
-                guestListTitle: "Lista de Invitados (RSVP)",
-                tableHeaderName: "Nombre",
-                tableHeaderAdults: "Adultos",
-                tableHeaderMinors: "Menores",
-                tableHeaderStatus: "Estado",
-                tableHeaderTimestamp: "Fecha/Hora",
-                tableHeaderActions: "Acciones",
-                statusConfirmed: "Confirmado",
-                statusDeclined: "Declinado",
-                noGuestsMessage: "No hay RSVP registrados aún.",
-                songRequestsTitle: "Solicitudes de Canciones",
-                songTableHeaderTitle: "Título",
-                songTableHeaderArtist: "Artista",
-                songTableHeaderRequester: "Solicitante",
-                songTableHeaderExplanation: "Explicación",
-                songTableHeaderTimestamp: "Fecha/Hora",
-                songTableHeaderActions: "Acciones",
-                noSongRequestsMessage: "No hay solicitudes de canciones aún.",
-                guestbookTitle: "Mensajes del Libro de Firmas",
-                guestbookTableHeaderSigner: "Firmante",
-                guestbookTableHeaderMessage: "Mensaje",
-                guestbookTableHeaderTimestamp: "Fecha/Hora",
-                guestbookTableHeaderActions: "Acciones",
-                noGuestbookMessages: "No hay mensajes en el libro de firmas aún.",
-                backToInvitationText: "Volver a la Invitación",
-                chartLabelConfirmed: "Confirmados",
-                chartLabelDeclined: "No Asistirán",
-                na: "N/A",
-                unknown: "Desconocido",
-                anonymous: "Anónimo",
-                noExplanation: "Sin explicación",
-                deleteButton: "Eliminar",
-                modalConfirmTitle: "Confirmar Eliminación",
-                modalConfirmMessage: "¿Estás seguro de que quieres eliminar este elemento?",
-                modalConfirmYes: "Sí, Eliminar",
-                modalConfirmNo: "Cancelar",
-                deleteSuccess: "Elemento eliminado correctamente.",
-                deleteError: "Error al eliminar el elemento. Por favor, inténtalo de nuevo.",
-                passwordPromptTitle: "Acceso Restringido",
-                passwordPromptText: "Por favor, introduce la contraseña para acceder al panel de control.",
-                passwordSubmitText: "Acceder",
-                passwordIncorrect: "Contraseña incorrecta. Inténtalo de nuevo.",
-                deleteAllText: "Borrar Todo",
-                deleteAllModalTitle: "Borrar Todos los Datos",
-                deleteAllModalMessage: "¡ADVERTENCIA! Estás a punto de eliminar PERMANENTEMENTE TODOS los RSVP, solicitudes de canciones y mensajes del libro de firmas. Esta acción NO se puede deshacer de ninguna manera.",
-                deleteAllModalConfirmText: "¿Estás absolutamente seguro de que quieres continuar?",
-                deleteAllModalYes: "Sí, Borrar Todo",
-                deleteAllModalNo: "Cancelar",
-                deleteAllSuccess: "Todos los datos han sido eliminados correctamente.",
-                deleteAllError: "Error al intentar borrar todos los datos. Por favor, inténtalo de nuevo."
+                pageTitle: "¡Nos Casamos! Karen & Fabián",
+                saveTheDateText: "NOS CASAMOS",
+                quoteText: "El amor es la fuerza más sutil del mundo.",
+                invitationText: "Nos complace invitarte a celebrar con nosotros este día tan especial. Tu presencia es el mejor regalo.",
+                dateText: "20 DE SEPTIEMBRE 2025",
+                timeText: "8:00 P.M.",
+                locationText: "Lugar a confirmar pronto",
+                countdownTitle: "¡Falta Poco!",
+                daysLabel: "Días",
+                hoursLabel: "Horas",
+                minutesLabel: "Minutos",
+                secondsLabel: "Segundos",
+                countdownSubtitle: "(Hasta el 20 de Septiembre de 2025 a las 8:00 P.M.)",
+                ourStoryTitle: "Nuestra Historia",
+                ourStoryText: "Cada historia de amor es única, y la nuestra comenzó en un inesperado encuentro, donde dos caminos se cruzaron para crear un universo propio. Desde ese día, cada momento ha sido una aventura, un aprendizaje y un crecimiento mutuo. Hoy, con el corazón lleno de gratitud y alegría, nos preparamos para escribir nuestro siguiente capítulo, ¡el más emocionante de todos!",
+                galleryTitle: "Nuestros Momentos",
+                gallerySubtitle: "Desliza para ver más de nuestra historia, o usa el modo automático.",
+                autoGalleryText: "Auto",
+                agendaTitle: "Agenda del Día",
+                agendaTime: "8:00 P.M.",
+                agendaEvent: "Inicio de la Celebración / Recepción",
+                addToCalendarPrompt: "Toca para añadir al calendario",
+                locationTitle: "Lugar",
+                addressText: "A confirmar pronto dónde y cuándo lo diremos.",
+                viewMapText: "Ver en Google Maps",
+                giftsTitle: "Regalos",
+                giftsText1: "¡Tu presencia es nuestro mejor regalo! Si gustas contribuir para la luna de miel, puedes enviar un Zelle a 9549552895.", // Updated text
+                contributeText: "Enviar Zelle", // Updated button text
+                giftsNoteText: "(Toca el botón para copiar el número de Zelle.)", // Updated note
+                contactTitle: "Contacto para Dudas",
+                songSuggestionTitle: "¡Sugiere una Canción para la Fiesta!",
+                songNameLabel: "Título de la Canción:",
+                songArtistLabel: "Artista/Banda (Opcional):",
+                songExplanationLabel: "Explicación/Mensaje para el DJ (Opcional):",
+                requesterNameSongLabel: "Tu Nombre (Opcional):",
+                sendSuggestionText: "Enviar Sugerencia",
+                guestbookTitle: "Deja un Mensaje para los Novios",
+                guestbookMessageLabel: "Tu Mensaje:",
+                guestbookSignerLabel: "Tu Nombre:",
+                signGuestbookText: "Firmar Libro",
+                confirmAttendanceText: "Confirmar Asistencia",
+                rsvpGuestNameLabel: "Tu Nombre Completo:",
+                numAdultsLabel: "¿Cuántos adultos asistirán?",
+                numMinorsLabel: "¿Cuántos menores (niños) asistirán?",
+                sendConfirmationText: "Enviar Confirmación",
+                declineText: "No asistiré",
+                rsvpSuccess: (name, adults, minors) => `¡Gracias, ${name}! Tu asistencia de ${adults} adulto(s) y ${minors} menor(es) ha sido confirmada.`,
+                rsvpDeclined: (name) => `¡Gracias, ${name}! Lamentamos que no puedas asistir.`,
+                songSuccess: (song, artist) => `¡Gracias por tu sugerencia, ${song} por ${artist || 'Artista Desconocido'} ha sido añadida!`,
+                guestbookSuccess: (signer) => `¡Gracias, ${signer}! Tu mensaje ha sido guardado.`,
+                formErrorGeneric: "Por favor, espera un momento mientras cargamos la aplicación o hubo un error de inicialización.",
+                formErrorName: "Por favor, introduce tu nombre.",
+                formErrorAdults: "Por favor, introduce un número válido de adultos (0 o más).",
+                formErrorMinors: "Por favor, introduce un número válido de menores (0 o más).",
+                formErrorZeroGuests: "Has indicado 0 adultos y 0 menores. Si no puedes asistir, usa el botón 'No asistiré'. Si es un error, por favor, ajusta los números.",
+                formErrorSongTitle: "Por favor, introduce el título de la canción.",
+                formErrorMessage: "Por favor, escribe tu mensaje.",
+                formErrorSigner: "Por favor, introduce tu nombre para firmar.",
+                errorSubmitting: "Error al enviar tu confirmación. Por favor, inténtalo de nuevo.",
+                errorSubmittingDecline: "Error al registrar tu no asistencia. Por favor, inténtalo de nuevo.",
+                errorSubmittingSong: "Error al enviar tu sugerencia de canción. Por favor, inténtalo de nuevo.",
+                errorSubmittingGuestbook: "Error al enviar tu mensaje. Por favor, inténtalo de nuevo.",
+                karenWhatsappMessage: "Hola Karen, tengo una pregunta sobre la boda.",
+                fabianWhatsappMessage: "Hola Fabián, tengo una pregunta sobre la boda.",
+                zelleCopied: "Número de Zelle copiado: 9549552895", // New success message for Zelle copy
+                copyError: "Error al copiar el número de Zelle." // New error message for Zelle copy
             },
             en: {
-                pageTitle: "Wedding Dashboard",
-                mainTitle: "Karen & Fabian Wedding Dashboard",
-                loadingText: "Loading dashboard data...",
-                errorText: "There was an error loading the data. Please try again later.",
-                rsvpSummaryTitle: "RSVP Summary",
-                totalGuestsLabel: "Total Guests",
-                confirmedAdultsLabel: "Confirmed Adults",
-                confirmedMinorsLabel: "Confirmed Minors",
-                declinedCountLabel: "Declined Guests",
-                guestListTitle: "Guest List (RSVP)",
-                tableHeaderName: "Name",
-                tableHeaderAdults: "Adults",
-                tableHeaderMinors: "Minors",
-                tableHeaderStatus: "Status",
-                tableHeaderTimestamp: "Date/Time",
-                tableHeaderActions: "Actions",
-                statusConfirmed: "Confirmed",
-                statusDeclined: "Declined",
-                noGuestsMessage: "No RSVPs registered yet.",
-                songRequestsTitle: "Song Requests",
-                songTableHeaderTitle: "Title",
-                songTableHeaderArtist: "Artist",
-                songTableHeaderRequester: "Requester",
-                songTableHeaderExplanation: "Explanation",
-                songTableHeaderTimestamp: "Date/Time",
-                songTableHeaderActions: "Actions",
-                noSongRequestsMessage: "No song requests yet.",
-                guestbookTitle: "Guestbook Messages",
-                guestbookTableHeaderSigner: "Signer",
-                guestbookTableHeaderMessage: "Message",
-                guestbookTableHeaderTimestamp: "Date/Time",
-                guestbookTableHeaderActions: "Actions",
-                noGuestbookMessages: "No guestbook messages yet.",
-                backToInvitationText: "Back to Invitation",
-                chartLabelConfirmed: "Confirmed",
-                chartLabelDeclined: "Declined",
-                na: "N/A",
-                unknown: "Unknown",
-                anonymous: "Anonymous",
-                noExplanation: "No explanation",
-                deleteButton: "Delete",
-                modalConfirmTitle: "Confirm Deletion",
-                modalConfirmMessage: "Are you sure you want to delete this item?",
-                modalConfirmYes: "Yes, Delete",
-                modalConfirmNo: "Cancel",
-                deleteSuccess: "Item deleted successfully.",
-                deleteError: "Error deleting item. Please try again.",
-                passwordPromptTitle: "Restricted Access",
-                passwordPromptText: "Please enter the password to access the dashboard.",
-                passwordSubmitText: "Access",
-                passwordIncorrect: "Incorrect password. Please try again.",
-                deleteAllText: "Delete All",
-                deleteAllModalTitle: "Delete All Data",
-                deleteAllModalMessage: "WARNING! You are about to PERMANENTLY delete ALL RSVPs, song requests, and guestbook messages. This action CANNOT be undone.",
-                deleteAllModalConfirmText: "Are you absolutely sure you want to proceed?",
-                deleteAllModalYes: "Yes, Delete All",
-                deleteAllModalNo: "Cancel",
-                deleteAllSuccess: "All data deleted successfully.",
-                deleteAllError: "Error trying to delete all data. Please try again."
+                pageTitle: "We're Getting Married! Karen & Fabián",
+                saveTheDateText: "WE'RE GETTING MARRIED",
+                quoteText: "Love is the subtlest force in the world.",
+                invitationText: "We are delighted to invite you to celebrate with us this very special day. Your presence is the greatest gift.",
+                dateText: "SEPTEMBER 20, 2025",
+                timeText: "8:00 P.M.",
+                locationText: "Location to be confirmed soon",
+                countdownTitle: "Almost There!",
+                daysLabel: "Days",
+                hoursLabel: "Hours",
+                minutesLabel: "Minutes",
+                secondsLabel: "Seconds",
+                countdownSubtitle: "(Until September 20, 2025 at 8:00 P.M.)",
+                ourStoryTitle: "Our Story",
+                ourStoryText: "Every love story is unique, and ours began in an unexpected encounter, where two paths crossed to create a universe of our own. Since that day, every moment has been an adventure, a learning experience, and mutual growth. Today, with hearts full of gratitude and joy, we prepare to write our next chapter, the most exciting one yet!",
+                galleryTitle: "Our Moments",
+                gallerySubtitle: "Swipe to see more of our story, or use auto-play mode.",
+                autoGalleryText: "Auto",
+                agendaTitle: "Day's Agenda",
+                agendaTime: "8:00 P.M.",
+                agendaEvent: "Celebration / Reception Starts",
+                addToCalendarPrompt: "Tap to add to calendar",
+                locationTitle: "Location",
+                addressText: "To be confirmed soon where and when we will tell you.",
+                viewMapText: "View on Google Maps",
+                giftsTitle: "Gifts",
+                giftsText1: "Your presence is our greatest gift! If you wish to contribute to the honeymoon, you can send a Zelle to 9549552895.", // Updated text
+                contributeText: "Send Zelle", // Updated button text
+                giftsNoteText: "(Tap the button to copy the Zelle number.)", // Updated note
+                contactTitle: "Contact for Questions",
+                songSuggestionTitle: "Suggest a Song for the Party!",
+                songNameLabel: "Song Title:",
+                songArtistLabel: "Artist/Band (Optional):",
+                songExplanationLabel: "Explanation/Message for DJ (Optional):",
+                requesterNameSongLabel: "Your Name (Optional):",
+                sendSuggestionText: "Send Suggestion",
+                guestbookTitle: "Leave a Message for the Couple",
+                guestbookMessageLabel: "Your Message:",
+                guestbookSignerLabel: "Your Name:",
+                signGuestbookText: "Sign Guestbook",
+                confirmAttendanceText: "Confirm Attendance",
+                rsvpGuestNameLabel: "Your Full Name:",
+                numAdultsLabel: "How many adults will attend?",
+                numMinorsLabel: "How many minors (children) will attend?",
+                sendConfirmationText: "Send Confirmation",
+                declineText: "Cannot attend",
+                rsvpSuccess: (name, adults, minors) => `Thank you, ${name}! Your attendance for ${adults} adult(s) and ${minors} minor(s) has been confirmed.`,
+                rsvpDeclined: (name) => `Thank you, ${name}! We're sorry you can't make it.`,
+                songSuccess: (song, artist) => `Thank you for your suggestion, ${song} by ${artist || 'Unknown Artist'} has been added!`,
+                guestbookSuccess: (signer) => `Thank you, ${signer}! Your message has been saved.`,
+                formErrorGeneric: "Please wait a moment while the application loads or there was an initialization error.",
+                formErrorName: "Please enter your name.",
+                formErrorAdults: "Please enter a valid number of adults (0 or more).",
+                formErrorMinors: "Please enter a valid number of minors (0 or more).",
+                formErrorZeroGuests: "You indicated 0 adults and 0 minors. If you cannot attend, please use the 'Cannot attend' button. If this is an error, please adjust the numbers.",
+                formErrorSongTitle: "Please enter the song title.",
+                formErrorMessage: "Please write your message.",
+                formErrorSigner: "Please enter your name to sign.",
+                errorSubmitting: "Error submitting your confirmation. Please try again.",
+                errorSubmittingDecline: "Error registering your declination. Please try again.",
+                errorSubmittingSong: "Error submitting your song suggestion. Please try again.",
+                errorSubmittingGuestbook: "Error submitting your message. Please try again.",
+                karenWhatsappMessage: "Hi Karen, I have a question about the wedding.",
+                fabianWhatsappMessage: "Hi Fabián, I have a question about the wedding.",
+                zelleCopied: "Zelle number copied: 9549552895", // New success message for Zelle copy
+                copyError: "Error copying Zelle number." // New error message for Zelle copy
             }
         };
 
-        let currentLang = localStorage.getItem('dashboardLang') || 'es'; // Default to Spanish
+        let currentLang = localStorage.getItem('weddingLang') || 'es'; // Default to Spanish for main invitation
+
 
         // Function to apply translations
         function applyTranslations(lang) {
+            // Update all translatable text content
             document.getElementById('pageTitle').textContent = translations[lang].pageTitle;
-            document.getElementById('mainTitle').textContent = translations[lang].mainTitle;
-            document.getElementById('loadingText').textContent = translations[lang].loadingText;
-            document.getElementById('errorText').textContent = translations[lang].errorText;
-            document.getElementById('rsvpSummaryTitle').textContent = translations[lang].rsvpSummaryTitle;
-            document.getElementById('totalGuestsLabel').textContent = translations[lang].totalGuestsLabel;
-            document.getElementById('confirmedAdultsLabel').textContent = translations[lang].confirmedAdultsLabel;
-            document.getElementById('confirmedMinorsLabel').textContent = translations[lang].minorsConfirmedLabel; // Fixed typo
-            document.getElementById('declinedCountLabel').textContent = translations[lang].declinedCountLabel;
-            document.getElementById('guestListTitle').textContent = translations[lang].guestListTitle;
-            document.getElementById('tableHeaderName').textContent = translations[lang].tableHeaderName;
-            document.getElementById('tableHeaderAdults').textContent = translations[lang].tableHeaderAdults;
-            document.getElementById('tableHeaderMinors').textContent = translations[lang].tableHeaderMinors;
-            document.getElementById('tableHeaderStatus').textContent = translations[lang].tableHeaderStatus;
-            document.getElementById('tableHeaderTimestamp').textContent = translations[lang].tableHeaderTimestamp;
-            document.getElementById('tableHeaderActions').textContent = translations[lang].tableHeaderActions;
-            document.getElementById('noGuestsMessage').textContent = translations[lang].noGuestsMessage;
-            document.getElementById('songRequestsTitle').textContent = translations[lang].songRequestsTitle;
-            document.getElementById('songTableHeaderTitle').textContent = translations[lang].songTableHeaderTitle;
-            document.getElementById('songTableHeaderArtist').textContent = translations[lang].songTableHeaderArtist;
-            document.getElementById('songTableHeaderRequester').textContent = translations[lang].songTableHeaderRequester;
-            document.getElementById('songTableHeaderExplanation').textContent = translations[lang].songTableHeaderExplanation;
-            document.getElementById('songTableHeaderTimestamp').textContent = translations[lang].songTableHeaderTimestamp;
-            document.getElementById('songTableHeaderActions').textContent = translations[lang].songTableHeaderActions;
-            document.getElementById('noSongRequestsMessage').textContent = translations[lang].noSongRequestsMessage;
+            document.getElementById('saveTheDateText').textContent = translations[lang].saveTheDateText;
+            document.getElementById('quoteText').textContent = translations[lang].quoteText;
+            document.getElementById('invitationText').textContent = translations[lang].invitationText;
+            document.getElementById('dateText').textContent = translations[lang].dateText;
+            document.getElementById('timeText').textContent = translations[lang].timeText;
+            document.getElementById('locationText').textContent = translations[lang].locationText;
+            document.getElementById('countdownTitle').textContent = translations[lang].countdownTitle;
+            document.getElementById('daysLabel').textContent = translations[lang].daysLabel;
+            document.getElementById('hoursLabel').textContent = translations[lang].hoursLabel;
+            document.getElementById('minutesLabel').textContent = translations[lang].minutesLabel;
+            document.getElementById('secondsLabel').textContent = translations[lang].secondsLabel;
+            document.getElementById('countdownSubtitle').textContent = translations[lang].countdownSubtitle;
+            document.getElementById('ourStoryTitle').textContent = translations[lang].ourStoryTitle;
+            document.getElementById('ourStoryText').textContent = translations[lang].ourStoryText;
+            document.getElementById('galleryTitle').textContent = translations[lang].galleryTitle;
+            document.getElementById('gallerySubtitle').textContent = translations[lang].gallerySubtitle;
+            document.getElementById('autoGalleryText').textContent = translations[lang].autoGalleryText;
+            document.getElementById('agendaTitle').textContent = translations[lang].agendaTitle;
+            document.getElementById('agendaTime').textContent = translations[lang].agendaTime; // Time value (static)
+            document.getElementById('agendaEvent').textContent = translations[lang].agendaEvent;
+            document.getElementById('addToCalendarPrompt').textContent = translations[lang].addToCalendarPrompt;
+            document.getElementById('locationTitle').textContent = translations[lang].locationTitle;
+            document.getElementById('addressText').textContent = translations[lang].addressText;
+            document.getElementById('viewMapText').textContent = translations[lang].viewMapText;
+            document.getElementById('giftsTitle').textContent = translations[lang].giftsTitle;
+            document.getElementById('giftsText1').textContent = translations[lang].giftsText1;
+            document.getElementById('contributeText').textContent = translations[lang].contributeText;
+            document.getElementById('giftsNoteText').textContent = translations[lang].giftsNoteText;
+            document.getElementById('contactTitle').textContent = translations[lang].contactTitle;
+            // Update contact links' text (phone numbers remain static)
+            document.getElementById('karenContact').textContent = `Karen: 786-285-5066`;
+            document.getElementById('fabianContact').textContent = `Fabián: 954-955-2895`;
+            document.getElementById('songSuggestionTitle').textContent = translations[lang].songSuggestionTitle;
+            document.getElementById('songNameLabel').textContent = translations[lang].songNameLabel;
+            document.getElementById('songArtistLabel').textContent = translations[lang].songArtistLabel;
+            document.getElementById('songExplanationLabel').textContent = translations[lang].songExplanationLabel;
+            document.getElementById('requesterNameSongLabel').textContent = translations[lang].requesterNameSongLabel;
+            document.getElementById('submitSongBtn').querySelector('span').textContent = translations[lang].sendSuggestionText;
             document.getElementById('guestbookTitle').textContent = translations[lang].guestbookTitle;
-            document.getElementById('guestbookTableHeaderSigner').textContent = translations[lang].guestbookTableHeaderSigner;
-            document.getElementById('guestbookTableHeaderMessage').textContent = translations[lang].guestbookTableHeaderMessage;
-            document.getElementById('guestbookTableHeaderTimestamp').textContent = translations[lang].guestbookTableHeaderTimestamp;
-            document.getElementById('guestbookTableHeaderActions').textContent = translations[lang].guestbookTableHeaderActions;
-            document.getElementById('noGuestbookMessages').textContent = translations[lang].noGuestbookMessages;
-            document.getElementById('backToInvitationText').textContent = translations[lang].backToInvitationText;
-            document.getElementById('modalConfirmTitle').textContent = translations[lang].modalConfirmTitle;
-            document.getElementById('modalConfirmMessage').textContent = translations[lang].modalConfirmMessage;
-            document.getElementById('modalConfirmYes').textContent = translations[lang].modalConfirmYes;
-            document.getElementById('modalConfirmNo').textContent = translations[lang].modalConfirmNo;
-            document.getElementById('passwordPromptTitle').textContent = translations[lang].passwordPromptTitle;
-            document.getElementById('passwordPromptText').textContent = translations[lang].passwordPromptText;
-            document.getElementById('passwordInput').placeholder = translations[lang].passwordInputPlaceholder || "Contraseña de 4 dígitos";
-            document.getElementById('passwordSubmitText').textContent = translations[lang].passwordSubmitText;
-            document.getElementById('deleteAllText').textContent = translations[lang].deleteAllText; // New
-            document.getElementById('deleteAllModalTitle').textContent = translations[lang].deleteAllModalTitle; // New
-            document.getElementById('deleteAllModalMessage').textContent = translations[lang].deleteAllModalMessage; // New
-            document.getElementById('deleteAllModalConfirmText').textContent = translations[lang].deleteAllModalConfirmText; // New
-            document.getElementById('deleteAllModalYes').textContent = translations[lang].deleteAllModalYes; // New
-            document.getElementById('deleteAllModalNo').textContent = translations[lang].deleteAllModalNo; // New
+            document.getElementById('guestbookMessageLabel').textContent = translations[lang].guestbookMessageLabel;
+            document.getElementById('guestbookSignerLabel').textContent = translations[lang].guestbookSignerLabel;
+            document.getElementById('signGuestbookBtn').querySelector('span').textContent = translations[lang].signGuestbookText;
+            document.getElementById('confirmAttendanceText').textContent = translations[lang].confirmAttendanceText;
+            document.getElementById('rsvpGuestNameLabel').textContent = translations[lang].rsvpGuestNameLabel;
+            document.getElementById('numAdultsLabel').textContent = translations[lang].numAdultsLabel;
+            document.getElementById('numMinorsLabel').textContent = translations[lang].numMinorsLabel;
+            document.getElementById('sendConfirmationText').textContent = translations[lang].sendConfirmationText;
+            document.getElementById('declineText').textContent = translations[lang].declineText;
 
 
             // Update active language button state
-            document.querySelectorAll('.lang-button-dash').forEach(button => {
+            document.querySelectorAll('.lang-button-main').forEach(button => {
                 button.classList.remove('active');
             });
-            document.getElementById(`lang${lang.charAt(0).toUpperCase() + lang.slice(1)}Dash`).classList.add('active');
+            document.getElementById(`lang${lang.charAt(0).toUpperCase() + lang.slice(1)}Main`).classList.add('active');
 
-            // Set body lang attribute for CSS/accessibility
-            document.body.lang = lang;
+            document.body.lang = lang; // Update body lang attribute for CSS/accessibility
             currentLang = lang; // Update current language variable
-            localStorage.setItem('dashboardLang', lang); // Save preference
+            localStorage.setItem('weddingLang', lang); // Save preference
         }
 
-        // Function to render RSVP data and update chart
-        function renderRsvpData(rsvps) {
-            let totalGuests = 0;
-            let confirmedAdults = 0;
-            let confirmedMinors = 0;
-            let declinedCount = 0;
 
-            const guestTableBody = document.getElementById('guestTableBody');
-            guestTableBody.innerHTML = ''; // Clear existing table rows
+        // Función para mostrar mensajes dentro de un div específico (ej. rsvpMessage, songMessage, guestbookMessageDiv)
+        function displayMessage(targetDivId, messageKey, isError = false, ...args) {
+            const messageDiv = document.getElementById(targetDivId);
+            const messageTemplate = translations[currentLang][messageKey];
+            // If the message is a function (like rsvpSuccess), call it with args; otherwise, use it directly
+            messageDiv.textContent = typeof messageTemplate === 'function' ? messageTemplate(...args) : messageTemplate;
 
-            rsvps.forEach(rsvp => {
-                const data = rsvp.data();
-                const row = guestTableBody.insertRow();
-                row.insertCell().textContent = data.guestName || translations[currentLang].na;
-                row.insertCell().textContent = data.adults !== undefined ? data.adults : translations[currentLang].na;
-                row.insertCell().textContent = data.minors !== undefined ? data.minors : translations[currentLang].na;
-                row.insertCell().textContent = data.status === 'confirmed' ? translations[currentLang].statusConfirmed : translations[currentLang].statusDeclined;
-                row.insertCell().textContent = data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleString(currentLang === 'es' ? 'es-ES' : 'en-US') : translations[currentLang].na;
-
-                const actionCell = row.insertCell();
-                const deleteButton = document.createElement('button');
-                deleteButton.className = 'delete-btn';
-                deleteButton.innerHTML = `<i class="ph ph-trash"></i> ${translations[currentLang].deleteButton}`;
-                deleteButton.dataset.id = rsvp.id; // Store document ID
-                deleteButton.dataset.collection = `artifacts/${appId}/public/data/rsvps`;
-                deleteButton.dataset.itemName = data.guestName || translations[currentLang].na;
-                actionCell.appendChild(deleteButton);
-
-                deleteButton.addEventListener('click', (e) => {
-                    const docId = e.currentTarget.dataset.id;
-                    const collectionPath = e.currentTarget.dataset.collection;
-                    const itemName = e.currentTarget.dataset.itemName;
-                    showConfirmModal(docId, collectionPath, itemName);
-                });
-
-                if (data.status === 'confirmed') {
-                    confirmedAdults += (data.adults || 0);
-                    confirmedMinors += (data.minors || 0);
-                    totalGuests += (data.adults || 0) + (data.minors || 0);
-                } else if (data.status === 'declined') {
-                    declinedCount++;
-                }
-            });
-
-            document.getElementById('totalGuests').textContent = totalGuests;
-            document.getElementById('confirmedAdults').textContent = confirmedAdults;
-            document.getElementById('confirmedMinors').textContent = confirmedMinors;
-            document.getElementById('declinedCount').textContent = declinedCount;
-
-            if (rsvps.length === 0) {
-                document.getElementById('noGuestsMessage').classList.remove('hidden');
-            } else {
-                document.getElementById('noGuestsMessage').classList.add('hidden');
-            }
-
-            // Update Chart.js data
-            const ctx = document.getElementById('rsvpChart').getContext('2d');
-            if (rsvpChartInstance) {
-                rsvpChartInstance.destroy(); // Destroy previous chart instance
-            }
-            rsvpChartInstance = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: [translations[currentLang].chartLabelConfirmed, translations[currentLang].chartLabelDeclined],
-                    datasets: [{
-                        data: [confirmedAdults + confirmedMinors, declinedCount],
-                        backgroundColor: ['#a07a1e', '#fbd38d'], // Golden colors
-                        hoverOffset: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                            labels: {
-                                font: {
-                                    family: "'Inter', sans-serif"
-                                }
-                            }
-                        },
-                        title: {
-                            display: true,
-                            text: translations[currentLang].rsvpSummaryTitle,
-                            font: {
-                                family: "'Playfair Display', serif",
-                                size: 18
-                            },
-                            color: '#a07a1e'
-                        }
-                    }
-                }
-            });
-        }
-
-        // Function to render Song Requests
-        function renderSongRequests(songs) {
-            const songTableBody = document.getElementById('songTableBody');
-            songTableBody.innerHTML = ''; // Clear existing table rows
-
-            if (songs.length === 0) {
-                document.getElementById('noSongRequestsMessage').classList.remove('hidden');
-            } else {
-                document.getElementById('noSongRequestsMessage').classList.add('hidden');
-                songs.forEach(song => {
-                    const data = song.data();
-                    const row = songTableBody.insertRow();
-                    row.insertCell().textContent = data.songName || translations[currentLang].na;
-                    row.insertCell().textContent = data.songArtist || translations[currentLang].unknown;
-                    row.insertCell().textContent = data.requesterName || translations[currentLang].anonymous;
-                    row.insertCell().textContent = data.explanation || translations[currentLang].noExplanation;
-                    row.insertCell().textContent = data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleString(currentLang === 'es' ? 'es-ES' : 'en-US') : translations[currentLang].na;
-
-                    const actionCell = row.insertCell();
-                    const deleteButton = document.createElement('button');
-                    deleteButton.className = 'delete-btn';
-                    deleteButton.innerHTML = `<i class="ph ph-trash"></i> ${translations[currentLang].deleteButton}`;
-                    deleteButton.dataset.id = song.id; // Store document ID
-                    deleteButton.dataset.collection = `artifacts/${appId}/public/data/songRequests`;
-                    deleteButton.dataset.itemName = data.songName || translations[currentLang].na;
-                    actionCell.appendChild(deleteButton);
-
-                    deleteButton.addEventListener('click', (e) => {
-                        const docId = e.currentTarget.dataset.id;
-                        const collectionPath = e.currentTarget.dataset.collection;
-                        const itemName = e.currentTarget.dataset.itemName;
-                        showConfirmModal(docId, collectionPath, itemName);
-                    });
-                });
-            }
-        }
-
-        // Function to render Guestbook Messages
-        function renderGuestbookMessages(messages) {
-            const guestbookTableBody = document.getElementById('guestbookTableBody');
-            guestbookTableBody.innerHTML = ''; // Clear existing table rows
-
-            if (messages.length === 0) {
-                document.getElementById('noGuestbookMessages').classList.remove('hidden');
-            } else {
-                document.getElementById('noGuestbookMessages').classList.add('hidden');
-                messages.forEach(message => {
-                    const data = message.data();
-                    const row = guestbookTableBody.insertRow();
-                    row.insertCell().textContent = data.signer || translations[currentLang].anonymous;
-                    row.insertCell().textContent = data.message || translations[currentLang].na;
-                    row.insertCell().textContent = data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleString(currentLang === 'es' ? 'es-ES' : 'en-US') : translations[currentLang].na;
-
-                    const actionCell = row.insertCell();
-                    const deleteButton = document.createElement('button');
-                    deleteButton.className = 'delete-btn';
-                    deleteButton.innerHTML = `<i class="ph ph-trash"></i> ${translations[currentLang].deleteButton}`;
-                    deleteButton.dataset.id = message.id; // Store document ID
-                    deleteButton.dataset.collection = `artifacts/${appId}/public/data/guestbookEntries`;
-                    deleteButton.dataset.itemName = data.signer || translations[currentLang].na;
-                    actionCell.appendChild(deleteButton);
-
-                    deleteButton.addEventListener('click', (e) => {
-                        const docId = e.currentTarget.dataset.id;
-                        const collectionPath = e.currentTarget.dataset.collection;
-                        const itemName = e.currentTarget.dataset.itemName;
-                        showConfirmModal(docId, collectionPath, itemName);
-                    });
-                });
-            }
-        }
-
-        // Function to show the confirmation modal (for individual deletion)
-        function showConfirmModal(docId, collectionPath, itemName) {
-            docToDeleteId = docId;
-            docToDeleteCollectionPath = collectionPath;
-            document.getElementById('modalConfirmMessage').textContent = `${translations[currentLang].modalConfirmMessage} (${itemName})?`;
-            document.getElementById('confirmModal').classList.add('active');
-        }
-
-        // Function to hide the confirmation modal (for individual deletion)
-        function hideConfirmModal() {
-            document.getElementById('confirmModal').classList.remove('active');
-            docToDeleteId = null;
-            docToDeleteCollectionPath = null;
-        }
-
-        // Function to show the "Delete All" confirmation modal
-        function showDeleteAllConfirmModal() {
-            document.getElementById('deleteAllConfirmModal').classList.add('active');
-        }
-
-        // Function to hide the "Delete All" confirmation modal
-        function hideDeleteAllConfirmModal() {
-            document.getElementById('deleteAllConfirmModal').classList.remove('active');
-        }
-
-        // Function to display messages in the password form area (reused for general messages)
-        function displayDashboardMessage(messageKey, isError = false) {
-            const messageDiv = document.getElementById('passwordMessage'); // Reusing this for general messages
-            messageDiv.classList.remove('hidden', 'message-success', 'message-error', 'error-box', 'message-box');
+            messageDiv.classList.remove('hidden', 'message-success', 'message-error');
             if (isError) {
-                messageDiv.classList.add('error-box');
+                messageDiv.classList.add('message-error');
             } else {
-                messageDiv.classList.add('message-box');
+                messageDiv.classList.add('message-success');
             }
-            messageDiv.textContent = translations[currentLang][messageKey];
-            setTimeout(() => {
-                messageDiv.classList.add('hidden');
-            }, 3000);
+
+            // For success messages, hide after a delay and potentially re-show RSVP button
+            if (!isError) {
+                setTimeout(() => {
+                    messageDiv.classList.add('hidden');
+                    if (targetDivId === 'rsvpMessage') {
+                        document.getElementById('showRsvpFormButton').classList.remove('hidden');
+                        document.getElementById('rsvpFormContainer').classList.add('hidden');
+                  }
+                }, 3000);
+            }
         }
 
-
-        // Function to delete a document from Firestore (individual)
-        async function deleteDocument(docId, collectionPath) {
-            if (!db || !docId || !collectionPath) {
-                console.error("Database or document ID/collection path not available for deletion.");
-                displayDashboardMessage('deleteError', true);
-                return;
-            }
-
+        // Inicializa Firebase y configura la autenticación
+        const initializeFirebase = async () => {
             try {
-                await deleteDoc(doc(db, collectionPath, docId));
-                console.log("Document successfully deleted!");
-                await fetchAllDataAndRender(); // Re-fetch and re-render all data after deletion
-                displayDashboardMessage('deleteSuccess');
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
 
-            } catch (error) {
-                console.error("Error removing document: ", error);
-                displayDashboardMessage('deleteError', true);
-            } finally {
-                hideConfirmModal();
-            }
-        }
-
-        // Function to delete ALL data from specified collections
-        async function deleteAllData() {
-            if (!db) {
-                console.error("Database not initialized for bulk deletion.");
-                displayDashboardMessage('deleteAllError', true);
-                return;
-            }
-
-            const collectionsToDelete = [
-                `artifacts/${appId}/public/data/rsvps`,
-                `artifacts/${appId}/public/data/songRequests`,
-                `artifacts/${appId}/public/data/guestbookEntries`
-            ];
-
-            try {
-                for (const collectionPath of collectionsToDelete) {
-                    const collectionRef = collection(db, collectionPath);
-                    const snapshot = await getDocs(query(collectionRef));
-                    const deletePromises = snapshot.docs.map(d => deleteDoc(doc(db, collectionPath, d.id)));
-                    await Promise.all(deletePromises);
-                    console.log(`All documents from ${collectionPath} deleted.`);
-                }
-                console.log("All data successfully deleted!");
-                await fetchAllDataAndRender(); // Re-fetch and re-render all data
-                displayDashboardMessage('deleteAllSuccess');
-            } catch (error) {
-                console.error("Error deleting all documents: ", error);
-                displayDashboardMessage('deleteAllError', true);
-            } finally {
-                hideDeleteAllConfirmModal();
-            }
-        }
-
-
-        document.addEventListener('DOMContentLoaded', async () => {
-            applyTranslations(currentLang); // Apply initial language on load
-
-            const passwordProtection = document.getElementById('passwordProtection');
-            const passwordInput = document.getElementById('passwordInput');
-            const passwordSubmitBtn = document.getElementById('passwordSubmitBtn');
-            const dashboardContent = document.getElementById('dashboardContent');
-
-            const loadingMessage = document.getElementById('loadingMessage');
-            const errorMessage = document.getElementById('errorMessage');
-            const rsvpSummary = document.getElementById('rsvpSummary');
-            const guestListSection = document.getElementById('guestListSection');
-            const songRequestsSection = document.getElementById('songRequestsSection');
-            const guestbookSection = document.getElementById('guestbookSection');
-            const deleteAllDataBtn = document.getElementById('deleteAllDataBtn'); // Get the new button
-
-            // Language button event listeners
-            document.getElementById('langEsDash').addEventListener('click', () => {
-                applyTranslations('es');
-                // If dashboard is already shown, re-fetch data for translation updates
-                if (!dashboardContent.classList.contains('hidden')) {
-                    fetchAllDataAndRender();
-                }
-            });
-            document.getElementById('langEnDash').addEventListener('click', () => {
-                applyTranslations('en');
-                // If dashboard is already shown, re-fetch data for translation updates
-                if (!dashboardContent.classList.contains('hidden')) {
-                    fetchAllDataAndRender();
-                }
-            });
-
-            // Modal button event listeners (individual deletion)
-            document.getElementById('modalConfirmYes').addEventListener('click', () => {
-                if (docToDeleteId && docToDeleteCollectionPath) {
-                    deleteDocument(docToDeleteId, docToDeleteCollectionPath);
-                }
-            });
-
-            document.getElementById('modalConfirmNo').addEventListener('click', () => {
-                hideConfirmModal();
-            });
-
-            // Close individual modal if clicking outside content (on overlay)
-            document.getElementById('confirmModal').addEventListener('click', (e) => {
-                if (e.target === document.getElementById('confirmModal')) {
-                    hideConfirmModal();
-                }
-            });
-
-            // "Delete All" button event listener
-            deleteAllDataBtn.addEventListener('click', () => {
-                showDeleteAllConfirmModal();
-            });
-
-            // Modal button event listeners (for "Delete All")
-            document.getElementById('deleteAllModalYes').addEventListener('click', () => {
-                deleteAllData();
-            });
-
-            document.getElementById('deleteAllModalNo').addEventListener('click', () => {
-                hideDeleteAllConfirmModal();
-            });
-
-            // Close "Delete All" modal if clicking outside content (on overlay)
-            document.getElementById('deleteAllConfirmModal').addEventListener('click', (e) => {
-                if (e.target === document.getElementById('deleteAllConfirmModal')) {
-                    hideDeleteAllConfirmModal();
-                }
-            });
-
-
-            // Password submission logic
-            passwordSubmitBtn.addEventListener('click', async () => {
-                const enteredPassword = passwordInput.value;
-                const correctPassword = "1541"; // The 4-digit password
-
-                if (enteredPassword === correctPassword) {
-                    passwordProtection.classList.add('hidden'); // Hide password form
-                    dashboardContent.classList.remove('hidden'); // Show dashboard content
-                    // No success message for password, just proceed
-
-                    // Initialize Firebase and fetch data ONLY after correct password
-                    if (!db) { // Check if Firebase is already initialized
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        console.log("Firebase Authenticated. User ID:", userId);
+                        isAuthReady = true;
+                    } else {
+                        console.log("No user signed in. Attempting anonymous sign-in.");
                         try {
-                            const app = initializeApp(firebaseConfig);
-                            db = getFirestore(app);
-                            auth = getAuth(app);
-                            await signInAnonymously(auth); // Sign in anonymously for dashboard access
-                            console.log("Firebase Authenticated for dashboard.");
+                            await signInAnonymously(auth);
+                            isAuthReady = true;
                         } catch (error) {
-                            console.error("Firebase Initialization Error on password success:", error);
-                            // Fallback to displaying error message in dashboard area
-                            errorMessage.classList.remove('hidden');
-                            document.getElementById('errorText').textContent = translations[currentLang].errorText;
-                            loadingMessage.classList.add('hidden');
-                            return; // Stop execution if Firebase fails
+                            console.error("Firebase Anonymous Sign-in Error:", error);
+                            displayMessage('rsvpMessage', "formErrorGeneric", true);
+                            displayMessage('songMessage', "formErrorGeneric", true);
+                            displayMessage('guestbookMessageDiv', "formErrorGeneric", true);
+                            isAuthReady = true; // Ensure isAuthReady is set even on error to avoid infinite loading
                         }
                     }
-                    fetchAllDataAndRender(); // Fetch and render dashboard data
-                } else {
-                    displayDashboardMessage('passwordIncorrect', true); // Using the general message function
-                    passwordInput.value = ''; // Clear input on incorrect password
-                }
+                });
+            } catch (error) {
+                console.error("Error initializing Firebase:", error);
+                displayMessage('rsvpMessage', "formErrorGeneric", true);
+                displayMessage('songMessage', "formErrorGeneric", true);
+                displayMessage('guestbookMessageDiv', "formErrorGeneric", true);
+            }
+        };
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeFirebase(); // Initialize Firebase when DOM is ready
+            applyTranslations(currentLang); // Apply initial translations on page load
+
+            // Language button event listeners using event delegation
+            document.querySelectorAll('.language-selector-main .lang-button-main').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    applyTranslations(e.target.dataset.lang);
+                });
             });
 
 
-            async function fetchAllDataAndRender() {
-                loadingMessage.classList.remove('hidden');
-                loadingMessage.innerHTML = `<i class="ph ph-hourglass-simple-fill animate-pulse mr-2"></i> <span id="loadingText">${translations[currentLang].loadingText}</span>`;
-                errorMessage.classList.add('hidden');
-                rsvpSummary.classList.add('hidden');
-                guestListSection.classList.add('hidden');
-                songRequestsSection.classList.add('hidden');
-                guestbookSection.classList.add('hidden');
+            const showRsvpFormButton = document.getElementById('showRsvpFormButton');
+            const rsvpFormContainer = document.getElementById('rsvpFormContainer');
+            const rsvpForm = document.getElementById('rsvpForm');
+            const declineButton = document.getElementById('declineButton');
+
+            const songRequestForm = document.getElementById('songRequestForm');
+            const guestbookForm = document.getElementById('guestbookForm');
+            const giftsLink = document.getElementById('giftsLink'); // Get the Zelle button
+
+
+            // --- Countdown Logic ---
+            const weddingDate = new Date("September 20, 2025 20:00:00").getTime(); // 8:00 P.M.
+            const updateCountdown = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = weddingDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("days").innerHTML = String(days).padStart(2, '0');
+                document.getElementById("hours").innerHTML = String(hours).padStart(2, '0');
+                document.getElementById("minutes").innerHTML = String(minutes).padStart(2, '0');
+                document.getElementById("seconds").innerHTML = String(seconds).padStart(2, '0');
+
+                if (distance < 0) {
+                    clearInterval(updateCountdown);
+                    document.getElementById("countdown").innerHTML = translations[currentLang].countdownTitle; // Use translated message
+                }
+            }, 1000);
+
+            // --- Gallery Logic ---
+            const galleryInner = document.getElementById('galleryInner');
+            const galleryImages = galleryInner.getElementsByTagName('img');
+            const galleryPrev = document.getElementById('galleryPrev');
+            const galleryNext = document.getElementById('galleryNext');
+            const slideshowToggle = document.getElementById('slideshowToggle');
+            const slideshowIcon = document.getElementById('slideshowIcon');
+            let currentImageIndex = 0;
+            let slideshowInterval;
+            let isSlideshowPlaying = true; // Default to auto-play
+
+            const startSlideshow = () => {
+                if (slideshowInterval) clearInterval(slideshowInterval);
+                slideshowInterval = setInterval(() => {
+                    currentImageIndex++;
+                    updateGallery();
+                }, 5000); // Change photo every 5 seconds
+                slideshowIcon.className = 'ph ph-pause';
+                isSlideshowPlaying = true;
+            };
+
+            const pauseSlideshow = () => {
+                clearInterval(slideshowInterval);
+                slideshowIcon.className = 'ph ph-play';
+                isSlideshowPlaying = false;
+            };
+
+            const updateGallery = () => {
+                if (galleryImages.length === 0) return;
+                if (currentImageIndex < 0) {
+                    currentImageIndex = galleryImages.length - 1;
+                } else if (currentImageIndex >= galleryImages.length) {
+                    currentImageIndex = 0;
+                }
+                const offset = -currentImageIndex * 100;
+                galleryInner.style.transform = `translateX(${offset}%)`;
+            };
+
+            // Gallery event listeners
+            galleryPrev.addEventListener('click', () => {
+                pauseSlideshow();
+                currentImageIndex--;
+                updateGallery();
+            });
+
+            galleryNext.addEventListener('click', () => {
+                pauseSlideshow();
+                currentImageIndex++;
+                updateGallery();
+            });
+
+            slideshowToggle.addEventListener('click', () => {
+                if (isSlideshowPlaying) {
+                    pauseSlideshow();
+                } else {
+                    startSlideshow();
+                }
+            });
+
+            // Full-screen image modal logic
+            const imageModal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const imageModalClose = document.getElementById('imageModalClose');
+
+            Array.from(galleryImages).forEach(img => {
+                img.addEventListener('click', (e) => {
+                    const largeSrc = e.target.getAttribute('data-src-large') || e.target.src;
+                    modalImage.src = largeSrc;
+                    imageModal.classList.add('active');
+                    pauseSlideshow(); // Pause slideshow when modal opens
+                });
+            });
+
+            imageModalClose.addEventListener('click', () => {
+                imageModal.classList.remove('active');
+            });
+
+            imageModal.addEventListener('click', (e) => {
+                if (e.target === imageModal) {
+                    imageModal.classList.remove('active');
+                }
+            });
+
+            // Initial gallery load
+            if (galleryImages.length > 0) {
+                updateGallery();
+                startSlideshow(); // Auto-start slideshow on load
+            }
+
+
+            // --- Scroll Animations (Intersection Observer) ---
+            const animateOnScrollElements = document.querySelectorAll('.fade-in-up');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                        observer.unobserve(entry.target); // Stop observing once animated
+                    }
+                });
+            }, {
+                threshold: 0.1, // 10% of element must be visible
+                rootMargin: '0px 0px -50px 0px' // Start animation slightly before reaching bottom of screen
+            });
+
+            animateOnScrollElements.forEach(el => {
+                observer.observe(el);
+            });
+
+
+            // Show RSVP form button click
+            showRsvpFormButton.addEventListener('click', () => {
+                showRsvpFormButton.classList.add('hidden');
+                rsvpFormContainer.classList.remove('hidden');
+                document.getElementById('rsvpMessage').classList.add('hidden'); // Hide any previous messages
+            });
+
+            // Handle RSVP confirmation form submission
+            rsvpForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!isAuthReady || !db) {
+                    displayMessage('rsvpMessage', "formErrorGeneric", true);
+                    return;
+                }
+
+                const guestName = document.getElementById('guestName').value.trim();
+                const numAdults = parseInt(document.getElementById('numAdults').value, 10);
+                const numMinors = parseInt(document.getElementById('numMinors').value, 10);
+
+                if (!guestName) {
+                    displayMessage('rsvpMessage', "formErrorName", true);
+                    return;
+                }
+                if (isNaN(numAdults) || numAdults < 0) {
+                    displayMessage('rsvpMessage', "formErrorAdults", true);
+                    return;
+                }
+                if (isNaN(numMinors) || numMinors < 0) {
+                    displayMessage('rsvpMessage', "formErrorMinors", true);
+                    return;
+                }
+
+                if (numAdults === 0 && numMinors === 0) {
+                    displayMessage('rsvpMessage', "formErrorZeroGuests", true);
+                    return;
+                }
 
                 try {
-                    // Ensure Firebase is initialized and authenticated before fetching data
-                    if (!db || !auth) {
-                        console.error("Firebase not initialized or authenticated. Retrying...");
-                        // This case should ideally be handled by the passwordSubmitBtn logic,
-                        // but adding a fallback for robustness.
-                        displayDashboardMessage('formErrorGeneric', true); // Use password message area
-                        return;
-                    }
+                    const rsvpData = {
+                        guestName: guestName,
+                        adults: numAdults,
+                        minors: numMinors,
+                        timestamp: new Date(),
+                        status: 'confirmed',
+                        submittedBy: userId || crypto.randomUUID()
+                    };
 
-                    // Fetch RSVP data
                     const rsvpsCollectionRef = collection(db, `artifacts/${appId}/public/data/rsvps`);
-                    const rsvpQuerySnapshot = await getDocs(query(rsvpsCollectionRef));
-                    renderRsvpData(rsvpQuerySnapshot.docs);
-                    rsvpSummary.classList.remove('hidden');
-                    guestListSection.classList.remove('hidden');
+                    await addDoc(rsvpsCollectionRef, rsvpData);
 
-                    // Fetch Song Requests
-                    const songRequestsCollectionRef = collection(db, `artifacts/${appId}/public/data/songRequests`);
-                    const songRequestSnapshot = await getDocs(query(songRequestsCollectionRef));
-                    renderSongRequests(songRequestSnapshot.docs);
-                    songRequestsSection.classList.remove('hidden');
+                    displayMessage('rsvpMessage', 'rsvpSuccess', false, guestName, numAdults, numMinors);
+                    rsvpForm.reset();
+                }
+                catch (error) {
+                    console.error("Error submitting RSVP:", error);
+                    displayMessage('rsvpMessage', "errorSubmitting", true);
+                }
+            });
 
-                    // Fetch Guestbook Messages
-                    const guestbookCollectionRef = collection(db, `artifacts/${appId}/public/data/guestbookEntries`);
-                    const guestbookSnapshot = await getDocs(query(guestbookCollectionRef));
-                    renderGuestbookMessages(guestbookSnapshot.docs);
-                    guestbookSection.classList.remove('hidden');
+            // Handle 'Cannot attend' button click
+            declineButton.addEventListener('click', async () => {
+                if (!isAuthReady || !db) {
+                    displayMessage('rsvpMessage', "formErrorGeneric", true);
+                    return;
+                }
 
+                const guestName = document.getElementById('guestName').value.trim();
+                if (!guestName) {
+                    displayMessage('rsvpMessage', "formErrorName", true);
+                    return;
+                }
 
-                    loadingMessage.classList.add('hidden');
+                try {
+                    const rsvpData = {
+                        guestName: guestName,
+                        adults: 0,
+                        minors: 0,
+                        timestamp: new Date(),
+                        status: 'declined',
+                        submittedBy: userId || crypto.randomUUID()
+                    };
 
+                    const rsvpsCollectionRef = collection(db, `artifacts/${appId}/public/data/rsvps`);
+                    await addDoc(rsvpsCollectionRef, rsvpData);
+
+                    displayMessage('rsvpMessage', 'rsvpDeclined', false, guestName);
+                    rsvpForm.reset();
                 } catch (error) {
-                    console.error("Error fetching dashboard data:", error);
-                    loadingMessage.classList.add('hidden');
-                    errorMessage.classList.remove('hidden');
-                    document.getElementById('errorText').textContent = translations[currentLang].errorText;
+                    console.error("Error submitting declination:", error);
+                    displayMessage('rsvpMessage', "errorSubmittingDecline", true);
+                }
+            });
+
+            // Handle song request form submission
+            songRequestForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!isAuthReady || !db) {
+                    displayMessage('songMessage', "formErrorGeneric", true);
+                    return;
+                }
+
+                const songName = document.getElementById('songName').value.trim();
+                const songArtist = document.getElementById('songArtist').value.trim();
+                const songExplanation = document.getElementById('songExplanation').value.trim();
+                const requesterNameSong = document.getElementById('requesterNameSong').value.trim();
+
+                if (!songName) {
+                    displayMessage('songMessage', "formErrorSongTitle", true);
+                    return;
+                }
+
+                try {
+                    const songRequestData = {
+                        songName: songName,
+                        songArtist: songArtist || 'Desconocido',
+                        explanation: songExplanation || '',
+                        requesterName: requesterNameSong || 'Anónimo',
+                        timestamp: new Date(),
+                        submittedBy: userId || crypto.randomUUID()
+                    };
+
+                    const songRequestsCollectionRef = collection(db, `artifacts/${appId}/public/data/songRequests`);
+                    await addDoc(songRequestsCollectionRef, songRequestData);
+
+                    displayMessage('songMessage', 'songSuccess', false, songName, songArtist);
+                    songRequestForm.reset();
+                } catch (error) {
+                    console.error("Error submitting song request:", error);
+                    displayMessage('songMessage', "errorSubmittingSong", true);
+                }
+            });
+
+            // Handle guestbook form submission
+            guestbookForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!isAuthReady || !db) {
+                    displayMessage('guestbookMessageDiv', "formErrorGeneric", true);
+                    return;
+                }
+
+                const guestbookMessage = document.getElementById('guestbookMessage').value.trim();
+                const guestbookSigner = document.getElementById('guestbookSigner').value.trim();
+
+                if (!guestbookMessage) {
+                    displayMessage('guestbookMessageDiv', "formErrorMessage", true);
+                    return;
+                }
+                if (!guestbookSigner) {
+                    displayMessage('guestbookMessageDiv', "formErrorSigner", true);
+                    return;
+                }
+
+                try {
+                    const guestbookEntryData = {
+                        message: guestbookMessage,
+                        signer: guestbookSigner,
+                        timestamp: new Date(),
+                        submittedBy: userId || crypto.randomUUID()
+                    };
+
+                    const guestbookCollectionRef = collection(db, `artifacts/${appId}/public/data/guestbookEntries`);
+                    await addDoc(guestbookCollectionRef, guestbookEntryData);
+
+                    displayMessage('guestbookMessageDiv', 'guestbookSuccess', false, guestbookSigner);
+                    guestbookForm.reset();
+                } catch (error) {
+                    console.error("Error submitting guestbook entry:", error);
+                    displayMessage('guestbookMessageDiv', "errorSubmittingGuestbook", true);
+                }
+            });
+
+            // Logic to add event to calendar
+            const addToCalendarBtn = document.getElementById('addToCalendarBtn');
+            if (addToCalendarBtn) {
+                addToCalendarBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    const eventTitle = translations[currentLang].agendaEvent;
+                    const eventLocation = translations[currentLang].addressText;
+                    const eventDescription = translations[currentLang].invitationText;
+
+                    const startDate = new Date("September 20, 2025 20:00:00");
+                    const endDate = new Date(startDate.getTime() + (4 * 60 * 60 * 1000));
+
+                    const formatDateTime = (date) => {
+                        const year = date.getFullYear();
+                        const month = String(date.getMonth() + 1).padStart(2, '0');
+                        const day = String(date.getDate()).padStart(2, '0');
+                        const hours = String(date.getHours()).padStart(2, '0');
+                        const minutes = String(date.getMinutes()).padStart(2, '0');
+                        const seconds = String(date.getSeconds()).padStart(2, '0');
+                        return `${year}${month}${day}T${hours}${minutes}${seconds}`;
+                    };
+
+                    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventTitle)}&dates=${formatDateTime(startDate)}/${formatDateTime(endDate)}&details=${encodeURIComponent(eventDescription)}&location=${encodeURIComponent(eventLocation)}&sf=true&output=xml`;
+
+                    window.open(googleCalendarUrl, '_blank');
+                });
+            }
+
+            // Logic to open WhatsApp or SMS
+            function openWhatsAppOrSMS(phoneNumber, isWhatsAppPreferred = true, messageKey) {
+                let message = translations[currentLang][messageKey]; // Use messageKey directly from translations
+
+                let cleanedNumber = phoneNumber.replace(/[^0-9]/g, '');
+                if (cleanedNumber.length === 10) {
+                    cleanedNumber = '1' + cleanedNumber;
+                }
+
+                const whatsappUrl = `https://wa.me/${cleanedNumber}?text=${encodeURIComponent(message)}`;
+                const smsUrl = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
+
+                if (isWhatsAppPreferred) {
+                    const newWindow = window.open(whatsappUrl, '_blank');
+                    // Fallback to SMS if WhatsApp doesn't open
+                    setTimeout(() => {
+                        try {
+                            if (newWindow && newWindow.closed || !newWindow) {
+                                window.location.href = smsUrl;
+                            }
+                        } catch (e) {
+                            // Catch potential security errors if newWindow.closed is accessed too soon
+                            window.location.href = smsUrl;
+                        }
+                    }, 1000); // Give 1 second for WhatsApp to try and open
+                } else {
+                    window.location.href = smsUrl;
                 }
             }
 
-            // Initial state: Only show password protection. Dashboard content is hidden.
-            passwordProtection.classList.remove('hidden');
-            dashboardContent.classList.add('hidden');
+            document.getElementById('karenContact').addEventListener('click', (e) => {
+                e.preventDefault();
+                openWhatsAppOrSMS('7862855066', true, "karenWhatsappMessage");
+            });
+
+            document.getElementById('fabianContact').addEventListener('click', (e) => {
+                e.preventDefault();
+                openWhatsAppOrSMS('9549552895', true, "fabianWhatsappMessage");
+            });
+
+            // New: Zelle button click to copy number
+            giftsLink.addEventListener('click', (e) => {
+                e.preventDefault(); // Prevent default link behavior
+                const zelleNumber = '9549552895'; // The Zelle number to copy
+                
+                // Use the new displayMessage for Zelle confirmation/error
+                navigator.clipboard.writeText(zelleNumber).then(() => {
+                    displayMessage('giftsNoteText', 'zelleCopied', false); // Show success under giftsNoteText
+                }).catch(err => {
+                    console.error('Failed to copy Zelle number:', err);
+                    displayMessage('giftsNoteText', 'copyError', true); // Show error under giftsNoteText
+                });
+            });
         });
     </script>
 </body>
