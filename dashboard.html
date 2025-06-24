@@ -155,7 +155,7 @@
             border-color: #a07a1e;
         }
 
-        /* Delete Button Style */
+        /* Delete Button Style (Individual) */
         .delete-btn {
             background-color: #ef4444; /* red-500 */
             color: white;
@@ -176,7 +176,7 @@
             margin-right: 0.25rem;
         }
 
-        /* Confirmation Modal Styles */
+        /* Confirmation Modal Styles (General) */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -294,6 +294,29 @@
             width: 100%;
         }
 
+        /* Delete All Button Style */
+        #deleteAllDataBtn {
+            background-color: #b91c1c; /* red-700 */
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            margin-top: 2rem; /* Added margin-top */
+            margin-right: 1rem; /* Added margin-right to separate from back button */
+        }
+        #deleteAllDataBtn:hover {
+            background-color: #7f1d1d; /* red-900 */
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
 
         /* Responsive adjustments */
         @media (max-width: 640px) {
@@ -352,6 +375,14 @@
             .modal-buttons {
                 flex-direction: column;
                 gap: 0.75rem;
+            }
+            #deleteAllDataBtn {
+                margin-right: 0; /* Remove margin-right on small screens */
+                margin-bottom: 1rem; /* Add margin-bottom for better spacing */
+            }
+            .button-group {
+                flex-direction: column;
+                gap: 1rem;
             }
         }
     </style>
@@ -478,14 +509,19 @@
                 <p id="noGuestbookMessages" class="text-gray-500 italic mt-4 hidden">No hay mensajes en el libro de firmas aún.</p>
             </div>
 
-
-            <a id="backToInvitationBtn" href="https://9549552895.github.io/mi-boda-karen-fabian/" class="inline-block mt-8 bg-gray-200 text-gray-700 font-semibold py-3 px-8 rounded-full shadow-md hover:bg-gray-300 transform hover:scale-105 active:scale-95 transition-all duration-300">
-                <i class="ph ph-arrow-left-bold mr-2"></i> <span id="backToInvitationText">Volver a la Invitación</span>
-            </a>
+            <!-- Button Group for Back to Invitation and Delete All -->
+            <div class="flex flex-col md:flex-row justify-center items-center mt-8 button-group">
+                <button id="deleteAllDataBtn">
+                    <i class="ph ph-trash-simple-fill mr-2"></i> <span id="deleteAllText">Borrar Todo</span>
+                </button>
+                <a id="backToInvitationBtn" href="https://9549552895.github.io/mi-boda-karen-fabian/" class="inline-block mt-8 md:mt-0 bg-gray-200 text-gray-700 font-semibold py-3 px-8 rounded-full shadow-md hover:bg-gray-300 transform hover:scale-105 active:scale-95 transition-all duration-300">
+                    <i class="ph ph-arrow-left-bold mr-2"></i> <span id="backToInvitationText">Volver a la Invitación</span>
+                </a>
+            </div>
         </div>
     </div>
 
-    <!-- Confirmation Modal -->
+    <!-- Confirmation Modal (for individual deletion) -->
     <div id="confirmModal" class="modal-overlay">
         <div class="modal-content">
             <h3 id="modalConfirmTitle">Confirmar Eliminación</h3>
@@ -497,6 +533,18 @@
         </div>
     </div>
 
+    <!-- Confirmation Modal (for Delete All) -->
+    <div id="deleteAllConfirmModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 id="deleteAllModalTitle">Borrar Todos los Datos</h3>
+            <p id="deleteAllModalMessage">¡ADVERTENCIA! Estás a punto de eliminar PERMANENTEMENTE TODOS los RSVP, solicitudes de canciones y mensajes del libro de firmas. Esta acción NO se puede deshacer de ninguna manera.</p>
+            <p id="deleteAllModalConfirmText">¿Estás absolutamente seguro de que quieres continuar?</p>
+            <div class="modal-buttons">
+                <button id="deleteAllModalYes" class="modal-button confirm">Sí, Borrar Todo</button>
+                <button id="deleteAllModalNo" class="modal-button cancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Firebase SDKs -->
     <script type="module">
@@ -521,7 +569,7 @@
         let db, auth;
         let rsvpChartInstance = null; // To hold the Chart.js instance
 
-        // Variables for confirmation modal
+        // Variables for confirmation modal (individual deletion)
         let docToDeleteId = null;
         let docToDeleteCollectionPath = null;
 
@@ -575,10 +623,18 @@
                 modalConfirmNo: "Cancelar",
                 deleteSuccess: "Elemento eliminado correctamente.",
                 deleteError: "Error al eliminar el elemento. Por favor, inténtalo de nuevo.",
-                passwordPromptTitle: "Acceso Restringido", // New
-                passwordPromptText: "Por favor, introduce la contraseña para acceder al panel de control.", // New
-                passwordSubmitText: "Acceder", // New
-                passwordIncorrect: "Contraseña incorrecta. Inténtalo de nuevo.", // New
+                passwordPromptTitle: "Acceso Restringido",
+                passwordPromptText: "Por favor, introduce la contraseña para acceder al panel de control.",
+                passwordSubmitText: "Acceder",
+                passwordIncorrect: "Contraseña incorrecta. Inténtalo de nuevo.",
+                deleteAllText: "Borrar Todo",
+                deleteAllModalTitle: "Borrar Todos los Datos",
+                deleteAllModalMessage: "¡ADVERTENCIA! Estás a punto de eliminar PERMANENTEMENTE TODOS los RSVP, solicitudes de canciones y mensajes del libro de firmas. Esta acción NO se puede deshacer de ninguna manera.",
+                deleteAllModalConfirmText: "¿Estás absolutamente seguro de que quieres continuar?",
+                deleteAllModalYes: "Sí, Borrar Todo",
+                deleteAllModalNo: "Cancelar",
+                deleteAllSuccess: "Todos los datos han sido eliminados correctamente.",
+                deleteAllError: "Error al intentar borrar todos los datos. Por favor, inténtalo de nuevo."
             },
             en: {
                 pageTitle: "Wedding Dashboard",
@@ -628,10 +684,18 @@
                 modalConfirmNo: "Cancel",
                 deleteSuccess: "Item deleted successfully.",
                 deleteError: "Error deleting item. Please try again.",
-                passwordPromptTitle: "Restricted Access", // New
-                passwordPromptText: "Please enter the password to access the dashboard.", // New
-                passwordSubmitText: "Access", // New
-                passwordIncorrect: "Incorrect password. Please try again.", // New
+                passwordPromptTitle: "Restricted Access",
+                passwordPromptText: "Please enter the password to access the dashboard.",
+                passwordSubmitText: "Access",
+                passwordIncorrect: "Incorrect password. Please try again.",
+                deleteAllText: "Delete All",
+                deleteAllModalTitle: "Delete All Data",
+                deleteAllModalMessage: "WARNING! You are about to PERMANENTLY delete ALL RSVPs, song requests, and guestbook messages. This action CANNOT be undone.",
+                deleteAllModalConfirmText: "Are you absolutely sure you want to proceed?",
+                deleteAllModalYes: "Yes, Delete All",
+                deleteAllModalNo: "Cancel",
+                deleteAllSuccess: "All data deleted successfully.",
+                deleteAllError: "Error trying to delete all data. Please try again."
             }
         };
 
@@ -646,7 +710,7 @@
             document.getElementById('rsvpSummaryTitle').textContent = translations[lang].rsvpSummaryTitle;
             document.getElementById('totalGuestsLabel').textContent = translations[lang].totalGuestsLabel;
             document.getElementById('confirmedAdultsLabel').textContent = translations[lang].confirmedAdultsLabel;
-            document.getElementById('confirmedMinorsLabel').textContent = translations[lang].confirmedMinorsLabel;
+            document.getElementById('confirmedMinorsLabel').textContent = translations[lang].minorsConfirmedLabel; // Fixed typo
             document.getElementById('declinedCountLabel').textContent = translations[lang].declinedCountLabel;
             document.getElementById('guestListTitle').textContent = translations[lang].guestListTitle;
             document.getElementById('tableHeaderName').textContent = translations[lang].tableHeaderName;
@@ -675,10 +739,16 @@
             document.getElementById('modalConfirmMessage').textContent = translations[lang].modalConfirmMessage;
             document.getElementById('modalConfirmYes').textContent = translations[lang].modalConfirmYes;
             document.getElementById('modalConfirmNo').textContent = translations[lang].modalConfirmNo;
-            document.getElementById('passwordPromptTitle').textContent = translations[lang].passwordPromptTitle; // New
-            document.getElementById('passwordPromptText').textContent = translations[lang].passwordPromptText; // New
-            document.getElementById('passwordInput').placeholder = translations[lang].passwordInputPlaceholder || "Contraseña de 4 dígitos"; // New
-            document.getElementById('passwordSubmitText').textContent = translations[lang].passwordSubmitText; // New
+            document.getElementById('passwordPromptTitle').textContent = translations[lang].passwordPromptTitle;
+            document.getElementById('passwordPromptText').textContent = translations[lang].passwordPromptText;
+            document.getElementById('passwordInput').placeholder = translations[lang].passwordInputPlaceholder || "Contraseña de 4 dígitos";
+            document.getElementById('passwordSubmitText').textContent = translations[lang].passwordSubmitText;
+            document.getElementById('deleteAllText').textContent = translations[lang].deleteAllText; // New
+            document.getElementById('deleteAllModalTitle').textContent = translations[lang].deleteAllModalTitle; // New
+            document.getElementById('deleteAllModalMessage').textContent = translations[lang].deleteAllModalMessage; // New
+            document.getElementById('deleteAllModalConfirmText').textContent = translations[lang].deleteAllModalConfirmText; // New
+            document.getElementById('deleteAllModalYes').textContent = translations[lang].deleteAllModalYes; // New
+            document.getElementById('deleteAllModalNo').textContent = translations[lang].deleteAllModalNo; // New
 
 
             // Update active language button state
@@ -861,7 +931,7 @@
             }
         }
 
-        // Function to show the confirmation modal
+        // Function to show the confirmation modal (for individual deletion)
         function showConfirmModal(docId, collectionPath, itemName) {
             docToDeleteId = docId;
             docToDeleteCollectionPath = collectionPath;
@@ -869,48 +939,91 @@
             document.getElementById('confirmModal').classList.add('active');
         }
 
-        // Function to hide the confirmation modal
+        // Function to hide the confirmation modal (for individual deletion)
         function hideConfirmModal() {
             document.getElementById('confirmModal').classList.remove('active');
             docToDeleteId = null;
             docToDeleteCollectionPath = null;
         }
 
-        // Function to display messages in the password form area
-        function displayPasswordMessage(messageKey, isError = false) {
-            const messageDiv = document.getElementById('passwordMessage');
-            messageDiv.textContent = translations[currentLang][messageKey];
-            messageDiv.classList.remove('hidden', 'message-success', 'message-error', 'error-box');
+        // Function to show the "Delete All" confirmation modal
+        function showDeleteAllConfirmModal() {
+            document.getElementById('deleteAllConfirmModal').classList.add('active');
+        }
+
+        // Function to hide the "Delete All" confirmation modal
+        function hideDeleteAllConfirmModal() {
+            document.getElementById('deleteAllConfirmModal').classList.remove('active');
+        }
+
+        // Function to display messages in the password form area (reused for general messages)
+        function displayDashboardMessage(messageKey, isError = false) {
+            const messageDiv = document.getElementById('passwordMessage'); // Reusing this for general messages
+            messageDiv.classList.remove('hidden', 'message-success', 'message-error', 'error-box', 'message-box');
             if (isError) {
-                messageDiv.classList.add('error-box'); // Use error-box for password errors
+                messageDiv.classList.add('error-box');
             } else {
-                messageDiv.classList.add('message-box'); // Generic message box style for success
+                messageDiv.classList.add('message-box');
             }
+            messageDiv.textContent = translations[currentLang][messageKey];
             setTimeout(() => {
                 messageDiv.classList.add('hidden');
             }, 3000);
         }
 
-        // Function to delete a document from Firestore
+
+        // Function to delete a document from Firestore (individual)
         async function deleteDocument(docId, collectionPath) {
             if (!db || !docId || !collectionPath) {
                 console.error("Database or document ID/collection path not available for deletion.");
-                displayPasswordMessage('deleteError', true); // Use password message area for deletion errors too
+                displayDashboardMessage('deleteError', true);
                 return;
             }
 
             try {
                 await deleteDoc(doc(db, collectionPath, docId));
                 console.log("Document successfully deleted!");
-                // Re-fetch and re-render all data after deletion
-                await fetchAllDataAndRender();
-                displayPasswordMessage('deleteSuccess');
+                await fetchAllDataAndRender(); // Re-fetch and re-render all data after deletion
+                displayDashboardMessage('deleteSuccess');
 
             } catch (error) {
                 console.error("Error removing document: ", error);
-                displayPasswordMessage('deleteError', true);
+                displayDashboardMessage('deleteError', true);
             } finally {
                 hideConfirmModal();
+            }
+        }
+
+        // Function to delete ALL data from specified collections
+        async function deleteAllData() {
+            if (!db) {
+                console.error("Database not initialized for bulk deletion.");
+                displayDashboardMessage('deleteAllError', true);
+                return;
+            }
+
+            const collectionsToDelete = [
+                `artifacts/${appId}/public/data/rsvps`,
+                `artifacts/${appId}/public/data/songRequests`,
+                `artifacts/${appId}/public/data/guestbookEntries`
+            ];
+
+            try {
+                for (const collectionPath of collectionsToDelete) {
+                    const collectionRef = collection(db, collectionPath);
+                    const snapshot = await getDocs(query(collectionRef));
+                    const deletePromises = snapshot.docs.map(d => deleteDoc(doc(db, collectionPath, d.id)));
+                    await Promise.all(deletePromises);
+                    console.log(`All documents from ${collectionPath} deleted.`);
+                }
+                console.log("All data successfully deleted!");
+                await fetchAllDataAndRender(); // Re-fetch and re-render all data
+                displayDashboardMessage('deleteAllSuccess');
+            } catch (error) {
+                console.error("Error deleting all documents: ", error);
+                displayDashboardMessage('deleteAllError', true);
+            } finally {
+                hideDeleteAllConfirmModal();
             }
         }
 
@@ -929,6 +1042,7 @@
             const guestListSection = document.getElementById('guestListSection');
             const songRequestsSection = document.getElementById('songRequestsSection');
             const guestbookSection = document.getElementById('guestbookSection');
+            const deleteAllDataBtn = document.getElementById('deleteAllDataBtn'); // Get the new button
 
             // Language button event listeners
             document.getElementById('langEsDash').addEventListener('click', () => {
@@ -946,7 +1060,7 @@
                 }
             });
 
-            // Modal button event listeners
+            // Modal button event listeners (individual deletion)
             document.getElementById('modalConfirmYes').addEventListener('click', () => {
                 if (docToDeleteId && docToDeleteCollectionPath) {
                     deleteDocument(docToDeleteId, docToDeleteCollectionPath);
@@ -957,12 +1071,34 @@
                 hideConfirmModal();
             });
 
-            // Close modal if clicking outside content (on overlay)
+            // Close individual modal if clicking outside content (on overlay)
             document.getElementById('confirmModal').addEventListener('click', (e) => {
                 if (e.target === document.getElementById('confirmModal')) {
                     hideConfirmModal();
                 }
             });
+
+            // "Delete All" button event listener
+            deleteAllDataBtn.addEventListener('click', () => {
+                showDeleteAllConfirmModal();
+            });
+
+            // Modal button event listeners (for "Delete All")
+            document.getElementById('deleteAllModalYes').addEventListener('click', () => {
+                deleteAllData();
+            });
+
+            document.getElementById('deleteAllModalNo').addEventListener('click', () => {
+                hideDeleteAllConfirmModal();
+            });
+
+            // Close "Delete All" modal if clicking outside content (on overlay)
+            document.getElementById('deleteAllConfirmModal').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('deleteAllConfirmModal')) {
+                    hideDeleteAllConfirmModal();
+                }
+            });
+
 
             // Password submission logic
             passwordSubmitBtn.addEventListener('click', async () => {
@@ -972,7 +1108,7 @@
                 if (enteredPassword === correctPassword) {
                     passwordProtection.classList.add('hidden'); // Hide password form
                     dashboardContent.classList.remove('hidden'); // Show dashboard content
-                    displayPasswordMessage('passwordCorrect', false); // Optional success message
+                    // No success message for password, just proceed
 
                     // Initialize Firebase and fetch data ONLY after correct password
                     if (!db) { // Check if Firebase is already initialized
@@ -993,7 +1129,7 @@
                     }
                     fetchAllDataAndRender(); // Fetch and render dashboard data
                 } else {
-                    displayPasswordMessage('passwordIncorrect', true);
+                    displayDashboardMessage('passwordIncorrect', true); // Using the general message function
                     passwordInput.value = ''; // Clear input on incorrect password
                 }
             });
@@ -1014,7 +1150,7 @@
                         console.error("Firebase not initialized or authenticated. Retrying...");
                         // This case should ideally be handled by the passwordSubmitBtn logic,
                         // but adding a fallback for robustness.
-                        displayPasswordMessage('formErrorGeneric', true); // Use password message area
+                        displayDashboardMessage('formErrorGeneric', true); // Use password message area
                         return;
                     }
 
