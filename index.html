@@ -410,12 +410,12 @@
             <div class="map-container mb-4">
                 <!-- Usando el parámetro 'q' con la dirección completa y "Circle" para mayor precisión -->
                 <iframe
-                    src="https://www.google.com/maps/embed/v1/place?q=5500+N+Lakewood+Circle,+Margate,+FL+33063,+USA"
+                    src="https://www.google.com/maps/embed/v1/place?q=5500+N+Lakewood+Cir,+Margate,+FL+33063,+USA"
                     width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
             <!-- Enlace directo a Google Maps con la dirección exacta usando el formato de búsqueda directa y "Circle" -->
-            <a id="mapLink" href="https://www.google.com/maps/search/?api=1&query=5500+N+Lakewood+Circle,+Margate,+FL+33063,+USA" target="_blank" rel="noopener noreferrer"
+            <a id="mapLink" href="https://www.google.com/maps/search/?api=1&query=5500+N+Lakewood+Cir,+Margate,+FL+33063,+USA" target="_blank" rel="noopener noreferrer"
                class="text-blue-600 hover:underline text-sm md:text-base transition-colors duration-200">
                 <span id="viewMapText">Ver en Google Maps</span>
             </a>
@@ -429,7 +429,7 @@
             </p>
             <a id="giftsLink" href="#" onclick="return false;"
                class="inline-block bg-gradient-to-r from-yellow-300 to-yellow-500 text-yellow-900 font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300 mt-4">
-               <i class="ph ph-gift-bold mr-2"></i> <i class="ph ph-gift-bold mr-2"></i> <span id="contributeText">Enviar Zelle</span>
+               <i class="ph ph-gift-bold mr-2"></i> <span id="contributeText">Enviar Zelle</span>
             </a>
             <p id="giftsNoteText" class="text-sm italic text-gray-500 mt-2">
                 (Toca el botón para copiar el número de Zelle.)
@@ -711,22 +711,22 @@
                 rsvpDeclined: (name) => `Thank you, ${name}! We're sorry you can't make it.`,
                 songSuccess: (song, artist) => `Thank you for your suggestion, ${song} by ${artist || 'Unknown Artist'} has been added!`,
                 guestbookSuccess: (signer) => `Thank you, ${signer}! Your message has been saved.`,
-                formErrorGeneric: "Please wait a moment while the application loads or there was an initialization error.",
-                formErrorName: "Please enter your name.",
-                formErrorAdults: "Please enter a valid number of adults (0 or more).",
-                formErrorMinors: "Please enter a valid number of minors (0 or more).",
-                formErrorZeroGuests: "You indicated 0 adults and 0 minors. If you cannot attend, please use the 'Cannot attend' button. If this is an error, please adjust the numbers.",
-                formErrorSongTitle: "Please enter the song title.",
-                formErrorMessage: "Please write your message.",
-                formErrorSigner: "Please enter your name to sign.",
-                errorSubmitting: "Error submitting your confirmation. Please try again.",
-                errorSubmittingDecline: "Error registering your declination. Please try again.",
-                errorSubmittingSong: "Error submitting your song suggestion. Please try again.",
-                errorSubmittingGuestbook: "Error submitting your message. Please try again.",
+                formErrorGeneric: "Por favor, espera un momento mientras cargamos la aplicación o hubo un error de inicialización.",
+                formErrorName: "Por favor, introduce tu nombre.",
+                formErrorAdults: "Por favor, introduce un número válido de adultos (0 o más).",
+                formErrorMinors: "Por favor, introduce un número válido de menores (0 o más).",
+                formErrorZeroGuests: "Has indicado 0 adultos y 0 menores. Si no puedes asistir, usa el botón 'No asistiré'. Si es un error, por favor, ajusta los números.",
+                formErrorSongTitle: "Por favor, introduce el título de la canción.",
+                formErrorMessage: "Por favor, escribe tu mensaje.",
+                formErrorSigner: "Por favor, introduce tu nombre para firmar.",
+                errorSubmitting: "Error al enviar tu confirmación. Por favor, inténtalo de nuevo.",
+                errorSubmittingDecline: "Error al registrar tu no asistencia. Por favor, inténtalo de nuevo.",
+                errorSubmittingSong: "Error al enviar tu sugerencia de canción. Por favor, inténtalo de nuevo.",
+                errorSubmittingGuestbook: "Error al enviar tu mensaje. Por favor, inténtalo de nuevo.",
                 karenWhatsappMessage: "Hola Karen, tengo una pregunta sobre la boda.",
                 fabianWhatsappMessage: "Hola Fabián, tengo una pregunta sobre la boda.",
                 zelleCopied: "Número de Zelle copiado: 9549552895",
-                copyError: "Error copying Zelle number."
+                copyError: "Error al copiar el número de Zelle."
             }
         };
 
