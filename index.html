@@ -408,18 +408,19 @@
                 5500 N LAKEWOOD CIR, MARGATE FL 33063
             </p>
             <div class="map-container mb-4">
+                <!-- Usando el parámetro 'q' con la dirección completa para mayor precisión -->
                 <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3588.660161405101!2d-80.20849202386803!3d25.96105340156943!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9047915233c4f%3A0x2a912e9641c2d921!2s5500%20N%20Lakewood%20Cir%2C%20Margate%2C%20FL%2033063%2C%20USA!5e0!3m2!1sen!2sus!4v1719000000000!5m2!1sen!2sus"
                     allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
-            <a id="mapLink" href="https://maps.app.goo.gl/YourActualGoogleMapsLinkHere" target="_blank" rel="noopener noreferrer"
+            <!-- Enlace directo a Google Maps con la dirección exacta -->
+            <a id="mapLink" href="https://maps.app.goo.gl/?q=5500+N+Lakewood+Cir,+Margate,+FL+33063" target="_blank" rel="noopener noreferrer"
                class="text-blue-600 hover:underline text-sm md:text-base transition-colors duration-200">
                 <span id="viewMapText">Ver en Google Maps</span>
             </a>
         </div>
 
-        <!-- Regalos -->
         <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
             <h3 id="giftsTitle" class="text-2xl display-font golden-text mb-4">Regalos</h3>
             <p id="giftsText1" class="text-gray-700 text-base md:text-lg">
@@ -435,7 +436,6 @@
             </p>
         </div>
 
-        <!-- Contacto para Dudas -->
         <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
             <h3 id="contactTitle" class="text-2xl display-font golden-text mb-4">Contacto para Dudas</h3>
             <p id="karenContactText" class="text-gray-700 text-base md:text-lg">
@@ -1267,9 +1267,9 @@
                 openWhatsAppOrSMS('9549552895', true, "fabianWhatsappMessage");
             });
 
-            // New: Zelle button click to copy number
-            // Removed duplicate declaration of giftsLink
-            giftsLink.addEventListener('click', (e) => {
+            // Zelle button click to copy number
+            const giftsLinkElement = document.getElementById('giftsLink'); // Renamed to avoid conflict
+            giftsLinkElement.addEventListener('click', (e) => {
                 e.preventDefault(); // Prevent default link behavior
                 const zelleNumber = '9549552895'; // The Zelle number to copy
 
