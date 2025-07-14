@@ -207,7 +207,7 @@
 
         /* Fondo de corazones dorados en la sección de nombres */
         .names-with-hearts-bg {
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzgiIGhlaWdodD0iMzgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMTEuOTk5OSAyMC45NzI1TDEwLjY3ODggMTkuNjg3NkM1LjQ1NzMgMTUuMDA4NSAy萍MTIuMDU0MyAyIDguNTk1OTJDMiA1LjY5MjIzIDQuMzY0IDMuMzI0ODQgNy40NDMzOSAzLjMyNDg0QzkuMTMzMjIgMy4zMjQ0IDguMTkwNDMgNS40MjUyNEMxMi4xMjU2IDUuNjk1ODcgMTIuNDI3MyA1LjU2OTE3IDEyLjU1NjMgNS42NzI1N0MxMy4yMjE2IDUuNjcwOTEgMTQuODg2NiAzLjMyNDg0IDE2LjU1NiAzLjMyNDg0QzE5LjYzNTUgMy4zMjQ4NCAyMiA1LjY5NjE1IDIyIDguNTk1OTJDMjIgMTIuMDU0MyAxOC41NDI3IDE1LjAwODUgMTMuMzIyMiAxOS42ODc2TDEwLjkwOTkgMjAuOTcyNVoiIGZpbGw9IiNEQUEwMDAiIG9wYWNpdHk9IjAuMDgiLz4KPC9zdmc+');
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzgiIGhlaWdodD0iMzgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMTEuOTk5OSAyMC45NzI1TDEwLjY3ODggMTkuNjg3NkM1LjQ1NzMgMTUuMDA4NSAy萍MTIuMDU0MyAyIDguNTk1OTJDMiA1LjY5MjIzIDQuMzY0IDMuMzI0ODQgNy40NDMzOSAzLjMyNDg0QzkuMTMzMjIgMy4uMzI0NCA4LjE5MDQzIDUuNDI1MjRDMTEuMTI1NiA1LjY5NTg3IDEyLjQyNzMgNS41NjkxNyAxMi41NTYzIDUuNjcyNTdDMTMuMjIxNiA1LjY3MDkxIDE0LjU4NjYgMy4zMjQ4NCAxNi41NTYgMy4zMjQ4NEMxOS42MzU1IDMuMzI0ODQgMjIgNS42OTYxNSAyMiA4LjU5NTkyQzIyIDEyLjA1NDMgMTguNTQyNyAxNS4wMDg1IDEzLjMyMjIgMTkuNjU3NkwxMC45MDk5IDIwLjk3MjVaIiBmaWxsPSIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEuNSAxLjUpIHNjYWxlKDAuOCkgcm90YXRlKDEwKSIvPgo8L3N2Zz4=');
             background-repeat: repeat;
             background-size: 38px 38px;
             background-position: center;
@@ -409,13 +409,15 @@
             </p>
             <div class="map-container mb-4">
                 <!-- Usando la dirección exacta para mayor precisión en el embed -->
+                <!-- ¡IMPORTANTE! Reemplaza YOUR_GOOGLE_MAPS_API_KEY con tu clave API real de Google Maps -->
                 <iframe
-                    src="https://www.google.com/maps/embed/v1/place?q=5500+N+Lakewood+Cir,+Margate,+FL+33063,+USA"
+                    src="https://www.google.com/maps/embed/v1/place?q=5500+N+Lakewood+Cir,+Margate,+FL+33063,+USA&key=AIzaSyApta3DDApnl7ObXkFFgI_i3W4MH8PwkXA"
                     width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
             <!-- Enlace directo a Google Maps usando la dirección exacta para búsqueda -->
-            <a id="mapLink" href="https://www.google.com/maps/search/?api=1&query=5500+N+Lakewood+Cir,+Margate,+FL+33063,+USA" target="_blank" rel="noopener noreferrer"
+            <!-- ¡IMPORTANTE! Reemplaza YOUR_GOOGLE_MAPS_API_KEY con tu clave API real de Google Maps -->
+            <a id="mapLink" href="https://www.google.com/maps/search/?api=1&query=5500+N+Lakewood+Cir,+Margate,+FL+33063,+USA&key=AIzaSyApta3DDApnl7ObXkFFgI_i3W4MH8PwkXA" target="_blank" rel="noopener noreferrer"
                class="text-blue-600 hover:underline text-sm md:text-base transition-colors duration-200">
                 <span id="viewMapText">Ver en Google Maps</span>
             </a>
