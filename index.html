@@ -284,6 +284,43 @@
             border-color: #a07a1e !important; /* Resaltado dorado al enfocar */
             box-shadow: 0 0 0 2px rgba(160, 122, 30, 0.2) !important;
         }
+        /* Estilos para la sección de FAQ (Acordeón) */
+        .faq-item {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: #555;
+            padding: 0.5rem 0;
+            transition: color 0.2s ease;
+        }
+        .faq-question:hover {
+            color: #a07a1e;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            padding-left: 1rem;
+            color: #666;
+        }
+        .faq-answer.active {
+            max-height: 100px; /* Ajusta según el contenido máximo esperado */
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+        .faq-question .ph {
+            transition: transform 0.3s ease;
+        }
+        .faq-question .ph.rotate {
+            transform: rotate(180deg);
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4 lang-es">
@@ -409,25 +446,64 @@
             </p>
             <div class="map-container mb-4">
                 <!-- Usando la dirección exacta para mayor precisión en el embed -->
-                <!-- ¡IMPORTANTE! Reemplaza YOUR_GOOGLE_MAPS_API_KEY con tu clave API real de Google Maps -->
                 <iframe
                     src="https://www.google.com/maps/embed/v1/place?q=5500+N+Lakewood+Cir,+Margate,+FL+33063,+USA&key=AIzaSyApta3DDApnl7ObXkFFgI_i3W4MH8PwkXA"
                     width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
             <!-- Enlace directo a Google Maps usando la dirección exacta para búsqueda -->
-            <!-- ¡IMPORTANTE! Reemplaza YOUR_GOOGLE_MAPS_API_KEY con tu clave API real de Google Maps -->
             <a id="mapLink" href="https://www.google.com/maps/search/?api=1&query=5500+N+Lakewood+Cir,+Margate,+FL+33063,+USA&key=AIzaSyApta3DDApnl7ObXkFFgI_i3W4MH8PwkXA" target="_blank" rel="noopener noreferrer"
                class="text-blue-600 hover:underline text-sm md:text-base transition-colors duration-200">
                 <span id="viewMapText">Ver en Google Maps</span>
             </a>
         </div>
 
+        <!-- Código de Vestimenta (Nueva Sección) -->
+        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
+            <h3 id="dressCodeTitle" class="text-2xl display-font golden-text mb-4">Código de Vestimenta</h3>
+            <p id="dressCodeText" class="text-gray-700 text-base md:text-lg leading-relaxed">
+                Para la celebración, sugerimos un atuendo **elegante**. Nos encantaría que te sintieras cómodo y elegante para compartir este día tan especial con nosotros.
+            </p>
+        </div>
+
+        <!-- Preguntas Frecuentes (Nueva Sección) -->
+        <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
+            <h3 id="faqTitle" class="text-2xl display-font golden-text mb-4">Preguntas Frecuentes (FAQ)</h3>
+            <div id="faqContainer" class="space-y-3 text-gray-700">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span id="faqQ1">¿Hay estacionamiento disponible en el lugar?</span>
+                        <i class="ph ph-caret-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p id="faqA1">Sí, hay amplio estacionamiento disponible en el lugar de la celebración para todos nuestros invitados.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span id="faqQ2">¿Puedo llevar un acompañante extra?</span>
+                        <i class="ph ph-caret-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p id="faqA2">Por favor, confirma la asistencia solo para las personas indicadas en tu invitación. Si tienes alguna duda, contáctanos directamente.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span id="faqQ3">¿Habrá opciones de comida para dietas especiales?</span>
+                        <i class="ph ph-caret-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p id="faqA3">Sí, si tienes alguna restricción alimentaria o alergia, por favor, indícalo al confirmar tu asistencia para que podamos hacer los arreglos necesarios.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
             <h3 id="giftsTitle" class="text-2xl display-font golden-text mb-4">Regalos</h3>
             <p id="giftsText1" class="text-gray-700 text-base md:text-lg">
-                ¡Tu presencia es nuestro mejor regalo!
-                Si gustas contribuir para la luna de miel, puedes enviar un Zelle a 9549552895.
+                ¡Tu presencia es nuestro mejor regalo! Si gustas contribuir para la luna de miel, puedes enviar un Zelle a 9549552895. Si se te dificulta, también puedes dejar un sobre.
             </p>
             <a id="giftsLink" href="#" onclick="return false;"
                class="inline-block bg-gradient-to-r from-yellow-300 to-yellow-500 text-yellow-900 font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-300 mt-4">
@@ -437,6 +513,7 @@
                 (Toca el botón para copiar el número de Zelle.)
             </p>
         </div>
+
 
         <div class="mt-8 pt-4 border-t border-gray-200 fade-in-up">
             <h3 id="contactTitle" class="text-2xl display-font golden-text mb-4">Contacto para Dudas</h3>
@@ -618,8 +695,17 @@
                 locationTitle: "Lugar",
                 addressText: "5500 N LAKEWOOD CIR, MARGATE FL 33063", // Updated address
                 viewMapText: "Ver en Google Maps",
+                dressCodeTitle: "Código de Vestimenta", // New
+                dressCodeText: "Para la celebración, sugerimos un atuendo elegante. Nos encantaría que te sintieras cómodo y elegante para compartir este día tan especial con nosotros.", // Updated
+                faqTitle: "Preguntas Frecuentes (FAQ)", // New
+                faqQ1: "¿Hay estacionamiento disponible en el lugar?", // New
+                faqA1: "Sí, hay amplio estacionamiento disponible en el lugar de la celebración para todos nuestros invitados.", // New
+                faqQ2: "¿Puedo llevar un acompañante extra?", // New
+                faqA2: "Por favor, confirma la asistencia solo para las personas indicadas en tu invitación. Si tienes alguna duda, contáctanos directamente.", // New
+                faqQ3: "¿Habrá opciones de comida para dietas especiales?", // New
+                faqA3: "Sí, si tienes alguna restricción alimentaria o alergia, por favor, indícalo al confirmar tu asistencia para que podamos hacer los arreglos necesarios.", // New
                 giftsTitle: "Regalos",
-                giftsText1: "¡Tu presencia es nuestro mejor regalo! Si gustas contribuir para la luna de miel, puedes enviar un Zelle a 9549552895.",
+                giftsText1: "¡Tu presencia es nuestro mejor regalo! Si gustas contribuir para la luna de miel, puedes enviar un Zelle a 9549552895. Si se te dificulta, también puedes dejar un sobre.", // Updated
                 contributeText: "Enviar Zelle",
                 giftsNoteText: "(Toca el botón para copiar el número de Zelle.)",
                 contactTitle: "Contacto para Dudas",
@@ -687,8 +773,17 @@
                 locationTitle: "Location",
                 addressText: "5500 N LAKEWOOD CIR, MARGATE FL 33063", // Updated address
                 viewMapText: "View on Google Maps",
+                dressCodeTitle: "Dress Code", // New
+                dressCodeText: "For the celebration, we suggest an elegant attire. We would love for you to feel comfortable and elegant to share this special day with us.", // Updated
+                faqTitle: "Frequently Asked Questions (FAQ)", // New
+                faqQ1: "Is parking available at the venue?", // New
+                faqA1: "Yes, ample parking is available at the celebration venue for all our guests.", // New
+                faqQ2: "Can I bring an extra guest?", // New
+                faqA2: "Please confirm attendance only for the persons indicated on your invitation. If you have any questions, please contact us directly.", // New
+                faqQ3: "Will there be food options for special diets?", // New
+                faqA3: "Yes, if you have any dietary restrictions or allergies, please indicate it when confirming your attendance so we can make the necessary arrangements.", // New
                 giftsTitle: "Gifts",
-                giftsText1: "Your presence is our greatest gift! If you wish to contribute to the honeymoon, you can send a Zelle to 9549552895.",
+                giftsText1: "Your presence is our greatest gift! If you wish to contribute to the honeymoon, you can send a Zelle to 9549552895. If it's difficult for you, you can also leave an envelope.", // Updated
                 contributeText: "Send Zelle",
                 giftsNoteText: "(Tap the button to copy the Zelle number.)",
                 contactTitle: "Contact for Questions",
@@ -713,22 +808,22 @@
                 rsvpDeclined: (name) => `Thank you, ${name}! We're sorry you can't make it.`,
                 songSuccess: (song, artist) => `Thank you for your suggestion, ${song} by ${artist || 'Unknown Artist'} has been added!`,
                 guestbookSuccess: (signer) => `Thank you, ${signer}! Your message has been saved.`,
-                formErrorGeneric: "Por favor, espera un momento mientras cargamos la aplicación o hubo un error de inicialización.",
-                formErrorName: "Por favor, introduce tu nombre.",
-                formErrorAdults: "Por favor, introduce un número válido de adultos (0 o más).",
-                formErrorMinors: "Por favor, introduce un número válido de menores (0 o más).",
-                formErrorZeroGuests: "Has indicado 0 adultos y 0 menores. Si no puedes asistir, usa el botón 'No asistiré'. Si es un error, por favor, ajusta los números.",
-                formErrorSongTitle: "Por favor, introduce el título de la canción.",
-                formErrorMessage: "Por favor, escribe tu mensaje.",
-                formErrorSigner: "Por favor, introduce tu nombre para firmar.",
-                errorSubmitting: "Error al enviar tu confirmación. Por favor, inténtalo de nuevo.",
-                errorSubmittingDecline: "Error al registrar tu no asistencia. Por favor, inténtalo de nuevo.",
-                errorSubmittingSong: "Error al enviar tu sugerencia de canción. Por favor, inténtalo de nuevo.",
-                errorSubmittingGuestbook: "Error al enviar tu mensaje. Por favor, inténtalo de nuevo.",
-                karenWhatsappMessage: "Hola Karen, tengo una pregunta sobre la boda.",
-                fabianWhatsappMessage: "Hola Fabián, tengo una pregunta sobre la boda.",
-                zelleCopied: "Número de Zelle copiado: 9549552895",
-                copyError: "Error al copiar el número de Zelle."
+                formErrorGeneric: "Please wait a moment while we load the application or there was an initialization error.",
+                formErrorName: "Please enter your name.",
+                formErrorAdults: "Please enter a valid number of adults (0 or more).",
+                formErrorMinors: "Please enter a valid number of minors (0 or more).",
+                formErrorZeroGuests: "You have indicated 0 adults and 0 minors. If you cannot attend, please use the 'Cannot attend' button. If this is an error, please adjust the numbers.",
+                formErrorSongTitle: "Please enter the song title.",
+                formErrorMessage: "Please write your message.",
+                formErrorSigner: "Please enter your name to sign.",
+                errorSubmitting: "Error submitting your confirmation. Please try again.",
+                errorSubmittingDecline: "Error recording your non-attendance. Please try again.",
+                errorSubmittingSong: "Error submitting your song suggestion. Please try again.",
+                errorSubmittingGuestbook: "Error submitting your message. Please try again.",
+                karenWhatsappMessage: "Hi Karen, I have a question about the wedding.",
+                fabianWhatsappMessage: "Hi Fabian, I have a question about the wedding.",
+                zelleCopied: "Zelle number copied: 9549552895",
+                copyError: "Failed to copy Zelle number."
             }
         };
 
@@ -763,6 +858,15 @@
             document.getElementById('locationTitle').textContent = translations[lang].locationTitle;
             document.getElementById('addressText').textContent = translations[lang].addressText;
             document.getElementById('viewMapText').textContent = translations[lang].viewMapText;
+            document.getElementById('dressCodeTitle').textContent = translations[lang].dressCodeTitle; // New
+            document.getElementById('dressCodeText').textContent = translations[lang].dressCodeText; // New
+            document.getElementById('faqTitle').textContent = translations[lang].faqTitle; // New
+            document.getElementById('faqQ1').textContent = translations[lang].faqQ1; // New
+            document.getElementById('faqA1').textContent = translations[lang].faqA1; // New
+            document.getElementById('faqQ2').textContent = translations[lang].faqQ2; // New
+            document.getElementById('faqA2').textContent = translations[lang].faqA2; // New
+            document.getElementById('faqQ3').textContent = translations[lang].faqQ3; // New
+            document.getElementById('faqA3').textContent = translations[lang].faqA3; // New
             document.getElementById('giftsTitle').textContent = translations[lang].giftsTitle;
             document.getElementById('giftsText1').textContent = translations[lang].giftsText1;
             document.getElementById('contributeText').textContent = translations[lang].contributeText;
@@ -1281,6 +1385,26 @@
                 }).catch(err => {
                     console.error('Failed to copy Zelle number:', err);
                     displayMessage('giftsNoteText', 'copyError', true); // Show error under giftsNoteText
+                });
+            });
+
+            // FAQ Accordion Logic
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const icon = question.querySelector('.ph');
+
+                    // Close all other open answers
+                    document.querySelectorAll('.faq-answer.active').forEach(openAnswer => {
+                        if (openAnswer !== answer) {
+                            openAnswer.classList.remove('active');
+                            openAnswer.previousElementSibling.querySelector('.ph').classList.remove('rotate');
+                        }
+                    });
+
+                    // Toggle current answer
+                    answer.classList.toggle('active');
+                    icon.classList.toggle('rotate');
                 });
             });
         });
